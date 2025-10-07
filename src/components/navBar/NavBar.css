@@ -1,0 +1,33 @@
+section{
+    background-color: rgb(125, 172, 55);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    height: 50px;
+}
+
+nav ul{
+    display: flex;
+    list-style-type: none;
+}
+ul li{
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    text-align: space-between;
+}
+
+#imgCat{
+    margin-right: 10px;
+}
+
+#ofertas{
+    align-items: center;
+    display: flex;
+    margin-right: 40px;
+}
+#imgOfertas{
+    margin-left: 20px;
+}

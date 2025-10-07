@@ -1,0 +1,92 @@
+#headerSection{
+    width: auto;
+    padding:40px;
+    display:flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+
+
+#LogoGamePlay{
+    display: flex;
+    height:20px;
+    align-items: center;
+    text-align: center;
+}
+
+#dotLogo{ 
+    text-align: center;
+    align-items: center;
+    margin-left:20px;
+    margin-right: 40px;
+    font-size: 25px;
+    color:rgb(125, 172, 55);    
+}
+
+#searchSection{
+    align-items: center;
+    margin: 1px;
+    border: solid rgb(210, 205, 205) 1px;
+    border-radius: 1cap;
+    display: flex;
+    padding: 10px;
+    height: auto;
+    width: calc(80%);
+    margin-right: 40px;
+    justify-content: space-between;
+    height: 25px;
+}
+
+
+#search{
+    border: none;
+    outline:none;
+    margin-right: 50px;
+    width: 100%;
+    height: 25px;
+}
+
+#comprasButton{
+    font-family: "Montserrat","sans-serif";
+    color: white;
+    border-radius: 1cap;
+    border: 0px;
+    width:auto ;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: rgb(125, 172, 55);
+    width: 150px;
+    margin-right: 20px;
+    
+}
+
+#comprasButton:active {
+        background-color: rgb(238, 244, 228); 
+        transform: scale(0.95); 
+}
+
+#usuarioButton{
+    font-family: "Montserrat","sans-serif";
+    border-radius: 1cap;
+    border: 0px;
+    width:auto ;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 10px;
+    background: rgb(255, 255, 255);
+    width: 150px;
+    margin-right: 20px;
+    
+}
+
+#usuarioButton:active {
+        background-color: rgb(238, 244, 228); 
+        transform: scale(0.95); 
+}
+
