@@ -1,4 +1,4 @@
-section{
+#navBarSection{
     background-color: rgb(125, 172, 55);
     padding: 5px;
     display: flex;
@@ -6,6 +6,7 @@ section{
     text-align: center;
     align-items: center;
     height: 50px;
+    color:white;
 }
 
 nav ul{

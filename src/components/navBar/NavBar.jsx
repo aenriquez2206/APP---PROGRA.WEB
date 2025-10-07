@@ -3,7 +3,7 @@ import './NavBar.css'
 const NavBar =()=>{
     return(
         <>
-        <section>
+        <section id="navBarSection">
             <nav>
                 <ul>
                     <li>

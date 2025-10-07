@@ -1,0 +1,21 @@
+.buttonDisplay{
+    background: rgb(125, 172, 55);
+    padding-left:50px;
+    padding-right:50px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin:10px;
+    width: calc(100%);
+    justify-content: center;
+    align-items: center;
+    border-radius: 1cap;
+    color:white;
+    display: flex;
+
+}
+
+.nombreSection{
+    font-weight:bold ;
+    margin-right:40px ;
+}
+
