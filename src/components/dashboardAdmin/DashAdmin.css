@@ -1,11 +1,6 @@
-main{
-margin-left: 40px;
-margin-right: 40px;
-
-}
 
 #dashboardTitle{
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 #buttonDisplaySection{
@@ -14,6 +9,35 @@ margin-right: 40px;
     width: auto;
     justify-content: center;
     align-items: center;
-    
 
+}
+#sectionUsuarios{
+    border:solid rgb(191, 191, 191) 1px;
+    border-radius: 1cap;
+    display: flex;
+    justify-content: center;
+}
+
+.contendedoresDetallesUsuarios{
+    border:solid rgb(191, 191, 191) 1px;
+    border-radius: 1cap;
+    width: calc(100%);
+    margin: 10px;
+
+}
+
+#headerSectionUsuarios{
+    display: flex;
+    justify-content: space-between;
+}
+
+#buttonVerUsuarios{
+    background:  rgb(125, 172, 55);
+    border:0px;
+    border-radius: 0.5cap;
+    color:white;
+    height: 50px;
+}
+#headerSectionUsuarios img{
+    margin-right: 20px;
 }

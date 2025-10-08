@@ -5,4 +5,6 @@ html, body{
   font-family: "Montserrat","sans-serif"
 }
 
-
+:root{
+    --color-primario:rgb(125, 172, 55);
+}
