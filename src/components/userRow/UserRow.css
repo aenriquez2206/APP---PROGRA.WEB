@@ -1,0 +1,41 @@
+
+
+.estadoActivo{
+    color:rgb(125, 172, 55) ;
+}
+
+.estadoInactivo{
+    color:red ;
+}
+#accionesButton{
+    display: flexbox;
+}
+
+#buttonDesactivar{
+    width: calc(40%);
+    background:  rgb(125, 172, 55);
+    border:0px;
+    color:white;
+    border-radius: 0.5cap;
+    height: 45px;
+    margin:10px
+
+}
+#buttonDesactivar:hover{
+    transform: scale(0.95); 
+}
+#buttonDetalle{
+    width: calc(40%);
+    background:  white;
+    border:solid rgb(125, 172, 55) 1px ;
+    color:rgb(125, 172, 55);
+    border-radius: 0.5cap;
+    height: 45px;
+    margin:10px
+}
+
+#buttonDetalle:hover {
+    background-color: rgb(125, 172, 55); 
+    color:white;
+    transform: scale(0.95); 
+}

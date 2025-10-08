@@ -4,37 +4,37 @@ let usuarios =[
         id:1,
         img:"",
         nombre: "Ariel Enriquez",
-        estado:"Activo"
+        estado: true
     }, 
     {
         id:2,
         img:"",
         nombre: "Helmut Saker",
-        estado:"Activo"
+        estado:true
     },
     {
         id:3,
         img:"",
         nombre: "Rodrigo Thompson",
-        estado:"Activo"
+        estado:true
     },
     {
         id:4,
         img:"",
         nombre: "Sebastian Valverde",
-        estado:"Activo"
+        estado: true
     },
     {
         id:5,
         img:"",
         nombre: "Sebastian Diaz",
-        estado:"Activo"
+        estado:true
     },
     {
         id:6,
         img:"",
         nombre: "Nehemias Falcon",
-        estado:"Activo"
+        estado:true
     }
 ]
 

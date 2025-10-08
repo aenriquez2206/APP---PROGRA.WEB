@@ -19,8 +19,7 @@
 }
 
 .contendedoresDetallesUsuarios{
-    border:solid rgb(191, 191, 191) 1px;
-    border-radius: 1cap;
+    padding: 30px;
     width: calc(100%);
     margin: 10px;
 
@@ -38,6 +37,29 @@
     color:white;
     height: 50px;
 }
+#buttonVerUsuarios:hover{
+    transform: scale(0.95);
+}
 #headerSectionUsuarios img{
     margin-right: 20px;
 }
+
+
+#userTable {
+    border: 1px solid  rgb(191, 191, 191) ;
+    border-radius: 0.5cap;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: calc(100%);
+    text-align: left;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+
+#userTable tr,th,td{
+    padding: 10px;
+}
+#userTable th,td{
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+

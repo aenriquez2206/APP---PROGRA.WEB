@@ -2,6 +2,7 @@ import './DashAdmin.css'
 import ButtonDisplay from './buttonDisplay'
 import usuariosApi from '../../api/usuariosApi'
 import UserRow from '../../components/userRow/UserRow'
+import Pagination from '../Pagination/Pagination'
 
 
 const DashAdmin =()=>{
@@ -47,9 +48,9 @@ const DashAdmin =()=>{
                             <span><strong>Ver todos los usuarios </strong></span>
                         </button>
                     </div>
-                    <table>
+                    <table id="userTable">
                         <thead>
-                            <tr>
+                            <tr >
                                 <th>Nombre</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
@@ -65,6 +66,9 @@ const DashAdmin =()=>{
                             }
                         </tbody>
                     </table>
+                    <Pagination 
+                        lista ={usuarios}
+                        />
                 </div>
                 <div class="contendedoresDetallesUsuarios">
                     <span><h3>Detalle de Usuario</h3></span>
