@@ -5,26 +5,41 @@
     gap: 1000px;
 }
 
-.div1{
+#PagosResumen{
     display: flex;
-    gap: 90px;
+    gap: 300px;
 }
 
-.div2{
+#TiposPagos{
     border: 2px solid black;
     border-radius: 10px;
     padding: 20px;
 }
-.div3{
+
+.opcion{
     display: flex;
+    flex-direction: row;  
+    align-items: center;    
+    cursor: pointer;
     padding: 20px;
-    gap: 100px;
-    width: 1000px;
+    gap: 30px;
+    font-size: 30px;
+    
 }
 
-.div3_dir{
-    padding: 20px;
-    width: 1000px;
+.circuloSeleccion{
+    width: 50px;
+    height: 50px;
+}
+
+#QRscan{
+    width: 300px;
+    height: 300px;
+}
+
+#MetodosPago{
+    width: 700px;
+    height: 300px;
 }
 
 .texto1{

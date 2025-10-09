@@ -2,9 +2,10 @@ import Header from '../Header/Header'
 import NavBar from '../NavBar/NavBar'
 import "./PagCheckout.css"
 import PagCarrito from '../PagCarrito/PagCarrito'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function PagCheckout() {
-  
+  const navigate = useNavigate();
   return (
     <>
       <Header/>
@@ -73,7 +74,7 @@ function PagCheckout() {
             <p class='precios'>S/. {PagCarrito.total}</p>
           </div>
           <div id='botonCont'>
-            <button id='boton1' onClick={() => navigate('/checkout')}>Seleccionar método de pago</button>
+            <button id='boton2' onClick={() => navigate('/CheckoutPago')}>Seleccionar método de pago</button>
           </div>
         </div>
 
