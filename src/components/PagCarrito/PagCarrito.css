@@ -1,0 +1,62 @@
+main{
+    margin: 20px;
+}
+
+.carrito_headers{
+    display: flex;
+    align-items: baseline;
+}
+
+#cantidad{
+    padding-left: 10px;
+}
+
+#resumen{
+    padding-left: 1000px;
+}
+
+.compras{
+    display: flex;
+    gap: 1000px;
+}
+
+.resumen_compra{
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.resumen_info{
+    border: 2px solid black;
+    width: 500px;
+    border-radius: 10px;
+}
+
+.contenido{
+    
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.precios{
+
+    text-align: right;
+    
+}
+
+#boton1{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+}
+
+#botonCont{
+    text-align: center;
+    padding-bottom: 20px;
+}

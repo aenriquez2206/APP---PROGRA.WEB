@@ -1,0 +1,44 @@
+
+.checkout_headers{
+    display: flex;
+    align-items: baseline;
+    gap: 1000px;
+}
+
+.div1{
+    display: flex;
+    gap: 90px;
+}
+
+.div2{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+}
+.div3{
+    display: flex;
+    padding: 20px;
+    gap: 100px;
+    width: 1000px;
+}
+
+.div3_dir{
+    padding: 20px;
+    width: 1000px;
+}
+
+.texto1{
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#direccion{
+  width: 920px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
