@@ -3,7 +3,7 @@ import ButtonDisplay from './buttonDisplay'
 import usuariosApi from '../../api/usuariosApi'
 import UserRow from '../../components/userRow/UserRow'
 import Pagination from '../Pagination/Pagination'
-
+import { useState, useEffect, use } from 'react'
 
 const DashAdmin =()=>{
 
@@ -22,9 +22,18 @@ const DashAdmin =()=>{
     }
     ]
 
-    const usuarios = usuariosApi.get();
+    const [usuarios, setUsuarios] = useState([]);
+    const [usuariosPagina, setUsuariosPagina] = useState([]);
+    
+    useEffect(() => {
+        const usersInit = usuariosApi.get();
+        setUsuarios(usersInit);
+        setUsuariosPagina(usersInit.slice(0,6))
+    },[]);
+    
 
 
+   
 
     return(
         <>
@@ -40,7 +49,7 @@ const DashAdmin =()=>{
                 }
             </section>
             <section id="sectionUsuarios">
-                <div class="contendedoresDetallesUsuarios">
+                <section className="contendedoresDetallesUsuarios">
                     <div id="headerSectionUsuarios">
                         <span><h3>Usuarios registrados</h3></span>
                         <button id="buttonVerUsuarios">
@@ -48,7 +57,7 @@ const DashAdmin =()=>{
                             <span><strong>Ver todos los usuarios </strong></span>
                         </button>
                     </div>
-                    <table id="userTable">
+                    <table className="userTable">
                         <thead>
                             <tr >
                                 <th>Nombre</th>
@@ -58,7 +67,7 @@ const DashAdmin =()=>{
                         </thead>
                         <tbody>
                             {
-                                usuarios.map((usuario)=>{
+                                usuariosPagina.map((usuario)=>{
                                     return(
                                         <UserRow {...usuario}/>
                                     )
@@ -67,13 +76,41 @@ const DashAdmin =()=>{
                         </tbody>
                     </table>
                     <Pagination 
-                        lista ={usuarios}
+                        items ={usuarios}
+                        itemsPerPage={6}
+                        onPageChange={setUsuariosPagina}
                         />
-                </div>
-                <div class="contendedoresDetallesUsuarios">
+                </section>
+                <section class="contendedoresDetallesUsuarios">
                     <span><h3>Detalle de Usuario</h3></span>
-                    
-                </div>
+                    <article class="detalleUsuario">
+                        <div>
+                            <div class="" >
+                                <h2>Nombre</h2>
+                                <p>Correo: ejemplo@gmail.pe</p>
+                                <p>Fecha de registro: </p>
+                                <p>Estado</p>
+                            </div>
+                            <div>
+                                <img src="" alt="imagen"/>
+                            </div>
+                        </div>
+                            
+                            <table className='userTable'>
+                                <thead>
+                                    <tr>
+                                        <th>#ID</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
+                    </article>
+                </section>
             </section>
 
 
