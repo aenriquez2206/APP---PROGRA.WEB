@@ -14,25 +14,27 @@ main{
     padding-left: 10px;
 }
 
-#resumen{
-    padding-left: 1000px;
+.resumen{
+    margin-left: auto;
+    margin-right: 295px;
 }
 
 .compras{
     display: flex;
-    gap: 1000px;
 }
 
 .resumen_compra{
-    border: 2px solid black;
+    border: 2px solid #ccc;
     border-radius: 10px;
 }
 
 .resumen_info{
-    border: 2px solid black;
+    border: 2px solid #ccc;
     width: 500px;
     border-radius: 10px;
     height: 400px;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
 .contenido{
@@ -58,6 +60,12 @@ main{
     font-size: 15px;
     cursor: pointer;
     
+    
+}
+
+#boton1:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
+  background-color: #0fc036; /* opcional: cambia color de fondo */
 }
 
 #botonCont{

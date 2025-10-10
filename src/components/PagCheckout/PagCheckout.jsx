@@ -14,7 +14,7 @@ function PagCheckout() {
         <h1><u>Checkout</u></h1>
         <div class='checkout_headers'>
             <h3>Dirección de envío</h3>
-            <h3><u>Resumen de la compra</u></h3>
+            <h3 class='resumen'><u>Resumen de la compra</u></h3>
         </div>
 
         <div class='div1'>

@@ -1,0 +1,53 @@
+#boton3{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 610px;
+    height: 60px;
+    border-radius: 10px;
+    font-size: 25px;
+    cursor: pointer;
+    
+}
+
+#Tarjeta_datos{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 900px;
+    height: 900px;
+}
+
+.div11{
+    margin: 20px;
+    padding-left: 120px;
+}
+
+.div12{
+    display: flex;
+    gap: 178px;
+    margin: 20px;
+    padding-left: 120px;
+    padding-bottom: 20px;
+}
+
+.imagen_Tarjeta{
+    text-align: center;
+
+}
+
+.texto_largo{
+    width: 600px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.texto_corto{
+    width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}

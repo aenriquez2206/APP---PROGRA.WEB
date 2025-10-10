@@ -32,7 +32,7 @@ function PagCarrito() {
       <div class='carrito_headers'>
         <h1>Carro</h1>
         <p id='cantidad'>({n_productos} productos)</p>
-        <h3 id='resumen'>Resumen de la compra</h3>
+        <h3 class='resumen'>Resumen de la compra</h3>
       </div>
     <div class='compras'>
         <div class='resumen_compra'>
