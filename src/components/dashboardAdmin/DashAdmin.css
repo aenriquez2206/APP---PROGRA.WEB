@@ -1,21 +1,19 @@
 
-#dashboardTitle{
+.dashboardTitle{
     margin-left: 40px;
 }
 
-#buttonDisplaySection{
-    padding:10px;
+.buttonDisplaySection{
     display:flex;
     width: auto;
     justify-content: center;
     align-items: center;
-
+    flex-wrap: wrap;
 }
-#sectionUsuarios{
-    border:solid rgb(191, 191, 191) 1px;
-    border-radius: 1cap;
+.sectionUsuarios{
     display: flex;
     justify-content: center;
+
 }
 
 .contendedoresDetallesUsuarios{
@@ -25,27 +23,27 @@
 
 }
 
-#headerSectionUsuarios{
+.headerSectionUsuarios{
     display: flex;
     justify-content: space-between;
 }
 
-#buttonVerUsuarios{
+.buttonVerUsuarios{
     background:  rgb(125, 172, 55);
     border:0px;
     border-radius: 0.5cap;
     color:white;
     height: 50px;
 }
-#buttonVerUsuarios:hover{
+.buttonVerUsuarios:hover{
     transform: scale(0.95);
 }
-#headerSectionUsuarios img{
+.headerSectionUsuarios img{
     margin-right: 20px;
 }
 
 
-.userTable {
+.generalTable {
     border: 1px solid  rgb(191, 191, 191) ;
     border-radius: 0.5cap;
     border-collapse: separate;
@@ -56,10 +54,59 @@
     table-layout: fixed;
 }
 
-.userTable tr,th,td{
+.generalTable tr,th,td{
     padding: 10px;
 }
-.userTable th,td{
+.generalTable th,td{
     border-bottom: 1px solid rgb(191, 191, 191);
 }
+.generalTable tr:hover {
+    background-color: rgb(229, 227, 227);
+}
 
+.detalleUsuario{
+    border: 1px solid  rgb(191, 191, 191) ;
+    border-radius: 0.5cap;
+    padding:20px;
+}
+
+.headerDetalleUsuario{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ordenesSection{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border-radius: 0.5cap;
+    height: 300px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.encabezadoOrdenesSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sectionButtonsOrdenes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.buttonOrdenesSection{
+    width: calc(45%);
+    background:  rgb(125, 172, 55);
+    border:0px;
+    color:white;
+    border-radius: 0.5cap;
+    height: 40px;
+    font-size: clamp(9px, 1.1vw, 15px);
+}
+.buttonOrdenesSection:hover{
+    transform: scale(0.95); 
+}

@@ -1,10 +1,13 @@
 import './DashAdmin.css'
-import ButtonDisplay from './buttonDisplay'
+import ButtonDisplay from './buttonDisplay/buttonDisplay'
 import usuariosApi from '../../api/usuariosApi'
-import UserRow from '../../components/userRow/UserRow'
+import pedidosApi from '../../api/ordenesApi'
+import UserRow from './userRow/UserRow'
 import Pagination from '../Pagination/Pagination'
-import { useState, useEffect, use } from 'react'
+import DetailUser from './DetailUser/DetailUser'
 
+import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 const DashAdmin =()=>{
 
     const objetos =[
@@ -20,16 +23,38 @@ const DashAdmin =()=>{
         titulo:"Ingresos totales",
         valor:"S/.10,000.00"
     }
+    
     ]
 
+    const user1 = usuariosApi.get()[0]
+    const navigate =useNavigate()
     const [usuarios, setUsuarios] = useState([]);
     const [usuariosPagina, setUsuariosPagina] = useState([]);
+    const [userDetail, setUserDetail] = useState(user1)
+    const pedidos = pedidosApi.get();
+
+
     
+    
+    //CAMBIAR EL NAVIGATE A USUARIOS
+    const handleNavigateUsuarios =()=>{
+        navigate('/')
+    }
+
+    const handleUserDetail =(id)=>{
+        const newUser = usuarios.find((user) => user.id === id);
+        setUserDetail(newUser);
+    }
+
     useEffect(() => {
         const usersInit = usuariosApi.get();
         setUsuarios(usersInit);
         setUsuariosPagina(usersInit.slice(0,6))
     },[]);
+
+    useEffect(()=>{
+
+    },[userDetail])
     
 
 
@@ -38,8 +63,8 @@ const DashAdmin =()=>{
     return(
         <>
         <main>
-            <div id="dashboardTitle" ><h1>Dashboard</h1></div>
-            <section id="buttonDisplaySection" >
+            <div className="dashboardTitle" ><h1>Dashboard</h1></div>
+            <section className="buttonDisplaySection" >
                 {
                     objetos.map((objeto)=>{
                         return (
@@ -48,16 +73,17 @@ const DashAdmin =()=>{
                     })
                 }
             </section>
-            <section id="sectionUsuarios">
+            <section className="sectionUsuarios">
+                
                 <section className="contendedoresDetallesUsuarios">
-                    <div id="headerSectionUsuarios">
+                    <div className="headerSectionUsuarios">
                         <span><h3>Usuarios registrados</h3></span>
-                        <button id="buttonVerUsuarios">
+                        <button className="buttonVerUsuarios" onClick={()=>handleNavigateUsuarios()}>
                             <img  src="" alt="img"/>
                             <span><strong>Ver todos los usuarios </strong></span>
                         </button>
                     </div>
-                    <table className="userTable">
+                    <table className="generalTable">
                         <thead>
                             <tr >
                                 <th>Nombre</th>
@@ -69,50 +95,65 @@ const DashAdmin =()=>{
                             {
                                 usuariosPagina.map((usuario)=>{
                                     return(
-                                        <UserRow {...usuario}/>
+                                        <UserRow user={usuario} OnClick={handleUserDetail}/>
                                     )
                                 })
                             }
                         </tbody>
                     </table>
-                    <Pagination 
-                        items ={usuarios}
-                        itemsPerPage={6}
-                        onPageChange={setUsuariosPagina}
-                        />
+                    
                 </section>
-                <section class="contendedoresDetallesUsuarios">
+
+                <section className="contendedoresDetallesUsuarios">
                     <span><h3>Detalle de Usuario</h3></span>
-                    <article class="detalleUsuario">
-                        <div>
-                            <div class="" >
-                                <h2>Nombre</h2>
-                                <p>Correo: ejemplo@gmail.pe</p>
-                                <p>Fecha de registro: </p>
-                                <p>Estado</p>
-                            </div>
-                            <div>
-                                <img src="" alt="imagen"/>
-                            </div>
-                        </div>
-                            
-                            <table className='userTable'>
-                                <thead>
-                                    <tr>
-                                        <th>#ID</th>
-                                        <th>Fecha</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-
-                                </tbody>
-                            </table>
-                    </article>
+                    <DetailUser user={userDetail}/>
                 </section>
             </section>
+            
+            <section className='ordenesSection'>
+                <section className="encabezadoOrdenesSection">
+                    <div><h3>Listado de Ordenes</h3></div>
+                    <div className='sectionButtonsOrdenes'>
+                        <button className='buttonOrdenesSection'>
+                            <img src="" alt="img"/>
+                            <span>Ver productos</span>
+                        </button>
+                        <button className='buttonOrdenesSection'>
+                            <img src="" alt="img"/>
+                            <span>Ver Todas las ordenes</span>
+                        </button>
+                    </div>
+                </section>
+                <table className='generalTable'>
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Usuario</th>
+                            <th>Fecha de Orden</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            pedidos.map((pedido)=>{
+                                return(
+                                    <tr>
+                                        <td>{pedido.id}</td>
+                                        <td>{pedido.usuario}</td>
+                                        <td>{pedido.fechaOrden}</td>
+                                        <td>{pedido.total}</td>
+                                        <td>{pedido.estado ?'Entregado' : 'No Entregado'}</td>
+                                    </tr>
+                                )
+                            })
 
+                        }
+
+                            
+                    </tbody>
+                </table>
+            </section>
 
         </main>
         </> 

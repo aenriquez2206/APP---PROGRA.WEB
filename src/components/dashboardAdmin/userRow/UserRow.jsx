@@ -1,13 +1,11 @@
 import './UserRow.css'
 import { useState } from 'react'
-import usuariosApi from '../../api/usuariosApi'
+import usuariosApi from '../../../api/usuariosApi'
 
-const UserRow =(props)=>{
+const UserRow =({user,OnClick})=>{
 
-    const [estado,setEstado] = useState(props.estado)
-    const handleEstado1=(ID)=>{
-        setEstado(!estado)
-    }
+    const [estado,setEstado] = useState(user.estado)
+    
 
      const handleEstado =(ID)=>{
         usuariosApi.actualizarEstado(ID,!estado)
@@ -17,11 +15,11 @@ const UserRow =(props)=>{
 
     return(
         <>
-        <tr>
-            <td>
+        <tr >
+            <td  onClick={()=>OnClick(user.id)} >
                 <div className='nombreTable'>
-                    <img className='imagenNombreTable' src={props.img} alt="img"/>
-                    <span>{props.nombre}</span>
+                    <img className='imagenNombreTable' src={user.img} alt="img"/>
+                    <span>{user.nombre}</span>
                 </div>
             </td>
             <td >
@@ -32,7 +30,7 @@ const UserRow =(props)=>{
                 </div>
             </td>
             <td className="accionesButton">
-                <button className="buttonDesactivar" onClick={()=>handleEstado(props.id)}>{estado ?'Activar':'Desactivar'}</button>
+                <button className="buttonDesactivar" onClick={()=>handleEstado(user.id)}>{estado ?'Activar':'Desactivar'}</button>
                 <button className="buttonDetalle">Ver detalle</button>
             </td>
         </tr>    
