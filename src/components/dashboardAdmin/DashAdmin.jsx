@@ -33,11 +33,21 @@ const DashAdmin =()=>{
     const [userDetail, setUserDetail] = useState(user1)
     const pedidos = pedidosApi.get();
 
+    
 
     
     
-    //CAMBIAR EL NAVIGATE A USUARIOS
+    //ACTUALIZAR EL NAVIGATE USUARIOS
     const handleNavigateUsuarios =()=>{
+        navigate('/')
+    }
+
+    const handleNavigateProductos =()=>{
+        navigate('/admin/productos')
+    }
+
+    //ACTUALIZAR  EL NAVIGATE ORDENES
+    const handleNavigateOrdenes =()=>{
         navigate('/')
     }
 
@@ -114,7 +124,7 @@ const DashAdmin =()=>{
                 <section className="encabezadoOrdenesSection">
                     <div><h3>Listado de Ordenes</h3></div>
                     <div className='sectionButtonsOrdenes'>
-                        <button className='buttonOrdenesSection'>
+                        <button onClick={()=>handleNavigateProductos()}className='buttonOrdenesSection'>
                             <img src="" alt="img"/>
                             <span>Ver productos</span>
                         </button>

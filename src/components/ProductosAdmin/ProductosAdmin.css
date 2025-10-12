@@ -1,0 +1,43 @@
+.sectionProductosAdmin{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.busquedaProductosAdmin{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.botonListadoProductosAdmin{
+    width: calc(15%);
+    background:  rgb(125, 172, 55);
+    border:0px;
+    color:white;
+    border-radius: 0.5cap;
+    height: 40px;
+    font-size: clamp(9px, 1.1vw, 15px);
+    margin: 5px;
+}
+.botonListadoProductosAdmin:hover{
+    transform: scale(0.95); 
+}
+
+.sectionBotonRowProdAdmin{
+    display: flex;
+}
+
+.BotonRowProdAdmin{
+    margin:2px;
+    height: 30px;
+    border:0px;
+    background: none;
+    
+}
+
+.BotonRowProdAdmin:hover{
+    transform: scale(0.95);
+}

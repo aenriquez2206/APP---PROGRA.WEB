@@ -4,7 +4,8 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import DashboardAdmin from './routes/DashboardAdminPage.jsx'
-
+import ProductosAdminPage from './routes/ProductosAdminPage.jsx'
+import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 
 const router = createBrowserRouter([
 {
@@ -14,6 +15,13 @@ const router = createBrowserRouter([
 {
   path:"admin",
   element:<DashboardAdmin/>
+},{
+  path:"admin/productos",
+  element:<ProductosAdminPage/>
+},
+{
+  path:"admin/productos/editar",
+  element:<ProdEditAdminPage/>
 }
 
 ])
