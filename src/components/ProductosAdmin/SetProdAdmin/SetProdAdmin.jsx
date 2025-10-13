@@ -23,14 +23,28 @@ const SetProdAdmin=()=>{
     const handleNavigateCrearCategoria=()=>{
         navigate('/admin')
     }
+
+    const handleSubmit =(producto)=>{
+        if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria || !producto.stock ){
+            alert("Por favor complete todos los campos")
+            return
+        }
+        productosApi.insert(producto)
+        //alert("JSON.stringify(producto)")
+        alert("Producto Agregado!")
+        handleOnLoad()
+        setShowForm(!showForm)
+    }
     
 
     
   // Manejar selección de imagen desde el input
+  // tener cuidado con el setProducto() falta actualizarlo
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImagen(file);
+      setProducto({ ...producto, img: file });
       setPreview(URL.createObjectURL(file));
     }
   };
@@ -62,8 +76,7 @@ const SetProdAdmin=()=>{
                     className='inputSectionProd'
                     placeholder='Nombre del producto'
                     onChange={(e)=>setProducto({...producto,nombre: e.target.value})}/>
-                    <br/>
-                    <br/>
+
                     <label>Presentación</label>
                     <br/>
                     <input 
@@ -72,8 +85,7 @@ const SetProdAdmin=()=>{
                     className='inputSectionProd'
                     placeholder='Presentación'
                     onChange={(e)=>setProducto({...producto,presentacion: e.target.value})}/>
-                    <br/>
-                    <br/>
+  
                     <label>Categoria</label>
                     <br/>
                     <div className='cateogriaDivision'>
@@ -104,9 +116,7 @@ const SetProdAdmin=()=>{
                     className='textAreaProd'
                     value={producto.descripcion}
                     onChange={(e)=>setProducto({...producto,descripcion:e.target.value})}></textarea>
-                    <br/>
-                    <br/>
-                    
+
                 </section>
                 <section className='sectInsertProd'>
                 <div
@@ -118,7 +128,7 @@ const SetProdAdmin=()=>{
                         ) : (
                         <>
                             <p>Arrastra la imagen a esta zona</p>
-                            <span>o</span>
+                            <span> o </span>
                             <label htmlFor="imagenInput" className="boton-subir">
                             Seleccionar imagen
                             </label>
@@ -126,16 +136,31 @@ const SetProdAdmin=()=>{
                             id="imagenInput"
                             type="file"
                             accept="image/*"
+                            value={producto.img}
                             onChange={handleFileChange}
                             style={{ display: "none" }}
                             />
                         </>
                 )}
                 </div>
-                
+                <label>Stock</label>
+                <div className='sectionSubmitProd'>
+                        <br/>
+                        <input
+                        type="number"
+                        min="0"
+                        className='StockSection'
+                        value={producto.stock}
+                        placeholder='Stock'
+                        onChange={(e)=>setProducto({...producto, stock:e.target.value})}></input>
+                    
+                    <button className='buttonSubmitProd'
+                    onClick={()=>handleSubmit(producto)}>
+                        Crear producto
+                    </button>
+                </div>
+
                 </section>
-
-
             </section>
             
         </article>
