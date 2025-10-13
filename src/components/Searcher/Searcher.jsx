@@ -11,7 +11,7 @@ const Searcher=({valor,render})=>{
                 placeholder="Buscar un producto"
                 value={valor}
                 onChange={(event)=>render(event.target.value)}></input>
-                <img  src="" alt="img"/>
+                <img  src="/itemsAssets/search.png" alt="img"/>
         </div>
         </>
     )

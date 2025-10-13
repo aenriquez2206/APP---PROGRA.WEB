@@ -3,8 +3,8 @@ import ButtonDisplay from './buttonDisplay/buttonDisplay'
 import usuariosApi from '../../api/usuariosApi'
 import pedidosApi from '../../api/ordenesApi'
 import UserRow from './userRow/UserRow'
-import Pagination from '../Pagination/Pagination'
 import DetailUser from './DetailUser/DetailUser'
+import Paginacion from '../Paginacion/Paginacion'
 
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,30 @@ const DashAdmin =()=>{
     const [userDetail, setUserDetail] = useState(user1)
     const pedidos = pedidosApi.get();
 
-    
 
+    //paginacion usuarios
+    const totalUsuarios = usuariosApi.get().length;
+    const [paginaActualUser, setPaginaActualUser] = useState(1);
+    const usuariosxPagina = 6;
+    const totalPaginasUsers = Math.ceil(totalUsuarios / usuariosxPagina);
+
+    const indexUltimoUser = paginaActualUser * usuariosxPagina;
+    const indexPrimerUser = indexUltimoUser - usuariosxPagina;
+    const usuariosActuales = usuarios.slice(indexPrimerUser, indexUltimoUser);
+
+
+    //paginacion listado de ordenes
+
+    const totalOrdenes = pedidos.length;
+    const [paginaActualOrden, setPaginaActualOrden] = useState(1);
+    const OrdenesxPagina = 4;
+    const TotalPaginasOrdenes = Math.ceil(totalOrdenes / OrdenesxPagina);
+
+    const indexUltimaOrden = paginaActualOrden * OrdenesxPagina;
+    const indexPrimeraOrden = indexUltimaOrden - OrdenesxPagina;
+    const OrdenesActuales = pedidos.slice(indexPrimeraOrden, indexUltimaOrden);
+
+    
     
     
     //ACTUALIZAR EL NAVIGATE USUARIOS
@@ -59,12 +81,9 @@ const DashAdmin =()=>{
     useEffect(() => {
         const usersInit = usuariosApi.get();
         setUsuarios(usersInit);
-        setUsuariosPagina(usersInit.slice(0,6))
     },[]);
 
-    useEffect(()=>{
-
-    },[userDetail])
+ 
     
 
 
@@ -73,6 +92,8 @@ const DashAdmin =()=>{
     return(
         <>
         <main>
+            
+
             <div className="dashboardTitle" ><h1>Dashboard</h1></div>
             <section className="buttonDisplaySection" >
                 {
@@ -89,8 +110,8 @@ const DashAdmin =()=>{
                     <div className="headerSectionUsuarios">
                         <span><h3>Usuarios registrados</h3></span>
                         <button className="buttonVerUsuarios" onClick={()=>handleNavigateUsuarios()}>
-                            <img  src="" alt="img"/>
-                            <span><strong>Ver todos los usuarios </strong></span>
+                            <img  src="/itemsAssets/list.png" alt="img"/>
+                            <div><strong>Ver todos los usuarios </strong></div>
                         </button>
                     </div>
                     <table className="generalTable">
@@ -103,7 +124,7 @@ const DashAdmin =()=>{
                         </thead>
                         <tbody>
                             {
-                                usuariosPagina.map((usuario)=>{
+                                usuariosActuales.map((usuario)=>{
                                     return(
                                         <UserRow user={usuario} OnClick={handleUserDetail}/>
                                     )
@@ -111,7 +132,7 @@ const DashAdmin =()=>{
                             }
                         </tbody>
                     </table>
-                    
+                    <Paginacion totalPaginas={totalPaginasUsers} paginaActual={paginaActualUser} setPaginaActual={setPaginaActualUser}/>
                 </section>
 
                 <section className="contendedoresDetallesUsuarios">
@@ -125,12 +146,12 @@ const DashAdmin =()=>{
                     <div><h3>Listado de Ordenes</h3></div>
                     <div className='sectionButtonsOrdenes'>
                         <button onClick={()=>handleNavigateProductos()}className='buttonOrdenesSection'>
-                            <img src="" alt="img"/>
-                            <span>Ver productos</span>
+                            <img src="/itemsAssets/list.png" alt="img"/>
+                            <div>Ver productos</div>
                         </button>
                         <button className='buttonOrdenesSection'>
-                            <img src="" alt="img"/>
-                            <span>Ver Todas las ordenes</span>
+                            <img src="/itemsAssets/list.png" alt="img"/>
+                            <div>Ver Todas las ordenes</div>
                         </button>
                     </div>
                 </section>
@@ -146,7 +167,7 @@ const DashAdmin =()=>{
                     </thead>
                     <tbody>
                         {
-                            pedidos.map((pedido)=>{
+                            OrdenesActuales.map((pedido)=>{
                                 return(
                                     <tr>
                                         <td>{pedido.id}</td>
@@ -163,6 +184,7 @@ const DashAdmin =()=>{
                             
                     </tbody>
                 </table>
+                <Paginacion totalPaginas={TotalPaginasOrdenes} paginaActual={paginaActualOrden} setPaginaActual={setPaginaActualOrden}/>
             </section>
 
         </main>

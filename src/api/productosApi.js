@@ -4,7 +4,7 @@ const key ="productos_data"
 let productos = JSON.parse(localStorage.getItem(key)) || [
   {
     id: 1000,
-    img: "",
+    img: "/productosAssets/battlefield.jpg",
     nombre: "Battlefield 2042",
     presentacion: "digital",
     descripcion:
@@ -14,7 +14,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1001,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "PlayStation 5",
     presentacion: "físico",
     descripcion:
@@ -24,7 +24,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1002,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "Xbox Series X",
     presentacion: "físico",
     descripcion:
@@ -34,7 +34,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1003,
-    img: "",
+    img: "/productosAssets/battlefield.jpg",
     nombre: "The Legend of Zelda: Tears of the Kingdom",
     presentacion: "físico",
     descripcion:
@@ -44,7 +44,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1004,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "Nintendo Switch OLED",
     presentacion: "físico",
     descripcion:
@@ -54,7 +54,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1005,
-    img: "",
+    img: "/productosAssets/battlefield.jpg",
     nombre: "God of War Ragnarök",
     presentacion: "digital",
     descripcion:
@@ -64,7 +64,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1006,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "DualSense Controller - Cosmic Red",
     presentacion: "físico",
     descripcion:
@@ -74,7 +74,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1007,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "Halo Infinite",
     presentacion: "digital",
     descripcion:
@@ -84,7 +84,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1008,
-    img: "",
+    img: "/productosAssets/ps5.jpg",
     nombre: "Figura coleccionable de Mario Bros",
     presentacion: "físico",
     descripcion:
@@ -94,7 +94,7 @@ let productos = JSON.parse(localStorage.getItem(key)) || [
   },
   {
     id: 1009,
-    img: "",
+    img: "/productosAssets/battlefield.jpg",
     nombre: "Pokémon Scarlet",
     presentacion: "digital",
     descripcion:

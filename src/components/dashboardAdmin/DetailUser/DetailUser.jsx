@@ -1,5 +1,7 @@
 import './DetailUser.css'
 import usuariosApi from '../../../api/usuariosApi';
+import {useState} from 'react'
+import Paginacion from '../../Paginacion/Paginacion';
 const DetailUser =({user})=>{
 
     if (!user) {
@@ -12,6 +14,18 @@ const DetailUser =({user})=>{
 
     const pedidos = usuariosApi.obtenerPedidosUsuarios(user.id);
     
+    //paginacion tabla de ordenes
+
+    const totalOrdenes = pedidos.length;
+    const [paginaActualOrden, setPaginaActualOrden] = useState(1);
+    const OrdenesxPagina = 6;
+    const TotalPaginasOrdenes = Math.ceil(totalOrdenes / OrdenesxPagina);
+
+    const indexUltimaOrden = paginaActualOrden * OrdenesxPagina;
+    const indexPrimeraOrden = indexUltimaOrden - OrdenesxPagina;
+    const OrdenesActuales = pedidos.slice(indexPrimeraOrden, indexUltimaOrden);
+
+
     return (
         <>
             <article className="detalleUsuario">
@@ -23,7 +37,8 @@ const DetailUser =({user})=>{
                         <p><strong>Estado: </strong> {user.estado ?"Activo":"Inactivo"}</p>
                     </div>
                     <div>
-                        <img src={user.img} alt="imagen"/>
+                        <img className='imgUserDetail'
+                        src={user.img} alt="imagen"/>
                     </div>
                 </div>
                     
@@ -37,7 +52,7 @@ const DetailUser =({user})=>{
                     </thead>
                     <tbody>
                         {
-                            pedidos.map((pedido) => (
+                            OrdenesActuales.map((pedido) => (
                                 <tr>
                                     <td className='colorPedidoTabla'>#{pedido.idp}</td>
                                     <td>{pedido.fecha}</td>
@@ -49,6 +64,7 @@ const DetailUser =({user})=>{
 
                     </tbody>
                 </table>
+                <Paginacion totalPaginas={TotalPaginasOrdenes} paginaActual={paginaActualOrden} setPaginaActual={setPaginaActualOrden}/>    
             </article>
         
         </>

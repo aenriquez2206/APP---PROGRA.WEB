@@ -34,6 +34,8 @@
     border-radius: 0.5cap;
     color:white;
     height: 50px;
+    align-items: center;
+    display: flex;
 }
 .buttonVerUsuarios:hover{
     transform: scale(0.95);
@@ -106,6 +108,8 @@
     border-radius: 0.5cap;
     height: 40px;
     font-size: clamp(9px, 1.1vw, 15px);
+    display: flex;
+    align-items: center;
 }
 .buttonOrdenesSection:hover{
     transform: scale(0.95); 

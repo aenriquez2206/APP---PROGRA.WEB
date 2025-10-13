@@ -3,6 +3,7 @@ import productosApi from '../../api/productosApi'
 import Searcher from '../Searcher/Searcher'
 import {useEffect,useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import Paginacion from '../Paginacion/Paginacion'
 
 const ProductosAdmin =()=>{
 
@@ -12,6 +13,16 @@ const ProductosAdmin =()=>{
     const [productos, setProductos] =useState(productosOriginales)
     const navigate =useNavigate()
 
+
+     //paginacion Productos
+    const totalProductos = productosOriginales.length;
+    const [PaginaActualProd, setPaginaActualProd] = useState(1);
+    const Productosxpagina = 6;
+    const totalPaginasUsers = Math.ceil(totalProductos / Productosxpagina);
+
+    const indexUltimoProd = PaginaActualProd * Productosxpagina;
+    const indexPrimerProd = indexUltimoProd - Productosxpagina;
+    const productosActuales = productos.slice(indexPrimerProd, indexUltimoProd);
  
   useEffect(()=>{
     if(productos.length <=0){
@@ -58,8 +69,8 @@ const ProductosAdmin =()=>{
                 <button 
                 className='botonListadoProductosAdmin'
                 onClick={()=>NavigateCategorias()}>
-                    <img src="" alt="img"/>
-                    <span >Categorias</span>
+                    <img src="/itemsAssets/list.png" alt="img"/>
+                    <div >Categorias</div>
                 </button>
                 <button 
                 className='botonListadoProductosAdmin'
@@ -82,10 +93,11 @@ const ProductosAdmin =()=>{
                 <tbody>
                     {
                        
-                        productos.length > 0 ? productos.map((item)=>{
+                        productosActuales.length > 0 ? productosActuales.map((item)=>{
                             return (
                                 <tr>
-                                    <td><img src={item.img} alt="img"/></td>
+                                    <td><img className="imgRowProdAdmin"
+                                    src={item.img} alt="img"/></td>
                                     <td>#{item.id}</td>
                                     <td>{item.nombre}</td>
                                     <td>{item.presentacion}</td>
@@ -94,8 +106,8 @@ const ProductosAdmin =()=>{
                                     <td>{item.stock}</td>
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>
-                                        <button className='BotonRowProdAdmin'><img src="" alt="img"/>Ed</button>
-                                        <button className='BotonRowProdAdmin'><img src="" alt="img"/>El</button>
+                                        <button className='BotonRowProdAdmin'><img src="/itemsAssets/edit_green.png" alt="img"/></button>
+                                        <button className='BotonRowProdAdmin'><img src="/itemsAssets/delete.png" alt="img"/></button>
                                         </div>
                                         
                                     </td>
@@ -107,7 +119,7 @@ const ProductosAdmin =()=>{
                 </tbody>
 
             </table>
-        
+            <Paginacion totalPaginas={totalPaginasUsers} paginaActual={PaginaActualProd} setPaginaActual={setPaginaActualProd}/>
         </section>
 
         </>

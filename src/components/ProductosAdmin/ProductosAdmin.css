@@ -13,7 +13,7 @@
 
 
 .botonListadoProductosAdmin{
-    width: calc(15%);
+    width: calc(10%);
     background:  rgb(125, 172, 55);
     border:0px;
     color:white;
@@ -21,6 +21,9 @@
     height: 40px;
     font-size: clamp(9px, 1.1vw, 15px);
     margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .botonListadoProductosAdmin:hover{
     transform: scale(0.95); 
@@ -40,4 +43,9 @@
 
 .BotonRowProdAdmin:hover{
     transform: scale(0.95);
+}
+
+.imgRowProdAdmin{
+    width: calc(70%);
+    object-fit: cover;
 }
