@@ -52,7 +52,7 @@ const ProductosAdmin =()=>{
 
 
   const NavigateAddProduct =()=>{
-        navigate('/admin/productos/editar')
+        navigate('/admin/productos/agregar')
   }
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -77,6 +77,10 @@ const ProductosAdmin =()=>{
         setShowModal(false);
         setSelectedProduct(null);
   };
+
+  const handleEditclick = (producto) => {
+        navigate('/admin/productos/editar',{state:{producto}});
+  }
 
 
     return(
@@ -129,8 +133,11 @@ const ProductosAdmin =()=>{
                                     <td>{item.stock}</td>
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>
-                                        <button className='BotonRowProdAdmin'><img src="/itemsAssets/edit_green.png" alt="img"/></button>
-                                        <button className='BotonRowProdAdmin'
+                                        <button 
+                                        className='BotonRowProdAdmin'
+                                        onClick={()=>handleEditclick(item)}><img src="/itemsAssets/edit_green.png" alt="img"/></button>
+                                        <button 
+                                        className='BotonRowProdAdmin'
                                         onClick={()=>handleDeleteClick(item)}><img src="/itemsAssets/delete.png" alt="img"/></button>
                                         </div>
                                         

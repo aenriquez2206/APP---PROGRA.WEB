@@ -127,6 +127,13 @@ const deleteProducto =(id)=>{
     guardarEnLocalStorage();
 }
 
+const edit = (productoEditado) => {
+    productos = productos.map((prod) =>
+      prod.id === productoEditado.id ? productoEditado : prod
+    );
+    guardarEnLocalStorage();
+  }
 
-const productosApi = { insert, get,getProducto,deleteProducto };
+
+const productosApi = { insert, get,getProducto,deleteProducto,edit };
 export default productosApi;

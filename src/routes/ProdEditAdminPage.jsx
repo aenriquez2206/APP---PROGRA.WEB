@@ -1,16 +1,14 @@
-import Header from '../components/header/Header'
-import NavBar from '../components/navBar/NavBar'
-import SetProdAdmin from '../components/ProductosAdmin/SetProdAdmin/SetProdAdmin'
+import Header from "../components/header/Header";
+import NavBar from "../components/navBar/NavBar";
+import EditProdAdmin from "../components/ProductosAdmin/EditProdAdmin/EditProdAdmin";
 
 const ProdEditAdminPage=()=>{
     return(
-        <>
+    <>
         <Header/>
         <NavBar/>
-        <SetProdAdmin/>
-        </>
-        
-    )
+        <EditProdAdmin/>
+    </>)
 }
 
 export default ProdEditAdminPage

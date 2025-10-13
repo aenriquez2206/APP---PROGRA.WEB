@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import DashboardAdmin from './routes/DashboardAdminPage.jsx'
 import ProductosAdminPage from './routes/ProductosAdminPage.jsx'
+import ProdSetAdminPage from './routes/ProdSetAdminPage.jsx'
 import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 
 const router = createBrowserRouter([
@@ -20,8 +21,12 @@ const router = createBrowserRouter([
   element:<ProductosAdminPage/>
 },
 {
+  path:"admin/productos/agregar",
+  element:<ProdSetAdminPage/>  
+},
+{
   path:"admin/productos/editar",
-  element:<ProdEditAdminPage/>
+  element:<ProdEditAdminPage/>  
 }
 
 ])
