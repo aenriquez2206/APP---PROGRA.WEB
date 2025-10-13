@@ -1,0 +1,15 @@
+#loginButton{
+    background-color: rgb(58, 164, 35);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    margin: 0 auto;
+    padding: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    width: 75%;
+}

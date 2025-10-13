@@ -3,6 +3,15 @@ import Header from './components/header/Header';
 import NavBar from './components/navBar/NavBar';
 import Footer from './components/footer/Footer';
 import LoginCard from './components/loginCard/loginCard';
+import {useNavigate} from 'react-router-dom';
+
+function FgtBttn({children})
+{
+    const navigate = useNavigate();
+    return(
+        <button id='forgotButton' onClick={()=>navigate('/change')}>{children}</button>
+    )
+}
 
 function Forgot(){
 
@@ -24,7 +33,7 @@ function Forgot(){
 
                 <br></br>
 
-                <button id="forgotButton">Recuperar contraseña</button>
+                <FgtBttn>Recuperar contraseña</FgtBttn>
 
             </LoginCard>
             <Footer />
