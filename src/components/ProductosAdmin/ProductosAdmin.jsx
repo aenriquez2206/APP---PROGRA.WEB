@@ -15,7 +15,7 @@ const ProductosAdmin =()=>{
 
 
      //paginacion Productos
-    const totalProductos = productosOriginales.length;
+    const totalProductos = productos.length;
     const [PaginaActualProd, setPaginaActualProd] = useState(1);
     const Productosxpagina = 6;
     const totalPaginasUsers = Math.ceil(totalProductos / Productosxpagina);
@@ -54,6 +54,29 @@ const ProductosAdmin =()=>{
   const NavigateAddProduct =()=>{
         navigate('/admin/productos/editar')
   }
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  // Abrir modal
+  const handleDeleteClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
+  };
+
+  // Confirmar eliminación
+  const confirmDelete = (id) => {
+        productosApi.deleteProducto(id);
+        setProductos(productosApi.get());
+        setShowModal(false);
+        setSelectedProduct(null);
+  };
+
+  // Cancelar eliminación
+  const cancelDelete = () => {
+        setShowModal(false);
+        setSelectedProduct(null);
+  };
 
 
     return(
@@ -107,7 +130,8 @@ const ProductosAdmin =()=>{
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>
                                         <button className='BotonRowProdAdmin'><img src="/itemsAssets/edit_green.png" alt="img"/></button>
-                                        <button className='BotonRowProdAdmin'><img src="/itemsAssets/delete.png" alt="img"/></button>
+                                        <button className='BotonRowProdAdmin'
+                                        onClick={()=>handleDeleteClick(item)}><img src="/itemsAssets/delete.png" alt="img"/></button>
                                         </div>
                                         
                                     </td>
@@ -120,6 +144,27 @@ const ProductosAdmin =()=>{
 
             </table>
             <Paginacion totalPaginas={totalPaginasUsers} paginaActual={PaginaActualProd} setPaginaActual={setPaginaActualProd}/>
+
+            {/* Modal de confirmación */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Eliminar producto</h2>
+                        <p>
+                        ¿Estás seguro que deseas eliminar el producto{" "}
+                        <strong>{selectedProduct?.nombre}</strong>?
+                        </p>
+                        <div className="modal-buttons">
+                            <button className="confirm-btn" onClick={()=>confirmDelete(selectedProduct?.id)}>
+                                Sí, eliminar
+                            </button>
+                            <button className="cancel-btn" onClick={cancelDelete}>
+                                No, cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
 
         </>

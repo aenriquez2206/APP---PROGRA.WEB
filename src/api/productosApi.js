@@ -122,7 +122,11 @@ const getProducto =(id)=>{
     return productos.find((prod)=>prod.id===id);
 }
 
+const deleteProducto =(id)=>{
+    productos = productos.filter((prod)=>prod.id !== id);
+    guardarEnLocalStorage();
+}
 
 
-const productosApi = { insert, get,getProducto };
+const productosApi = { insert, get,getProducto,deleteProducto };
 export default productosApi;
