@@ -17,7 +17,7 @@ const ListadoCategoriasAdmin = () => {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
 
-  // 🆕 Nuevo: saber si estamos editando o creando
+  // Nuevo: saber si estamos editando o creando
   const [editIndex, setEditIndex] = useState(null);
 
   const handleOpenModal = () => setShowModal(true);
@@ -28,26 +28,26 @@ const ListadoCategoriasAdmin = () => {
     setDescripcion("");
   };
 
-  // 🆕 Crear o editar categoría
+  // Crear o editar categoría
   const handleCrearCategoria = (e) => {
     e.preventDefault();
 
     const nuevaCategoria = { nombre, descripcion };
 
     if (editIndex !== null) {
-      // 📝 Si estamos editando, reemplazamos la categoría existente
+      // Si estamos editando, reemplazamos la categoría existente
       const nuevas = [...categorias];
       nuevas[editIndex] = nuevaCategoria;
       setCategorias(nuevas);
     } else {
-      // ➕ Si no estamos editando, agregamos una nueva
+      // Si no estamos editando, agregamos una nueva
       setCategorias([...categorias, nuevaCategoria]);
     }
 
     handleCloseModal();
   };
 
-  // 🆕 Eliminar categoría
+  // Eliminar categoría
   const handleEliminar = (index) => {
     const confirmacion = window.confirm("¿Seguro que deseas eliminar esta categoría?");
     if (confirmacion) {
@@ -56,7 +56,7 @@ const ListadoCategoriasAdmin = () => {
     }
   };
 
-  // 🆕 Editar categoría
+  // Editar categoría
   const handleEditar = (index) => {
     const cat = categorias[index];
     setNombre(cat.nombre);

@@ -6,7 +6,7 @@ import usuarioImg from './usuarioejemplo.webp';
 const DetalleUsuario = () => {
   const navigate = useNavigate();
 
-  // 📦 Lista de órdenes de ejemplo
+  // Lista de órdenes de ejemplo
   const ordenes = [
     { id: 1234, fecha: "20/01/2025", total: 199.00 },
     { id: 2356, fecha: "20/02/2025", total: 249.00 },
@@ -16,7 +16,7 @@ const DetalleUsuario = () => {
     { id: 9921, fecha: "08/06/2025", total: 399.00 },
   ];
 
-  // 🧭 Función para navegar al detalle de una orden
+  // Función para navegar al detalle de una orden
   const verDetalle = (id) => {
     navigate(`/detalle-orden/${id}`);
   };
@@ -25,7 +25,7 @@ const DetalleUsuario = () => {
     <div className="detalle-usuario-container">
       <h2>Detalles de usuario</h2>
 
-      {/* 🧍 Información del usuario */}
+      {/*  Información del usuario */}
       <div className="usuario-card">
         <div className="usuario-info">
           <h3>Juan Pérez</h3>
@@ -39,7 +39,7 @@ const DetalleUsuario = () => {
         </div>
       </div>
 
-      {/* 🧾 Tabla de órdenes */}
+      {/* Tabla de órdenes */}
       <div className="ordenes-section">
         <h4>Últimas órdenes</h4>
         <table>
@@ -68,7 +68,7 @@ const DetalleUsuario = () => {
           </tbody>
         </table>
 
-        {/* 🔢 Paginación (decorativa por ahora) */}
+        {/* Paginación (decorativa por ahora) */}
         <div className="paginacion">
           <button>⬅️</button>
           <button className="activo">1</button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom"; // 👈 Importa esto
+import { useParams } from "react-router-dom";
 import "./DetalleOrden.css";
 
 import img1 from "./imgs/mario_kart.webp";
@@ -10,7 +10,7 @@ import img5 from "./imgs/metal_gear.webp";
 import img6 from "./imgs/auriculares.webp";
 
 const DetalleOrden = () => {
-  // 👇 Extrae el parámetro de la URL (por ejemplo, /orden/1234)
+  // Extrae el parámetro de la URL (por ejemplo, /orden/1234)
   const { id } = useParams();
 
   const productos = [
@@ -22,7 +22,7 @@ const DetalleOrden = () => {
     { id: 8123, nombre: "Auriculares PC", categoria: "Periferico", cantidad: 1, total: 19.0, img: img6 },
   ];
 
-  // 📦 Lista de órdenes de ejemplo
+  // Lista de órdenes de ejemplo
   const ordenes = [
     { id: 1234, fecha: "20/01/2025", total: 199.00 },
     { id: 2356, fecha: "20/02/2025", total: 249.00 },
@@ -39,7 +39,6 @@ const DetalleOrden = () => {
 
         <div className="orden-card">
           <div className="orden-info">
-            {/* 👇 Aquí se muestra dinámicamente el número de orden */}
             <h3>
               Orden <span className="orden-id">#{id}</span>
             </h3>
