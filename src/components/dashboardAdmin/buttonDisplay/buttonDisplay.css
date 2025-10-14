@@ -4,15 +4,15 @@
     padding-right:50px;
     padding-bottom: 20px;
     padding-top: 20px;
-    margin:30px;
-    width: 100%;
+    margin:10px;
+    width: calc(20%);
     height: 60px;
     justify-content: center;
     align-items: center;
     border-radius: 0.5cap;
     color:white;
     display: flex;
-    font-size: x-large;
+    font-size: clamp(10px,1.5vw,20px);
 }
 
 .nombreSection{

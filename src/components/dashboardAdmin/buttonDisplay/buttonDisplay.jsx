@@ -3,8 +3,8 @@ import "./buttonDisplay.css"
 const ButtonDisplay =(props)=>{
     return(
         <>
-            <section class="buttonDisplay">
-                <div class="nombreSection" >{props.titulo}</div>
+            <section className="buttonDisplay">
+                <div className="nombreSection" >{props.titulo}</div>
                 <div >{props.valor}</div>
             </section>
         </>
