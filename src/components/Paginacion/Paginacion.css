@@ -27,8 +27,8 @@
 }
 
 .paginacion-item.actual {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
+    background-color: rgb(58,164,35);
+    border-color: rgb(58,164,35);
     color: white;
     font-weight: bold;
 }

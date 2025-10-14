@@ -53,7 +53,7 @@
 }
 
 .buttonInputSectionProd{
-    background-color:  rgb(125, 172, 55);
+    background-color:  rgb(58,164,35);
     border: none;
     color: white;
     padding: 8px 16px;
@@ -92,7 +92,7 @@
 }
 
 .zona-imagen:hover {
-  border-color: rgb(125, 172, 55);
+  border-color: rgb(58,164,35);
   background-color: #f6fff7;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .buttonSubmitProd{
-   background-color:  rgb(125, 172, 55);
+   background-color:  rgb(58,164,35);
     border: none;
     color: white;
     padding: 8px 16px;

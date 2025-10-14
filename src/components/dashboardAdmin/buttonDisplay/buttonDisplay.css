@@ -1,5 +1,5 @@
 .buttonDisplay{
-    background: rgb(125, 172, 55);
+    background: rgb(58,164,35);
     padding-left:50px;
     padding-right:50px;
     padding-bottom: 20px;
@@ -13,6 +13,10 @@
     color:white;
     display: flex;
     font-size: clamp(10px,1.5vw,20px);
+}
+.buttonDisplay:active {
+    transform: scale(0.95); 
+    background: rgb(48,134,25);
 }
 
 .nombreSection{
