@@ -50,7 +50,6 @@ const DetalleOrden = () => {
                     <tbody>
                         {productos.map((p, index) => (
                             <tr key={index}>
-                                {/* ✅ Imagen a la izquierda del ID */}
                                 <td className="producto-id">
                                     <img src={p.img} alt={p.nombre} />
                                     <span className="id-link">#{p.id}</span>
