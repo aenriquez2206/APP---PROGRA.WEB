@@ -16,7 +16,27 @@ import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 const router = createBrowserRouter([
 {
   path:"/",
-  element: <App/>
+  element: <Login/>
+},
+{
+  path:"register",
+  element:<Login/>  
+},
+{
+  path:"register",
+  element:<Register/>  
+},
+{
+  path:"forgot",
+  element:<Forgot/>
+},
+{
+  path:"recover",
+  element:<Recover/>
+},
+{
+  path:"change",
+  element:<Change/>
 },
 {
   path:"admin",
@@ -33,20 +53,10 @@ const router = createBrowserRouter([
   path:"admin/productos/editar",
   element:<ProdEditAdminPage/>  
 }
-
 ])
-
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot" element={<Forgot />} />
-        <Route path="/recover" element={<Recover />} />
-        <Route path="/change" element={<Change />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>,
 )
