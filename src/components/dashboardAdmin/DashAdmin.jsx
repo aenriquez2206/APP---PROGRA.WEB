@@ -91,7 +91,7 @@ const DashAdmin =()=>{
 
     return(
         <>
-        <main>
+        <main className='mainAdmin'>
             
 
             <div className="dashboardTitle" ><h1>Dashboard</h1></div>
