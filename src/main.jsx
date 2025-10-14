@@ -29,9 +29,10 @@ const router = createBrowserRouter([
 }
 ,
 {
-  path: "/detalle-orden",
-    element: <DetalleOrden/>
+  path: "/detalle-orden/:id",
+  element: <DetalleOrden/>
 }
+
 ,
 {
   path: "/cambiar-contraseña",
