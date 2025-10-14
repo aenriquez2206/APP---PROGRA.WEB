@@ -1,0 +1,39 @@
+.columnContent
+{
+    font-size: 14px;
+}
+
+#footerSection
+{
+    background-color: rgb(74, 74, 74);
+    color: white;
+    column-count: 4;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 40px;
+    width: auto;
+}
+
+.footerHeader
+{
+    font-family: "Montserrat","sans-serif";
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+}
+
+.smLogos
+{
+    height: 40px;
+    width: auto;
+    margin-left: 20px;
+}
+
+ul
+{
+    gap: 30px;
+    list-style: none;
+}
