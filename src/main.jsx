@@ -2,11 +2,11 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
-import Login from './Login.jsx'
-import Register from './Register.jsx'
-import Forgot from './Forgot.jsx'
-import Recover from './Recover.jsx'
-import Change from './Change.jsx'
+import Login from './components/login/Login.jsx'
+import Register from './components/register/Register.jsx'
+import Forgot from './components/forgot/Forgot.jsx'
+import Recover from './components/recover/Recover.jsx'
+import Change from './components/change/Change.jsx'
 import App from './App.jsx'
 import DashboardAdminPage from './routes/DashboardAdminPage.jsx'
 import ListadoCategoriasAdmin from './routes/ListadoCategoriasAdmin.jsx'
@@ -20,10 +20,10 @@ import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 const router = createBrowserRouter([
 {
   path:"/",
-  element: <Login/>
+  element: <App/>
 },
 {
-  path:"register",
+  path:"login",
   element:<Login/>  
 },
 {
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
 }
 ,
 {
-  path: "/detalle-usuario",
+  path: "/admin/detalle-usuario",
     element: <DetalleUsuario/>
 }
 ,
@@ -60,7 +60,6 @@ const router = createBrowserRouter([
   path: "/detalle-orden/:id",
   element: <DetalleOrden/>
 }
-
 ,
 {
   path: "/cambiar-contraseña",
