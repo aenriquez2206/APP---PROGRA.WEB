@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './ListadoCategoriasAdmin.css'
+import Paginacion from '../Paginacion/Paginacion'
 
 const ListadoCategoriasAdmin = () => {
 
@@ -11,14 +12,21 @@ const ListadoCategoriasAdmin = () => {
     { nombre: "Ropa", descripcion: "Lorem ipsum dolor sit amet..." },
     { nombre: "Merch", descripcion: "Lorem ipsum dolor sit amet..." },
     { nombre: "Componentes PC", descripcion: "Lorem ipsum dolor sit amet..." },
+    // Se puede agregar más para probar mejor paginación
   ]);
 
   const [showModal, setShowModal] = useState(false);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-
-  // Nuevo: saber si estamos editando o creando
   const [editIndex, setEditIndex] = useState(null);
+
+  // Paginación
+  const [paginaActual, setPaginaActual] = useState(1);
+  const categoriasPorPagina = 3; // Cambia según cuantas se quiera por página
+  const totalPaginas = Math.ceil(categorias.length / categoriasPorPagina);
+  const indiceUltima = paginaActual * categoriasPorPagina;
+  const indicePrimera = indiceUltima - categoriasPorPagina;
+  const categoriasMostradas = categorias.slice(indicePrimera, indiceUltima);
 
   const handleOpenModal = () => setShowModal(true);
   const handleCloseModal = () => {
@@ -28,35 +36,34 @@ const ListadoCategoriasAdmin = () => {
     setDescripcion("");
   };
 
-  // Crear o editar categoría
   const handleCrearCategoria = (e) => {
     e.preventDefault();
-
     const nuevaCategoria = { nombre, descripcion };
 
     if (editIndex !== null) {
-      // Si estamos editando, reemplazamos la categoría existente
       const nuevas = [...categorias];
       nuevas[editIndex] = nuevaCategoria;
       setCategorias(nuevas);
     } else {
-      // Si no estamos editando, agregamos una nueva
       setCategorias([...categorias, nuevaCategoria]);
     }
 
     handleCloseModal();
   };
 
-  // Eliminar categoría
   const handleEliminar = (index) => {
     const confirmacion = window.confirm("¿Seguro que deseas eliminar esta categoría?");
     if (confirmacion) {
       const nuevas = categorias.filter((_, i) => i !== index);
       setCategorias(nuevas);
+
+      // Ajustar página si eliminamos el último elemento de la última página
+      if (categorasMostradas.length === 1 && paginaActual > 1) {
+        setPaginaActual(paginaActual - 1);
+      }
     }
   };
 
-  // Editar categoría
   const handleEditar = (index) => {
     const cat = categorias[index];
     setNombre(cat.nombre);
@@ -69,7 +76,6 @@ const ListadoCategoriasAdmin = () => {
     <div className="categorias-container">
       <h1 className="categorias-titulo">Listado de categorías</h1>
 
-      {/* Buscador y botón */}
       <div className="categorias-header">
         <div className="buscador">
           <span className="icono-buscar">🔍</span>
@@ -80,7 +86,6 @@ const ListadoCategoriasAdmin = () => {
         </button>
       </div>
 
-      {/* Tabla */}
       <div className="tabla-container">
         <table>
           <thead>
@@ -91,13 +96,13 @@ const ListadoCategoriasAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {categorias.map((cat, i) => (
+            {categoriasMostradas.map((cat, i) => (
               <tr key={i}>
                 <td className="nombre">{cat.nombre}</td>
                 <td>{cat.descripcion}</td>
                 <td className="acciones">
-                  <button className="btn-icono" onClick={() => handleEditar(i)}>✏️</button>
-                  <button className="btn-icono" onClick={() => handleEliminar(i)}>🗑️</button>
+                  <button className="btn-icono" onClick={() => handleEditar(i + indicePrimera)}>✏️</button>
+                  <button className="btn-icono" onClick={() => handleEliminar(i + indicePrimera)}>🗑️</button>
                 </td>
               </tr>
             ))}
@@ -105,7 +110,6 @@ const ListadoCategoriasAdmin = () => {
         </table>
       </div>
 
-      {/* Modal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -141,16 +145,12 @@ const ListadoCategoriasAdmin = () => {
         </div>
       )}
 
-      {/* Paginación */}
-      <div className="paginacion">
-        <button>⬅️</button>
-        <button className="activo">1</button>
-        <button>2</button>
-        <button>3</button>
-        <span>...</span>
-        <button>10</button>
-        <button>➡️</button>
-      </div>
+      {/* Paginación funcional */}
+      <Paginacion
+        totalPaginas={totalPaginas}
+        paginaActual={paginaActual}
+        setPaginaActual={setPaginaActual}
+      />
     </div>
   );
 };

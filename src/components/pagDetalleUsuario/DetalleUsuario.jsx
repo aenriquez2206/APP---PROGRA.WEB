@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './DetalleUsuario.css';
 import usuarioImg from './usuarioejemplo.webp';
+import Paginacion from '../Paginacion/Paginacion'
 
 const DetalleUsuario = () => {
   const navigate = useNavigate();
 
-  // Lista de órdenes de ejemplo
   const ordenes = [
     { id: 1234, fecha: "20/01/2025", total: 199.00 },
     { id: 2356, fecha: "20/02/2025", total: 249.00 },
@@ -14,9 +14,17 @@ const DetalleUsuario = () => {
     { id: 3743, fecha: "15/04/2025", total: 299.00 },
     { id: 8422, fecha: "10/05/2025", total: 129.00 },
     { id: 9921, fecha: "08/06/2025", total: 399.00 },
+    // Se puede agregar más órdenes para probar mejor la paginación
   ];
 
-  // Función para navegar al detalle de una orden
+  const [paginaActual, setPaginaActual] = useState(1);
+  const ordenesPorPagina = 3; // Número de órdenes por página
+  const totalPaginas = Math.ceil(ordenes.length / ordenesPorPagina); // math.ceil para redondear hacia arriba
+
+  const indiceUltima = paginaActual * ordenesPorPagina;
+  const indicePrimera = indiceUltima - ordenesPorPagina;
+  const ordenesMostradas = ordenes.slice(indicePrimera, indiceUltima); // slice corta el array y devuelve solo las ordenes que deben mostrarse en la página actual
+
   const verDetalle = (id) => {
     navigate(`/detalle-orden/${id}`);
   };
@@ -25,7 +33,7 @@ const DetalleUsuario = () => {
     <div className="detalle-usuario-container">
       <h2>Detalles de usuario</h2>
 
-      {/*  Información del usuario */}
+      {/* Información del usuario */}
       <div className="usuario-card">
         <div className="usuario-info">
           <h3>Juan Pérez</h3>
@@ -53,7 +61,7 @@ const DetalleUsuario = () => {
           </thead>
 
           <tbody>
-            {ordenes.map((orden, index) => (
+            {ordenesMostradas.map((orden, index) => (
               <tr key={index}>
                 <td className="id-link">#{orden.id}</td>
                 <td>{orden.fecha}</td>
@@ -68,16 +76,12 @@ const DetalleUsuario = () => {
           </tbody>
         </table>
 
-        {/* Paginación (decorativa por ahora) */}
-        <div className="paginacion">
-          <button>⬅️</button>
-          <button className="activo">1</button>
-          <button>2</button>
-          <button>3</button>
-          <span>...</span>
-          <button>10</button>
-          <button>➡️</button>
-        </div>
+        {/* Paginación funcional */}
+        <Paginacion
+          totalPaginas={totalPaginas}
+          paginaActual={paginaActual}
+          setPaginaActual={setPaginaActual}
+        />
       </div>
     </div>
   );

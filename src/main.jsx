@@ -7,7 +7,7 @@ import Register from './Register.jsx'
 import Forgot from './Forgot.jsx'
 import Recover from './Recover.jsx'
 import Change from './Change.jsx'
-import App from './App.jsx'
+
 import DashboardAdminPage from './routes/DashboardAdminPage.jsx'
 import ListadoCategoriasAdmin from './routes/ListadoCategoriasAdmin.jsx'
 import DetalleUsuario from './routes/DetalleUsuario.jsx'
