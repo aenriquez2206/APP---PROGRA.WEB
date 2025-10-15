@@ -14,7 +14,7 @@
 
 .botonListadoProductosAdmin{
     width: calc(10%);
-    background:  rgb(125, 172, 55);
+    background:  rgb(58,164,35);
     border:0px;
     color:white;
     border-radius: 0.5cap;
@@ -59,7 +59,6 @@
   justify-content: center;
 }
 
-/* Cuadro del modal */
 .modal {
   background-color: white;
   padding: 2rem;
@@ -79,7 +78,6 @@
   color: #333;
 }
 
-/* Botones del modal */
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -87,7 +85,7 @@
 }
 
 .confirm-btn {
-  background-color: rgb(125, 172, 55);
+  background-color: rgb(58,164,35);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -96,7 +94,7 @@
 }
 
 .confirm-btn:hover {
-  background-color: #219150;
+  transform: scale(0.95);
 }
 
 .cancel-btn {

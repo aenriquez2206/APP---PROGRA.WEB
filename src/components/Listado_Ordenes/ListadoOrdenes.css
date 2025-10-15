@@ -1,0 +1,55 @@
+
+
+
+.tableOrdersAdmin{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid;
+}
+
+
+.mainOrdersAdmin {
+    padding: 10px 30px;
+}
+
+.tableOrdersAdmin button{
+  background-color: rgb(127, 173, 57);
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainOrdersAdmin .BuscadorU{
+  display: flex;
+  text-align: center;
+  gap: 5px;
+}
+
+.mainOrdersAdmin table td{
+  padding: 12px 25px;
+}
+
+.mainOrdersAdmin table thead{
+  text-align: center;
+
+}
+
+.mainOrdersAdmin table .estado_rojo{
+  color:red
+}
+
+
+.mainOrdersAdmin table .estado_verde{
+  color:green
+}
+
+
+.mainOrdersAdmin table tbody .Id_Orden{
+  color: green;
+
+}
+
+
+

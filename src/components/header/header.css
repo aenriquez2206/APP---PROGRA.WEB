@@ -21,7 +21,7 @@
     margin-left:20px;
     margin-right: 40px;
     font-size: 25px;
-    color:rgb(125, 172, 55);    
+    color:rgb(58,164,35);    
 }
 
 
@@ -37,15 +37,16 @@
     height: 60px;
     padding-left: 20px;
     padding-right: 20px;
-    background: rgb(125, 172, 55);
+    background: rgb(58,164,35);
     width: 150px;
     margin-right: 20px;
     
 }
 
-#comprasButton:active {
-        background-color: rgb(238, 244, 228); 
-        transform: scale(0.95); 
+
+
+#comprasButton:hover{
+   transform: scale(0.95);
 }
 
 #usuarioButton{
@@ -65,7 +66,10 @@
 }
 
 #usuarioButton:active {
-        background-color: rgb(238, 244, 228); 
         transform: scale(0.95); 
 }
 
+#usuarioButton:hover{
+    transform: scale(0.95);
+    background: rgb(208, 208, 208);
+}

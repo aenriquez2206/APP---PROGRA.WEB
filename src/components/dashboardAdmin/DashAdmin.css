@@ -1,4 +1,8 @@
 
+.mainAdmin{
+    margin-bottom: 20px;
+}
+
 .dashboardTitle{
     margin-left: 40px;
 }
@@ -29,7 +33,7 @@
 }
 
 .buttonVerUsuarios{
-    background:  rgb(125, 172, 55);
+    background:  rgb(58,164,35);
     border:0px;
     border-radius: 0.5cap;
     color:white;
@@ -85,7 +89,7 @@
     height: 300px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
 }
 
 .encabezadoOrdenesSection{
@@ -102,7 +106,7 @@
 
 .buttonOrdenesSection{
     width: calc(45%);
-    background:  rgb(125, 172, 55);
+    background: rgb(58,164,35);
     border:0px;
     color:white;
     border-radius: 0.5cap;
