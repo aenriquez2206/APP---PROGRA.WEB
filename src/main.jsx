@@ -1,47 +1,32 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
-import App from './App.jsx'
-import DashboardAdmin from './routes/DashboardAdmin.jsx'
-import ListadoCategoriasAdmin from './routes/ListadoCategoriasAdmin.jsx'
-import DetalleUsuario from './routes/DetalleUsuario.jsx'
-import DetalleOrden from './routes/DetalleOrden.jsx'
-import CambiarContraseña from './routes/CambiarContraseña.jsx'
+import PaginaCatalogo from './routes/PaginaCatalogo.jsx'
+import PaginaDetalleProducto from './routes/PaginaDetalleProducto.jsx'
+import PaginaPrincipal from './routes/PaginaPrincipal.jsx'
 
 const router = createBrowserRouter([
 {
-  path:"/",
-  element: <App/>
+    path: "/",
+    element: <PaginaPrincipal />
 },
 {
-  path:"admin",
-  element:<DashboardAdmin/>
+    path: "/catalogo",
+    element: <PaginaCatalogo />
 },
 {
-  path: "/admin/categorias",
-    element: <ListadoCategoriasAdmin/>
-}
-,
+    path: "/categorias/:categoriaNombre",
+    element: <PaginaCatalogo />
+},
 {
-  path: "/detalle-usuario",
-    element: <DetalleUsuario/>
+    path: "/producto/:id",
+    element: <PaginaDetalleProducto />
 }
-,
-{
-  path: "/detalle-orden",
-    element: <DetalleOrden/>
-}
-,
-{
-  path: "/cambiar-contraseña",
-    element: <CambiarContraseña/>
-}
-
 ])
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <StrictMode>
+        <RouterProvider router = {router} />
+    </StrictMode>,
 )

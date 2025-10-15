@@ -1,4 +1,6 @@
-import './header.css'
+import Searcher from '../Searcher/Searcher'
+import './Header.css'
+
 const Header = ()=>{
     return(
     <>
@@ -9,10 +11,7 @@ const Header = ()=>{
                         <h1>.</h1>
                     </span>
             </div>
-            <div id="searchSection">
-                <input id="search" type="text" placeholder="Buscar un producto"></input>
-                <img  src="" alt="img"/>
-            </div>
+            <Searcher/>
             <button id="comprasButton" >
                 <img src="" alt="img"/>
                 <div>
@@ -31,5 +30,6 @@ const Header = ()=>{
     </>
     )
 }
+
 
 export default Header
