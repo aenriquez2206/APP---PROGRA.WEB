@@ -29,8 +29,8 @@ const ListaO = () => {
     <main className='mainOrdersAdmin' > 
       <h1>Listado de órdenes</h1>
 
-        <section class="BuscadorU">
-            <div class="Busuario">
+        <section className="BuscadorU">
+            <div className="Busuario">
             <input 
                 id="bUsuario" 
                 type="text" 
@@ -63,7 +63,7 @@ const ListaO = () => {
                 <td>{o.usuario}</td>
                 <td>{o.fechaOrden}</td>
                 <td>{o.total}</td>
-                <td class={estadoClase(o.estado)}> <b>{o.estado}</b></td>
+                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
                 <Botones />
               </tr>
             ))}

@@ -13,7 +13,7 @@
 }
 
 .tableOrdersAdmin button{
-  background-color: rgb(127, 173, 57);
+  background-color: rgb(58,164,35);
   padding: 8px 15px;
   color: white;
   border-radius: 8px;
@@ -27,26 +27,26 @@
   gap: 5px;
 }
 
-.mainOrdersAdmin table td{
+.mainOrdersAdmin .tableOrdersAdmin td{
   padding: 12px 25px;
 }
 
-.mainOrdersAdmin table thead{
+.mainOrdersAdmin .tableOrdersAdmin thead{
   text-align: center;
 
 }
 
-.mainOrdersAdmin table .estado_rojo{
+.mainOrdersAdmin .tableOrdersAdmin .estado_rojo{
   color:red
 }
 
 
-.mainOrdersAdmin table .estado_verde{
+.mainOrdersAdmin .tableOrdersAdmin .estado_verde{
   color:green
 }
 
 
-.mainOrdersAdmin table tbody .Id_Orden{
+.mainOrdersAdmin .tableOrdersAdmin tbody .Id_Orden{
   color: green;
 
 }

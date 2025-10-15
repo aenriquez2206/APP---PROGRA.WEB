@@ -10,21 +10,24 @@ const ListaU = () => {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = () => {
-    const usuariosFiltrados = Usuarios.filter((item) =>
+    const usuariosFiltrados = usuarios.filter((item) =>
       item.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
     );
     setUsuarios(usuariosFiltrados);
   };
 
-  const cambiarEstado = (index) => {
-    const nuevaLista = usuariosDefault;
-    nuevaLista[index].estado =
-      nuevaLista[index].estado === 'Activo' ? 'Inactivo' : 'Activo';
-    setUsuarios(nuevaLista);
-  };
+  const cambiarEstado = (id, estadoActual) => {
+      const nuevoEstado = !estadoActual; 
+      usuariosApi.actualizarEstado(id, nuevoEstado); 
+      const nuevosUsuarios = usuarios.map(u =>
+        u.id === id ? { ...u, estado: nuevoEstado } : u
+      );
+
+      setUsuarios(nuevosUsuarios);
+    };
 
   return (
-    <main>
+    <main className="mainListaUsuarios">
       <h1>Listado de usuarios</h1>
 
       <section className="BuscadorU">
@@ -53,18 +56,19 @@ const ListaU = () => {
         </thead>
 
         <tbody>
-          {usuarios.map((e, i) => (
-            <tr key={i}>
+          {usuarios.map((u) => (
+            <tr key={u.id}>
               <td>
-                <img className="imagenTabla"src={e.img} alt="foto" /> {e.nombre}
+                <img className="imagenTabla"src={u.img} alt="foto" /> {u.nombre}
               </td>
-              <td>{e.fechaRegistro}</td>
-              <td className={estadoClase(e.estado)}><b>{e.estado}</b></td>
+              <td>{u.fechaRegistro}</td>
+              <td className={estadoClase(u.estado)}><b>{u.estado == true ? 'Activo' : 'Inactivo'}</b></td>
               <td>
-                <button onClick={() => cambiarEstado(i)}>
-                  {e.estado === 'Activo' ? 'Desactivar' : 'Activar'}
+                <button onClick={() => cambiarEstado(u.id, u.estado)}>
+                  {u.estado == true ? 'Desactivar' : 'Activar'}
                 </button>
                 <button>Ver detalles</button>
+                
               </td>
             </tr>
           ))}

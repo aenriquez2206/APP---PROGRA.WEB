@@ -1,7 +1,7 @@
 
 
 
-main table{
+.maindetalleusuario .tabla_DU{
   padding: 16px 16px;
   text-align: left;
   border: solid 1px gray;
@@ -10,11 +10,11 @@ main table{
 }
 
 
-main {
+.maindetalleusuario {
     padding: 10px 30px;
 }
 
-table button{
+.tabla_DU button{
   background-color: rgb(127, 173, 57);
   padding: 8px 15px;
   color: white;
@@ -23,8 +23,8 @@ table button{
   cursor: pointer;
 }
 
-main .CContra{
-background-color: rgb(127, 173, 57);
+.maindetalleusuario .CContra{
+  background-color: rgb(127, 173, 57);
   padding: 15px 12px;
   color: white;
   border-radius: 8px;
@@ -33,48 +33,38 @@ background-color: rgb(127, 173, 57);
 
 }
 
-main .Titulo{
+.maindetalleusuario .Titulo{
   display: flex;
   gap: 350px;
 }
 
-main .card .Principal{
+.maindetalleusuario .card .Principal{
   display:flex;
   gap: 100px;
 }
 
-main .card .Principal img{
+.maindetalleusuario .card .Principal img{
   width: 200px;
   height: 200px;
 }
 
-main .card{
+.maindetalleusuario .card{
   border:solid 1px gray;
   padding: 30px;
   
 }
 
-main table tbody .Id_Orden{
+.maindetalleusuario .tabla_DU tbody .Id_Orden{
   color:green
   
 }
 
 
-main div .info{
-
-  display: flex;
-  text-align: right;
-  gap: 5px;
-}
-
-
-
-
-main table .estado_rojo{
+.maindetalleusuario .tabla_DU .estado_rojo{
   color:red;
 }
 
-main table .estado_verde{
+.maindetalleusuario .tabla_DU .estado_verde{
   color:green;
 }
 
