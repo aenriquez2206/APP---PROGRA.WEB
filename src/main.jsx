@@ -8,6 +8,8 @@ import ProductosAdminPage from './routes/ProductosAdminPage.jsx'
 import ProdSetAdminPage from './routes/ProdSetAdminPage.jsx'
 import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 import UserAdmin from './routes/UsersAdmin.jsx'
+import OrderAdmin from './routes/OrderAdmin.jsx'
+
 const router = createBrowserRouter([
 {
   path:"/",
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
 {
   path:"admin/users",
   element:<UserAdmin/>
+},
+{
+  path:"admin/orders",
+  element:<OrderAdmin/>
 }
 
 ])

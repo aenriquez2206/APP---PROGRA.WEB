@@ -70,7 +70,7 @@ const DashAdmin =()=>{
 
     //ACTUALIZAR  EL NAVIGATE ORDENES
     const handleNavigateOrdenes =()=>{
-        navigate('/')
+        navigate('/admin/orders')
     }
 
     const handleUserDetail =(id)=>{
@@ -149,7 +149,8 @@ const DashAdmin =()=>{
                             <img src="/itemsAssets/list.png" alt="img"/>
                             <div>Ver productos</div>
                         </button>
-                        <button className='buttonOrdenesSection'>
+                        <button className='buttonOrdenesSection'
+                        onClick={()=>handleNavigateOrdenes()}>
                             <img src="/itemsAssets/list.png" alt="img"/>
                             <div>Ver Todas las ordenes</div>
                         </button>
