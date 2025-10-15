@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./DetalleOrden.css";
-<<<<<<< HEAD
 import Paginacion from '../Paginacion/Paginacion'
-
-=======
->>>>>>> 18251b1ee6339903a6057bf97dd9c3eb33dbe4de
 import img1 from "./imgs/mario_kart.webp";
 import img2 from "./imgs/2k26.webp";
 import img3 from "./imgs/nintendo_switch.png";
