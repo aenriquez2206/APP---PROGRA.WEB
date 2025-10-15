@@ -1,13 +1,18 @@
 
 
 
+<<<<<<< HEAD
 table{
+=======
+.userTableView{
+>>>>>>> ariel
   border: 1px solid;
   padding: 8px 8px;
   text-align: left;
 
 }
 
+<<<<<<< HEAD
 table img{
 width: 20px;
 
@@ -15,6 +20,12 @@ width: 20px;
 main img{
   width: 20px;
 
+=======
+
+.imagenTabla{
+  width: 20px;
+  width: 20px;
+>>>>>>> ariel
 }
 
 main {
@@ -22,7 +33,11 @@ main {
 }
 
 
+<<<<<<< HEAD
 table .Estado{
+=======
+.userTableView .Estado{
+>>>>>>> ariel
   color:green;
   
 }
