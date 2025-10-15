@@ -2,7 +2,7 @@
 {
     border: solid rgb(210, 205, 205) 1px;
     border-radius: 10px;
-    color: rgb(152, 162, 179);
+    color: black;
     display: block;
     height: 35px;
     margin: 0 auto;
@@ -49,13 +49,18 @@
 {
     border: solid rgb(210, 205, 205) 1px;
     border-radius: 10px;
-    color: rgb(152, 162, 179);
+    color: black;
     display: block;
     height: 35px;
     margin: 0 auto;
     margin-bottom: 20px;
     padding: 10px;
     width: 95%;
+}
+
+::placeholder
+{
+    color: rgb(152, 162, 179);
 }
 
 #olv
