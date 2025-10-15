@@ -11,17 +11,17 @@ const Boton = () => {
 
 const DUsuario = ({Usuarios, Ordenes}) => {
   return (
-    <main>
-      <div class="Titulo">
+    <main className='maindetalleusuario'>
+      <div className="Titulo">
         <div>
           <h2> Detalles de usuario</h2>
         </div>
         <div>
-          <button class="CContra">Cambiar Contraseña</button>
+          <button className="CContra">Cambiar Contraseña</button>
         </div>
       </div>
-      <div class="card">
-        <div class="Principal">
+      <div className="card">
+        <div className="Principal">
               {Usuarios.filter((u,i) => i == 0)
               .map((u) =>  (
                 <>
@@ -39,7 +39,7 @@ const DUsuario = ({Usuarios, Ordenes}) => {
         </div>
           <p><b>Últimas órdenes</b></p>
           
-          <table>
+          <table className='tabla_DU'>
             <thead>
               <th>#ID</th>
               <th>Fecha</th>
@@ -47,10 +47,10 @@ const DUsuario = ({Usuarios, Ordenes}) => {
               <th>Acciones</th>
             </thead>
             <tbody>
-              {Ordenes.filter(o => o.nombre == Usuarios[0].nombre) //Argegar contador
+              {Ordenes.filter(o => o.nombre == Usuarios[0].nombre)
                 .map((o, i) => (
                   <tr key={i}>
-                    <td class="Id_Orden"><b><u>{o.id}</u></b></td>
+                    <td className="Id_Orden"><b><u>{o.id}</u></b></td>
                     <td>{o.fechaO}</td>
                     <td>{o.total}</td>
                     <Boton />

@@ -17,29 +17,29 @@ const Boton = () => {
 
 const DOrden = ({Ordenes, Productos}) => {
   return (
-    <main>
+    <main className="maindetalleorden">
       <h2>Detalles de Órden</h2>
 
-      <div class="Principal">
+      <div className="Principal">
           {Ordenes.filter((o) => o.id == Productos[0].id_orden)
           .map((o) =>  (
             <>
-                <div class="infoO">
-                  <div class="orden">
+                <div className="infoO">
+                  <div className="orden">
                     <h1>Orden:</h1>
-                    <h1 class="N_Orden"> {o.id + " "}</h1>
+                    <h1 className="N_Orden"> {o.id + " "}</h1>
                   </div>
-                  <div class="estado">
+                  <div className="estado">
                       <div>
                         <p><b>Estado:</b></p>
                       </div>
                       <div>
-                        <p class={estadoClase(o.estadoO)}>{o.estadoO}  </p>
+                        <p className={estadoClase(o.estadoO)}>{o.estadoO}  </p>
                       </div>
                     </div>
                     
                 </div>
-                <div class="Monto">
+                <div className="Monto">
                   <p><b>Monto Total:</b> {o.total + " "}</p>
                 </div>
             </>
@@ -47,7 +47,7 @@ const DOrden = ({Ordenes, Productos}) => {
 
           <h3>Productos Ordenados</h3>
 
-          <table>
+          <table className="tabla_DO">
             <thead>
               <th></th>
               <th>Id</th>
@@ -58,11 +58,11 @@ const DOrden = ({Ordenes, Productos}) => {
             </thead>
             <tbody>
 
-              {Productos.filter((p) => p.id_orden == Ordenes[0].id) //Argegar contador
+              {Productos.filter((p) => p.id_orden == Ordenes[0].id) 
                 .map((p, i) => (
                   <tr key={i}>
                     <td><img src={p.foto} alt="foto_juegos"/></td>
-                    <td class="Id_Producto"><b>{p.id}</b></td>
+                    <td className="Id_Producto"><b>{p.id}</b></td>
                     <td>{p.nombre}</td>
                     <td>{p.categoria}</td>
                     <td>{p.cantidad}</td>
