@@ -1,13 +1,7 @@
 import './ListadoOrdenes.css'
-<<<<<<< HEAD
-import {estadoClase} from './camcolor'
-import { useState } from 'react';
-
-=======
 import estadoClase from './camcolor'
 import { useState } from 'react';
 import pedidosApi from '../../api/ordenesApi';
->>>>>>> ariel
 const Botones = () => {
   return (
       <td>
@@ -16,24 +10,15 @@ const Botones = () => {
   );
 };
 
-<<<<<<< HEAD
-const ListaO = ({Ordenes, Usuarios}) => {
-  const [ordenes, setOrdenes] = useState([...Ordenes]);
-=======
 const ListaO = () => {
 
   const ordenesDefault = pedidosApi.get();
   const [ordenes, setOrdenes] = useState(ordenesDefault);
->>>>>>> ariel
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = () => {
-<<<<<<< HEAD
-    const ordenesFiltrados = Ordenes.filter((item) =>
-=======
     const ordenesFiltrados = ordenesDefault .filter((item) =>
->>>>>>> ariel
       item.id.toLowerCase().includes(textoBusqueda.toLowerCase())
     );
     setOrdenes(ordenesFiltrados);
@@ -41,7 +26,7 @@ const ListaO = () => {
 
 
   return (
-    <main>
+    <main className='mainOrdersAdmin' > 
       <h1>Listado de órdenes</h1>
 
         <section class="BuscadorU">
@@ -55,15 +40,11 @@ const ListaO = () => {
                 >
             </input>
             </div>
-<<<<<<< HEAD
-            <button onClick={handleBuscar}>Buscar</button>
-=======
             <button onClick={()=>handleBuscar()}>Buscar</button>
->>>>>>> ariel
         </section>
         <br />
 
-        <table>
+        <table className="tableOrdersAdmin">
           <thead>
             <tr>
               <th>#ORDEN</th>
@@ -78,18 +59,11 @@ const ListaO = () => {
           <tbody>
             {ordenes.map((o, i) => (
               <tr key={i}>
-                <td class="Id_Orden"><b><u>{o.id}</u></b></td>
-<<<<<<< HEAD
-                <td>{Usuarios.map((u) => (u.nombre))[i]}</td>
-                <td>{o.fechaO}</td>
-                <td>{o.total}</td>
-                <td class={estadoClase(o.estadoO)}> <b>{o.estadoO}</b></td>
-=======
+                <td className="Id_Orden"><b><u>{o.id}</u></b></td>
                 <td>{o.usuario}</td>
                 <td>{o.fechaOrden}</td>
                 <td>{o.total}</td>
                 <td class={estadoClase(o.estado)}> <b>{o.estado}</b></td>
->>>>>>> ariel
                 <Botones />
               </tr>
             ))}
