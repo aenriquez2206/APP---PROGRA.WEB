@@ -43,6 +43,10 @@ const router = createBrowserRouter([
   element:<Change/>
 },
 {
+  path: "/cambiar-contraseña",
+    element: <CambiarContraseña/>
+},
+{
   path:"admin",
   element:<DashboardAdminPage/>
 },
@@ -57,14 +61,11 @@ const router = createBrowserRouter([
 }
 ,
 {
-  path: "/detalle-orden/:id",
+  path: "/admin/detalle-orden/:id",
   element: <DetalleOrden/>
 }
 ,
 {
-  path: "/cambiar-contraseña",
-    element: <CambiarContraseña/>
-},{
   path:"admin/productos",
   element:<ProductosAdminPage/>
 },

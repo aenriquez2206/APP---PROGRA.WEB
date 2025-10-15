@@ -109,7 +109,7 @@ const DashAdmin =()=>{
                 <section className="contendedoresDetallesUsuarios">
                     <div className="headerSectionUsuarios">
                         <span><h3>Usuarios registrados</h3></span>
-                        <button className="buttonVerUsuarios" onClick={()=>handleNavigateUsuarios()}>
+                        <button className="buttonVerUsuarios" onClick={handleNavigateUsuarios}>
                             <img  src="/itemsAssets/list.png" alt="img"/>
                             <div><strong>Ver todos los usuarios </strong></div>
                         </button>

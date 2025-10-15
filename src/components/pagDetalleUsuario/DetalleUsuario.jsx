@@ -18,7 +18,7 @@ const DetalleUsuario = () => {
 
   // Función para navegar al detalle de una orden
   const verDetalle = (id) => {
-    navigate(`/detalle-orden/${id}`);
+    navigate(`/admin/detalle-orden/${id}`);
   };
 
   return (

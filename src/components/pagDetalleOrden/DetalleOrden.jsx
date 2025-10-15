@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import "./DetalleOrden.css";
-
 import img1 from "./imgs/mario_kart.webp";
 import img2 from "./imgs/2k26.webp";
 import img3 from "./imgs/nintendo_switch.png";
