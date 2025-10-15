@@ -1,0 +1,93 @@
+
+
+
+main table{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid 1px gray;
+  border-radius: 8px;
+
+}
+
+
+main {
+    padding: 10px 30px;
+}
+
+table button{
+  background-color: rgb(127, 173, 57);
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+main .CContra{
+background-color: rgb(127, 173, 57);
+  padding: 15px 12px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+}
+
+main .Titulo{
+  display: flex;
+  gap: 350px;
+}
+
+main .card .Principal{
+  display:flex;
+  gap: 100px;
+}
+
+main .card .Principal img{
+  width: 200px;
+  height: 200px;
+}
+
+main .card{
+  border:solid 1px gray;
+  padding: 30px;
+  
+}
+
+main table tbody .Id_Orden{
+  color:green
+  
+}
+
+
+main div .info{
+
+  display: flex;
+  text-align: right;
+  gap: 5px;
+}
+
+
+
+
+main table .estado_rojo{
+  color:red;
+}
+
+main table .estado_verde{
+  color:green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

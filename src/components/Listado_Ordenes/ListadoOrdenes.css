@@ -1,0 +1,55 @@
+
+
+
+table{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid;
+}
+
+
+main {
+    padding: 10px 30px;
+}
+
+table button{
+  background-color: rgb(127, 173, 57);
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+main .BuscadorU{
+  display: flex;
+  text-align: center;
+  gap: 5px;
+}
+
+main table td{
+  padding: 12px 25px;
+}
+
+main table thead{
+  text-align: center;
+
+}
+
+main table .estado_rojo{
+  color:red
+}
+
+
+main table .estado_verde{
+  color:green
+}
+
+
+main table tbody .Id_Orden{
+  color: green;
+
+}
+
+
+

@@ -1,0 +1,81 @@
+
+
+
+table{
+  border: 1px solid;
+  padding: 8px 8px;
+  text-align: left;
+
+}
+
+table img{
+width: 20px;
+
+}
+main img{
+  width: 20px;
+
+}
+
+main {
+    padding: 10px 30px;
+}
+
+
+table .Estado{
+  color:green;
+  
+}
+
+.principalB {
+  padding: 0px 12px;
+
+
+}
+
+main .BuscadorU{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+main .BuscadorU .bUsuario{
+  flex: 1
+}
+
+
+main .BuscadorU button {
+
+    font-family: "Montserrat","sans-serif";
+    color: white;
+    border-radius: 1cap;
+    border: 0px;
+    width:auto ;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 10px 20px;
+    background: rgb(125, 172, 55);
+    width: 90px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+main .BuscadorU {
+    align-items: center;
+
+}
+
+main table .estado_rojo{
+  color:red;
+}
+
+main table .estado_verde{
+  color:green;
+}
+
+
+
+
+
