@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './ListaUsuarios.css';
 import { estadoClase } from './camcolor';
-
-const ListaU = ({ Usuarios }) => {
+import usuariosApi from '../../api/usuariosApi';
+const ListaU = () => {
   
-  const [usuarios, setUsuarios] = useState([...Usuarios]);
+  usuariosDefault = usuariosApi.get();
+  const [usuarios, setUsuarios] = useState(usuariosDefault);
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
@@ -16,7 +17,7 @@ const ListaU = ({ Usuarios }) => {
   };
 
   const cambiarEstado = (index) => {
-    const nuevaLista = [...usuarios];
+    const nuevaLista = usuariosDefault;
     nuevaLista[index].estadoC =
       nuevaLista[index].estadoC === 'Activo' ? 'Inactivo' : 'Activo';
     setUsuarios(nuevaLista);
