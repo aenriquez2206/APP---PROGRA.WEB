@@ -61,7 +61,7 @@ const DashAdmin =()=>{
     
     //ACTUALIZAR EL NAVIGATE USUARIOS
     const handleNavigateUsuarios =()=>{
-        navigate('/')
+        navigate('/admin/users')
     }
 
     const handleNavigateProductos =()=>{
@@ -70,7 +70,7 @@ const DashAdmin =()=>{
 
     //ACTUALIZAR  EL NAVIGATE ORDENES
     const handleNavigateOrdenes =()=>{
-        navigate('/')
+        navigate('/admin/orders')
     }
 
     const handleUserDetail =(id)=>{
@@ -109,7 +109,7 @@ const DashAdmin =()=>{
                 <section className="contendedoresDetallesUsuarios">
                     <div className="headerSectionUsuarios">
                         <span><h3>Usuarios registrados</h3></span>
-                        <button className="buttonVerUsuarios" onClick={()=>handleNavigateUsuarios()}>
+                        <button className="buttonVerUsuarios" onClick={handleNavigateUsuarios}>
                             <img  src="/itemsAssets/list.png" alt="img"/>
                             <div><strong>Ver todos los usuarios </strong></div>
                         </button>
@@ -149,7 +149,8 @@ const DashAdmin =()=>{
                             <img src="/itemsAssets/list.png" alt="img"/>
                             <div>Ver productos</div>
                         </button>
-                        <button className='buttonOrdenesSection'>
+                        <button className='buttonOrdenesSection'
+                        onClick={()=>handleNavigateOrdenes()}>
                             <img src="/itemsAssets/list.png" alt="img"/>
                             <div>Ver Todas las ordenes</div>
                         </button>

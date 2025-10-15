@@ -1,8 +1,9 @@
-import './Login.css'
-import Header from './components/header/Header';
-import NavBar from './components/navBar/NavBar';
-import Footer from './components/footer/Footer';
-import LoginCard from './components/loginCard/loginCard';
+import '../login/Login.css'
+
+import Header from '../header/Header';
+import NavBar from '../navBar/NavBar';
+import Footer from '../footer/Footer';
+import LoginCard from '../loginCard/loginCard';
 
 function Recover(){
 

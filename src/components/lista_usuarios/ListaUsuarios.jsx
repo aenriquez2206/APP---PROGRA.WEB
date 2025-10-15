@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './ListaUsuarios.css';
 import { estadoClase } from './camcolor';
-
-const ListaU = ({ Usuarios }) => {
+import usuariosApi from '../../api/usuariosApi';
+const ListaU = () => {
   
-  const [usuarios, setUsuarios] = useState([...Usuarios]);
+ const usuariosDefault = usuariosApi.get();
+  const [usuarios, setUsuarios] = useState(usuariosDefault);
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
@@ -16,9 +17,9 @@ const ListaU = ({ Usuarios }) => {
   };
 
   const cambiarEstado = (index) => {
-    const nuevaLista = [...usuarios];
-    nuevaLista[index].estadoC =
-      nuevaLista[index].estadoC === 'Activo' ? 'Inactivo' : 'Activo';
+    const nuevaLista = usuariosDefault;
+    nuevaLista[index].estado =
+      nuevaLista[index].estado === 'Activo' ? 'Inactivo' : 'Activo';
     setUsuarios(nuevaLista);
   };
 
@@ -41,7 +42,7 @@ const ListaU = ({ Usuarios }) => {
 
       <br />
 
-      <table>
+      <table className='userTableView'>
         <thead>
           <tr>
             <th>Nombre completo</th>
@@ -55,13 +56,13 @@ const ListaU = ({ Usuarios }) => {
           {usuarios.map((e, i) => (
             <tr key={i}>
               <td>
-                <img src={e.foto} alt="foto" /> {e.nombre}
+                <img className="imagenTabla"src={e.img} alt="foto" /> {e.nombre}
               </td>
-              <td>{e.fecha}</td>
-              <td className={estadoClase(e.estadoC)}><b>{e.estadoC}</b></td>
+              <td>{e.fechaRegistro}</td>
+              <td className={estadoClase(e.estado)}><b>{e.estado}</b></td>
               <td>
                 <button onClick={() => cambiarEstado(i)}>
-                  {e.estadoC === 'Activo' ? 'Desactivar' : 'Activar'}
+                  {e.estado === 'Activo' ? 'Desactivar' : 'Activar'}
                 </button>
                 <button>Ver detalles</button>
               </td>

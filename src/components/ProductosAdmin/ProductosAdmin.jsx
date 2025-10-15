@@ -47,7 +47,7 @@ const ProductosAdmin =()=>{
 
   //actualizar conexion categorias
   const NavigateCategorias =()=>{
-        navigate('/')
+        navigate('/admin/categorias')
   }
 
 

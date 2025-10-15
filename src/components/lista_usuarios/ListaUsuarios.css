@@ -1,20 +1,17 @@
 
 
 
-table{
+.userTableView{
   border: 1px solid;
   padding: 8px 8px;
   text-align: left;
 
 }
 
-table img{
-width: 20px;
 
-}
-main img{
+.imagenTabla{
   width: 20px;
-
+  width: 20px;
 }
 
 main {
@@ -22,7 +19,7 @@ main {
 }
 
 
-table .Estado{
+.userTableView .Estado{
   color:green;
   
 }

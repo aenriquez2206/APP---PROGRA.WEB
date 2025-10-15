@@ -26,7 +26,7 @@ const DetalleUsuario = () => {
   const ordenesMostradas = ordenes.slice(indicePrimera, indiceUltima); // slice corta el array y devuelve solo las ordenes que deben mostrarse en la página actual
 
   const verDetalle = (id) => {
-    navigate(`/detalle-orden/${id}`);
+    navigate(`/admin/detalle-orden/${id}`);
   };
 
   return (
