@@ -1,5 +1,5 @@
-import Header from '../Header/Header'
-import NavBar from '../NavBar/NavBar'
+import Header from '../header/Header'
+import NavBar from '../navBar/NavBar'
 import "./CheckoutPago2.css"
 import PagCarrito from '../PagCarrito/PagCarrito'
 import { Navigate, useNavigate } from 'react-router-dom';
