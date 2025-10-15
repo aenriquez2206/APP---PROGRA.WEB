@@ -61,7 +61,7 @@ const DashAdmin =()=>{
     
     //ACTUALIZAR EL NAVIGATE USUARIOS
     const handleNavigateUsuarios =()=>{
-        navigate('/')
+        navigate('/admin/users')
     }
 
     const handleNavigateProductos =()=>{

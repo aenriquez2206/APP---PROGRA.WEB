@@ -7,7 +7,7 @@ import DashboardAdmin from './routes/DashboardAdminPage.jsx'
 import ProductosAdminPage from './routes/ProductosAdminPage.jsx'
 import ProdSetAdminPage from './routes/ProdSetAdminPage.jsx'
 import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
-
+import UserAdmin from './routes/UsersAdmin.jsx'
 const router = createBrowserRouter([
 {
   path:"/",
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
 {
   path:"admin/productos/editar",
   element:<ProdEditAdminPage/>  
+},
+{
+  path:"admin/users",
+  element:<UserAdmin/>
 }
 
 ])
