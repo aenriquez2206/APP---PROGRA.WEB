@@ -22,7 +22,7 @@ import OrderAdmin from './routes/OrderAdmin.jsx'
 const router = createBrowserRouter([
 {
   path:"/",
-  element: <App/>
+  element: <PagCarrito/>
 },
 {
   path:"login",

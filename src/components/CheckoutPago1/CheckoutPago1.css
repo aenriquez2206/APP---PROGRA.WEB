@@ -1,0 +1,33 @@
+#Escanear{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 900px;
+    height: 600px;
+}
+
+
+
+#imagen_QR{
+    text-align: center;
+}
+
+#boton_QR{
+    text-align: right;
+}
+
+#QR{
+    width: 450px;
+    height: 450px;
+}
+
+.resumen_info_sin{
+    border: 2px solid #ccc;
+    width: 500px;
+    border-radius: 10px;
+    height: 350px;
+    margin-left: auto;
+    margin-right: 20px;
+
+}
+
