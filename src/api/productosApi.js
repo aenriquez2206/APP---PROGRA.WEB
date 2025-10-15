@@ -1,107 +1,23 @@
 const key ="productos_data"
 
-
 let productos = JSON.parse(localStorage.getItem(key)) || [
-  {
-    id: 1000,
-    img: "/productosAssets/battlefield.jpg",
-    nombre: "Battlefield 2042",
-    presentacion: "digital",
-    descripcion:
-      "Shooter bélico multijugador ambientado en un futuro cercano con mapas enormes y vehículos modernos.",
-    categoria: "videojuegos",
-    stock: 10,
-  },
-  {
-    id: 1001,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "PlayStation 5",
-    presentacion: "físico",
-    descripcion:
-      "Consola de nueva generación con soporte para juegos en 4K, SSD ultrarrápido y mando DualSense.",
-    categoria: "consolas",
-    stock: 5,
-  },
-  {
-    id: 1002,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "Xbox Series X",
-    presentacion: "físico",
-    descripcion:
-      "Consola de alto rendimiento con potencia de 12 teraflops y compatibilidad retroactiva.",
-    categoria: "consolas",
-    stock: 4,
-  },
-  {
-    id: 1003,
-    img: "/productosAssets/battlefield.jpg",
-    nombre: "The Legend of Zelda: Tears of the Kingdom",
-    presentacion: "físico",
-    descripcion:
-      "Aventura épica en el mundo de Hyrule con mecánicas de exploración, construcción y combate.",
-    categoria: "videojuegos",
-    stock: 8,
-  },
-  {
-    id: 1004,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "Nintendo Switch OLED",
-    presentacion: "físico",
-    descripcion:
-      "Versión mejorada de la consola híbrida con pantalla OLED y mejor calidad de audio.",
-    categoria: "consolas",
-    stock: 6,
-  },
-  {
-    id: 1005,
-    img: "/productosAssets/battlefield.jpg",
-    nombre: "God of War Ragnarök",
-    presentacion: "digital",
-    descripcion:
-      "Kratos y Atreus enfrentan el destino mientras los dioses nórdicos preparan el fin del mundo.",
-    categoria: "videojuegos",
-    stock: 12,
-  },
-  {
-    id: 1006,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "DualSense Controller - Cosmic Red",
-    presentacion: "físico",
-    descripcion:
-      "Mando inalámbrico oficial de PS5 con gatillos adaptativos y vibración háptica.",
-    categoria: "coleccionable",
-    stock: 15,
-  },
-  {
-    id: 1007,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "Halo Infinite",
-    presentacion: "digital",
-    descripcion:
-      "El Jefe Maestro regresa en una nueva aventura de mundo semiabierto con combate intenso.",
-    categoria: "videojuegos",
-    stock: 9,
-  },
-  {
-    id: 1008,
-    img: "/productosAssets/ps5.jpg",
-    nombre: "Figura coleccionable de Mario Bros",
-    presentacion: "físico",
-    descripcion:
-      "Figura de colección de alta calidad basada en el personaje icónico de Nintendo.",
-    categoria: "coleccionable",
-    stock: 20,
-  },
-  {
-    id: 1009,
-    img: "/productosAssets/battlefield.jpg",
-    nombre: "Pokémon Scarlet",
-    presentacion: "digital",
-    descripcion:
-      "Nueva entrega de la saga Pokémon con mundo abierto y nuevas criaturas.",
-    categoria: "videojuegos",
-    stock: 11,
-  }
+    { id: 1, stock : 56, nombre: "RDO2 Juego PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "Red Dead Redemption 2 para PS4 es un juego de acción-aventura ambientado en el salvaje oeste en 1899, donde el jugador asume el papel de Arthur Morgan, un forajido de la banda de Van der Linde que lucha por sobrevivir mientras la era de los forajidos llega a su fin. El juego ofrece un mundo abierto detallado y con vida propia, una narrativa épica con dilemas morales, jugabilidad realista con combate, caza y exploración, y un modo multijugador online llamado Red Dead Online."},
+    { id: 2, stock : 3, nombre: "Hollow Knight PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "aventura", descripcion: "Hollow Knight es un videojuego de acción y aventura en 2D de tipo Metroidvania, ambientado en el reino subterráneo de insectos en ruinas Hallownest, donde el jugador controla a un misterioso caballero sin nombre que debe desentrañar los secretos del reino y combatir criaturas corrompidas. El juego destaca por su vasto mundo interconectado, controles 2D precisos, combate desafiante con habilidades evolutivas y la posibilidad de equipar reliquias llamadas amuletos, todo envuelto en un estilo artístico único."},
+    { id: 3, stock : 43, nombre: "Spiderman PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "aventura", descripcion: "Marvel's Spider-Man para PS4 es un videojuego de acción y aventuras en mundo abierto donde controlas a un experimentado Peter Parker como Spider-Man en una Nueva York original y vibrante. El juego destaca por su combate fluido e improvisado, acrobacias dinámicas, recorrido urbano ágil con telarañas, una historia original con personajes icónicos, y la capacidad de interactuar con el entorno para derrotar villanos."},
+    { id: 4, stock : 12, nombre: "Madden 25 PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "deporte", descripcion: "Madden NFL 25 para PS4 ofrece la experiencia de fútbol americano con modo Ultimate Team, modo Franquicia renovado conárboles de habilidades y modo Superestrella para la carrera de un jugador, además de la opción de jugar partidos rápidos. El juego cuenta con mecánicas de física mejoradas en el control del portador del balón y placajes, ofreciendo un mayor realismo y profundidad estratégica. También incluye presentación visual espectacular y funciones de accesibilidad, como la transcripción de chats online y recordatorios de controles."},
+    { id: 5, stock : 56, nombre: "2K25 PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "deporte", descripcion: "NBA 2K25 para PS4 te permite vivir la experiencia del baloncesto profesional compitiendo en varios modos, como Mi CARRERA, donde creas tu jugador para dominar la liga, o MyTEAM, donde coleccionas cartas para formar el equipo de tus sueños. En La W, te conviertes en una estrella de la WNBA, mientras que Mi NBA te permite construir y dirigir tu propia dinastía. La versión de PS4 no incluye el modo La Ciudad/La Isla, característico de las plataformas de nueva generación, pero ofrece el Neighborhood para la experiencia de Mi CARRERA."},
+    { id: 6, stock : 45, nombre: "CALL OF DUTY BOIII PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "Call of Duty: Black Ops III en PS4 es un shooter en primera persona con tres modos de juego: Campaña, Multijugador y Zombies. Ambientado en 2065, introduce un futuro distópico con supersoldados mejorados biotecnológicamente. Los jugadores experimentan combate moderno con mecánicas de parkour, correr por las paredes y un sistema de Especialistas con habilidades únicas."},
+    { id: 7, stock : 23, nombre: "SPIDERMAN MILES PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "aventura", descripcion: "Marvel's Spider-Man: Miles Morales para PS4 es un videojuego de acción y aventura donde Miles Morales, tras el entrenamiento de Peter Parker, debe proteger Nueva York de una corporación y un ejército criminal mientras se convierte en su propia versión de Spider-Man. El juego explora su ascenso como héroe, su dominio de poderes como la bioelectricidad y el camuflaje, y su búsqueda de un sentido de pertenencia en su hogar de Brooklyn."},
+    { id: 8, stock : 65, nombre: "JUMP FORCE PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "lucha", descripcion: "Jump Force para PS4 es un videojuego de lucha en 3D, desarrollado por Spike Chunsoft y publicado por Bandai Namco, que reúne a héroes icónicos de diversas series de manga de la revista Weekly Shonen Jump para combatir una amenaza en el mundo real. Ofrece una jugabilidad en equipos de tres personajes, escenarios realistas y la opción de crear un avatar personalizado para competir en modos online y offline."},
+    { id: 9, stock : 87, nombre: "DEMON SLAYER PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "lucha", descripcion: "Demon Slayer: Kimetsu no Yaiba - The Hinokami Chronicles para PS4 es un juego de lucha en 3D basado en la exitosa serie de anime, donde los jugadores reviven la historia de Tanjiro Kamado y sus esfuerzos para convertir a su hermana Nezuko de nuevo en humana, enfrentándose a demonios en emocionantes batallas. El juego permite a los jugadores experimentar el modo historia de la serie y participar en duelos 1 contra 1 o 2 contra 2, usando las habilidades de una lista de personajes que se expande."},
+    { id: 10, stock : 2, nombre: "2K26 PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "deporte", descripcion: "NBA 2K26 para PS4 se presenta como una entrega que busca revolucionar la experiencia de baloncesto virtual, incorporando la tecnología ProPLAY™ para animaciones más realistas y una jugabilidad mejorada."},
+    { id: 11, stock : 54, nombre: "CRONOS PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "Cronos: The New Dawn es un juego de terror y supervivencia en tercera persona donde juegas como un Viajero que viaja al pasado (Polonia de los 80) desde un futuro postapocalíptico para detener una catástrofe. La trama gira en torno a una epidemia que transformó a la humanidad en monstruos, y tu misión es descubrir el origen del virus y evitar su propagación, enfrentándote a criaturas mutantes y gestionando recursos limitados en un mundo sombrío y retrofuturista."},
+    { id: 12, stock : 67, nombre: "CALL OF DUTY 7 PS4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "Call of Duty: Black Ops 7, que está ambientado en 2035, sigue a David Section Mason mientras lidera un equipo de élite contra un enemigo que busca desestabilizar el orden mundial utilizando el miedo como arma. El juego se basa en los pilares característicos de la serie, combinando una campaña cooperativa, un innovador multijugador con mapas futuristas y el modo Zombis por rondas en el Éter Oscuro."},
+    { id: 13, stock : 12, nombre: "BATTLEFIELD 6", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "La sinopsis de Battlefield 6 (ahora conocido como Battlefield 2042) se desarrolla en un futuro cercano, en el año 2042, donde las principales naciones de la Tierra se han visto forzadas a depender de mercenarios y corporaciones militares privadas como la Pax Armata debido a la escasez de recursos y al cambio climático, lo que desestabiliza el orden mundial y empuja al mundo al borde de una guerra global."},
+    { id: 14, stock : 34, nombre: "BORDERLANDS 4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "En Borderlands 4, eres uno de los cuatro nuevos Buscacámaras que aterrizan en el planeta Kairos, una tierra bajo el yugo del tiránico Guardián del Tiempo. Te unirás a la resistencia local para oponerte a su régimen opresivo, buscando la Bóveda del planeta y enfrentándote a monstruos, bandidos y bestias en un mundo lleno de exploración libre y combate caótico."},
+    { id: 15, stock : 12, nombre: "NINJA 4", presentacion: "digital", categoria: "videojuegos", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "accion", descripcion: "Un joven ninja prodigio llamado Yakumo se enfrenta al resurgimiento del Dragón Oscuro en un Tokio futurista y corrompido, mientras que el legendario Ryu Hayabusa también juega un papel importante"},
+    { id: 20, stock : 3, nombre: "PlayStation 5", presentacion: "digital", categoria: "consolas", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "Hardware", descripcion: "La PlayStation 5 (PS5) es la quinta consola de sobremesa de Sony, destacando por su potencia de procesamiento AMD Zen 2 y GPU RDNA 2, un rápido SSD para tiempos de carga ultrarrápidos, y el revolucionario controlador DualSense con retroalimentación háptica y gatillos adaptativos para una inmersión sin precedentes. También ofrece audio 3D Tempest, retrocompatibilidad con juegos de PS4 y soporte para juegos exclusivos como Demon's Souls y Marvel's Spider-Man: Miles Morales."},
+    { id: 21, stock : 4, nombre: "Xbox Series X", presentacion: "digital", categoria: "consolas", precio: 199.00, img: "/productosAssets/RDR2.jpg", genero: "Hardware", descripcion: "La Xbox Series X es una consola potente y rápida de Microsoft, destacada por su SSD de 1 TB que reduce drásticamente los tiempos de carga, su capacidad para jugar a altas resoluciones y tasas de fotogramas de hasta 120 FPS, el sonido espacial 3D y el sistema Quick Resume que permite cambiar instantáneamente entre múltiples juegos. También incluye retrocompatibilidad con generaciones anteriores, diseño silencioso y eficiente, y la función Smart Delivery."},
 ]
 
 let contador = productos.length;
@@ -137,3 +53,5 @@ const edit = (productoEditado) => {
 
 const productosApi = { insert, get,getProducto,deleteProducto,edit };
 export default productosApi;
+
+

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
 import PagCarrito from './components/PagCarrito/PagCarrito.jsx'
 import Login from './components/login/Login.jsx'
@@ -54,10 +54,9 @@ const router = createBrowserRouter([
   element:<DashboardAdminPage/>
 },
 {
-  path: "/admin/categorias",
-    element: <ListadoCategoriasAdmin/>
-}
-,
+    path: "/categorias/:categoriaNombre",
+    element: <PaginaCatalogo />
+},
 {
   path: "/admin/detalle-usuario",
     element: <DetalleUsuario/>

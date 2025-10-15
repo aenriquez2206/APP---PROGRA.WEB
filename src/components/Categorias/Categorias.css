@@ -1,0 +1,48 @@
+.categorias-seccion {
+    max-width: 1200px;
+    margin: 40px auto; 
+    padding: 0 20px;
+}
+
+#categorias {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.categorias-contenedor {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    position: relative;
+}
+
+.categoria-link {
+    text-decoration: none; 
+    display: block; 
+    height: 100%; 
+    width: 100%;
+    cursor: pointer;
+    position: relative; 
+    z-index: 50;
+}
+
+.flecha-izq, .flecha-der {
+    font-size: 1.8rem;
+    color: #666;
+    cursor: default;
+    padding: 10px;
+    user-select: none;
+    z-index: 1;
+    margin: 0 10px; 
+    pointer-events: none; 
+}
+
+.categorias-contenedor {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0 10px;
+        gap: 15px;
+}
+

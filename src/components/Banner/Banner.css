@@ -1,0 +1,21 @@
+.banner-section {
+  width: 100%;
+  padding: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  gap: 0; 
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.card-right {
+    margin-left: -120px; 
+}
