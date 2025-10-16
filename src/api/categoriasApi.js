@@ -4,7 +4,7 @@ let categorias = JSON.parse(localStorage.getItem(key)) || [
         { id: 2, nombre: "Consolas", img: "/productosAssets/ps5.jpeg", ruta: "consolas",  label: "Consolas"},
         { id: 3, nombre: "Periféricos", img: "/productosAssets/audifonos.webp", ruta: "perifericos", label: "Periféricos" },
         { id: 4, nombre: "Coleccionables", img: "/productosAssets/pokemones.jpg", ruta: "coleccionables", label: "Coleccionables"},
-        { id: 5, nombre: "Membresias", img: "/productosAssets/pokemones.jpg", ruta: "membresias", label: "Merch"},
+        { id: 5, nombre: "Membresias", img: "/productosAssets/pokemones.jpg", ruta: "membresias", label: "Membresias"},
         { id: 6, nombre: "Merch", img: "/productosAssets/pokemones.jpg", ruta: "merch", label: "Merch"},
         { id: 7, nombre: "Componentes-PC", img: "/productosAssets/pokemones.jpg", ruta: "componentes-pc", label: "Componentes PC"},
         { id: 8, nombre: "Juguetes", img: "/productosAssets/pokemones.jpg", ruta: "juguetes", label: "Juguetes"}
