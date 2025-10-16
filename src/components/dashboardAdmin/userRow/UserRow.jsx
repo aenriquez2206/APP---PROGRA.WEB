@@ -34,7 +34,7 @@ const UserRow =({user,OnClick})=>{
             </td>
             <td className="accionesButton">
                 <button className="buttonDesactivar" onClick={()=>handleEstado(user.id)}>{estado ?'Desactivar':'Activar'}</button>
-                <button className="buttonDetalle">Ver detalle</button>
+                <button className="buttonDetalle" onClick={()=>handleNavigateDetalle()}>Ver detalle</button>
             </td>
         </tr>    
         </>

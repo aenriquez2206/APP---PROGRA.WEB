@@ -98,7 +98,7 @@ const SetProdAdmin=()=>{
                                 categorias.map((categoria)=>{
                                     return(
                                         <option value={categoria}>
-                                            {categoria.ruta}
+                                            {categoria}
                                         </option>
                                     )
                                 })
