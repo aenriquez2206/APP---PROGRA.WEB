@@ -67,10 +67,6 @@
     
 }
 
-
-
-
-
 #comprasButton:hover{
    transform: scale(0.95);
 }
@@ -98,4 +94,8 @@
 #usuarioButton:hover{
     transform: scale(0.95);
     background: rgb(208, 208, 208);
+}
+
+.search-container {
+    width: 70%;
 }

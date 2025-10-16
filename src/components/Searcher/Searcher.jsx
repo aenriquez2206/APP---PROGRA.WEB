@@ -1,19 +1,18 @@
 import './Searcher.css'
 
-const Searcher=({valor,render,placeh})=>{
-    return(
-        <>
+const Searcher = ({ value, onChange, placeh }) => {
+    return (
         <div className="searchSection">
-                <input className="search" 
+            <input 
+                className="search" 
                 type="text" 
                 placeholder={placeh}
-                value={valor}
-                onChange={(event)=>render(event.target.value)}></input>
-                <img  src="/itemsAssets/search.png" alt="img"/>
+                value={value}
+                onChange={(event) => onChange(event.target.value)}
+            />
+            <img src="/itemsAssets/search.png" alt="img"/>
         </div>
-        </>
-    )
+    );
 }
 
-
-export default Searcher
+export default Searcher;
