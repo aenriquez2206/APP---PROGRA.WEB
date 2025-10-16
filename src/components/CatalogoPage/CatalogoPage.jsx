@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { get as productosApiGet } from '../../api/productosApi' 
+import productosApi from '../../api/productosApi'
 import ProductoCard from '../ProductoCard/ProductoCard' 
 import MenuLateral from '../MenuLateral/MenuLateral' 
 import Paginacion from '../Paginacion/Paginacion'     
 import Searcher from '../Searcher/Searcher'           
 
 import './CatalogoPage.css'
-
-export const ProductosCompletos = productosApiGet(); 
+ 
 const ProductosxPagina = 12;
 
 const CatalogoPage = () => {
+    const ProductosCompletos = productosApi.get()
+
     const { categoriaNombre } = useParams();
     
     const [paginaActual, setPaginaActual] = useState(1);

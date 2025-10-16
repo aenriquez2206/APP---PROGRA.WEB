@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ProductoCard from '../ProductoCard/ProductoCard'
-import { get as productosApiGet } from '../../api/productosApi'
+import productosApi from '../../api/productosApi'
 import './MasVendido.css'
 
-const ProductosCompletos = productosApiGet();
-
 const MasVendido = () => {
+    const ProductosCompletos = productosApi.get()
+
     const productosOrdenadosPorStock = ProductosCompletos
         .slice() 
         .sort((a, b) => b.stock - a.stock)

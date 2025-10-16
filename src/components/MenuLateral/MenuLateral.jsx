@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import './MenuLateral.css'
 
 const categorias = [
-    { name: "videojuegos", label: "Videojuegos" },
-    { name: "consolas", label: "Consolas" },
-    { name: "perifericos", label: "Periféricos" },
-    { name: "coleccionables", label: "Coleccionables" },
-    { name: "membresias", label: "Membresías" },
-    { name: "merch", label: "Merch" },
-    { name: "componentes-pc", label: "Componentes PC" },
-    { name: "juguetes", label: "Juguetes" }
+    { nombre: "videojuegos", label: "Videojuegos" },
+    { nombre: "consolas", label: "Consolas" },
+    { nombre: "perifericos", label: "Periféricos" },
+    { nombre: "coleccionables", label: "Coleccionables" },
+    { nombre: "membresias", label: "Membresías" },
+    { nombre: "merch", label: "Merch" },
+    { nombre: "componentes-pc", label: "Componentes PC" },
+    { nombre: "juguetes", label: "Juguetes" }
 ];
 
 const MenuLateral = ({ activeCategory }) => {
@@ -27,10 +27,10 @@ const MenuLateral = ({ activeCategory }) => {
                     </Link>
                 </li>
                 {categorias.map(cat => (
-                    <li key={cat.name} className="menu-item">
+                    <li key={cat.nombre} className="menu-item">
                         <Link 
-                            to={`/categorias/${cat.name}`}
-                            className={`menu-link ${activeCategory === cat.name ? 'activo' : ''}`}
+                            to={`/categorias/${cat.nombre}`}
+                            className={`menu-link ${activeCategory === cat.nombre ? 'activo' : ''}`}
                         >
                             {cat.label}
                         </Link>

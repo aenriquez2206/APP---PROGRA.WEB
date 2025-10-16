@@ -19,10 +19,17 @@ import ProdSetAdminPage from './routes/ProdSetAdminPage.jsx'
 import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 import UserAdmin from './routes/UsersAdmin.jsx'
 import OrderAdmin from './routes/OrderAdmin.jsx'
+import PaginaCatalogo from './routes/PaginaCatalogo.jsx'
+import PaginaDetalleProducto from './routes/PaginaDetalleProducto.jsx'
+import PaginaPrincipal from './routes/PaginaPrincipal.jsx'
 
 const router = createBrowserRouter([
 {
   path:"/",
+  element: <PaginaPrincipal/>
+},
+{
+  path:"/carrito",
   element: <PagCarrito/>
 },
 {
@@ -53,9 +60,17 @@ const router = createBrowserRouter([
   path:"admin",
   element:<DashboardAdminPage/>
 },
+{   
+path: "/catalogo",
+    element: <PaginaCatalogo />
+},
 {
     path: "/categorias/:categoriaNombre",
     element: <PaginaCatalogo />
+},
+{
+    path: "/producto/:id",
+    element: <PaginaDetalleProducto />
 },
 {
   path: "/admin/detalle-usuario",

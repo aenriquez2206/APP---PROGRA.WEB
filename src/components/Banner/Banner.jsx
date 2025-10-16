@@ -1,6 +1,6 @@
 import './Banner.css'
-import hell from '../../assets/hell.jpeg'
-import dying from '../../assets/dying.jpg'
+import hell from '/productosAssets/hell.jpeg'
+import dying from '/productosAssets/dying.jpg'
 import Card from '../Card/Card'
 
 const Banner = () => {
