@@ -3,26 +3,21 @@ import { useParams, Link } from 'react-router-dom'
 import productosApi from '../../api/productosApi'
 import ProductoCard from '../ProductoCard/ProductoCard' 
 import MenuLateral from '../MenuLateral/MenuLateral' 
-import Paginacion from '../Paginacion/Paginacion'     
-import Searcher from '../Searcher/Searcher'           
+import Paginacion from '../Paginacion/Paginacion'
 
 import './CatalogoPage.css'
- 
+
 const ProductosxPagina = 12;
 
 const CatalogoPage = () => {
     const ProductosCompletos = productosApi.get()
-
     const { categoriaNombre } = useParams();
-    
     const [paginaActual, setPaginaActual] = useState(1);
-    const [textoBusqueda, setTextoBusqueda] = useState('');
     
     const [productosMostrados, setProductosMostrados] = useState(ProductosCompletos);
 
     useEffect(() => {
         setPaginaActual(1);
-        setTextoBusqueda(''); 
     }, [categoriaNombre]);
 
     useEffect(() => {
@@ -34,19 +29,9 @@ const CatalogoPage = () => {
                 producto.categoria.toLowerCase() === categoriaBuscada
             );
         }
-
-        if (textoBusqueda) {
-            const textoLimpio = textoBusqueda.toLowerCase();
-            productosFiltrados = productosFiltrados.filter(producto => 
-                producto.nombre.toLowerCase().includes(textoLimpio) ||
-                (producto.descripcion && producto.descripcion.toLowerCase().includes(textoLimpio)) || 
-                producto.categoria.toLowerCase().includes(textoLimpio)
-            );
-        }
-
         setProductosMostrados(productosFiltrados);
         setPaginaActual(1);
-    }, [categoriaNombre, textoBusqueda]);
+    }, [categoriaNombre]);
     
     const totalProductos = productosMostrados.length;
     const totalPaginas = Math.ceil(totalProductos / ProductosxPagina);
@@ -54,13 +39,6 @@ const CatalogoPage = () => {
     const indiceFin = indiceInicio + ProductosxPagina;
     const productosPagina = productosMostrados.slice(indiceInicio, indiceFin);
 
-    let tituloCategoria;
-    if (categoriaNombre) {
-        const leido = categoriaNombre.replace(/-/g, ' ');
-        tituloCategoria = leido.charAt(0).toUpperCase() + leido.slice(1);
-    } else {
-        tituloCategoria = 'Catálogo Completo';
-    }
     
     return (
         <div className="catalogo-layout">
@@ -69,13 +47,7 @@ const CatalogoPage = () => {
                     <MenuLateral activeCategory={categoriaNombre} />
                 </div>
                 <div className="productos-area">
-                    <div className="catalogo-buscador">
-                        <h2>{tituloCategoria}</h2>
-                        <Searcher
-                            valor={textoBusqueda}
-                            render={(value) => setTextoBusqueda(value)} 
-                        />
-                    </div>
+
                     
                     <div className="productos-grid">
                         {productosPagina.length > 0 ? (

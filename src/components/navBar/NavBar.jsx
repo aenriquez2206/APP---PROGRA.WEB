@@ -14,12 +14,12 @@ const NavBar =()=>{
                         Categoría
                         </button>
                     </li>
-                    <li> <button class='boton_NavBar'>Productos</button></li>
-                    <li> <button class='boton_NavBar'>Nosotros</button></li>
+                    <li> <button class='boton_NavBar' onClick={() => navigate('/')}>Productos</button></li>
+                    <li> <button class='boton_NavBar' onClick={() => navigate('/')}>Nosotros</button></li>
                 </ul>
             </nav>
             <div id="ofertas">
-                <button class='boton_NavBar'>OFERTAS 👋</button>
+                <button class='boton_NavBar' onClick={() => navigate('/')}>OFERTAS 👋</button>
                  
             </div>
         </section>

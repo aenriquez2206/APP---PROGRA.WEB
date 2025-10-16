@@ -1,7 +1,5 @@
 import './Searcher.css'
 
-
-
 const Searcher=({valor,render,placeh})=>{
     return(
         <>
