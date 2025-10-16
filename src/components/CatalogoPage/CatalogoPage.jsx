@@ -38,7 +38,6 @@ const CatalogoPage = () => {
     const indiceInicio = (paginaActual - 1) * ProductosxPagina;
     const indiceFin = indiceInicio + ProductosxPagina;
     const productosPagina = productosMostrados.slice(indiceInicio, indiceFin);
-
     
     return (
         <div className="catalogo-layout">
