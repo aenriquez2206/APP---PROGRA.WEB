@@ -33,9 +33,8 @@ const UserRow =({user,OnClick})=>{
                 </div>
             </td>
             <td className="accionesButton">
-                <button className="buttonDesactivar" onClick={()=>handleEstado(user.id)}>{estado ?'Activar':'Desactivar'}</button>
-                <button className="buttonDetalle"
-                onClick={()=>handleNavigateDetalle()}>Ver detalle</button>
+                <button className="buttonDesactivar" onClick={()=>handleEstado(user.id)}>{estado ?'Desactivar':'Activar'}</button>
+                <button className="buttonDetalle">Ver detalle</button>
             </td>
         </tr>    
         </>

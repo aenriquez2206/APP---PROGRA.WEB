@@ -11,6 +11,11 @@
 }
 
 
+.descripcionProd{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .botonListadoProductosAdmin{
     width: calc(10%);

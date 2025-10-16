@@ -127,6 +127,9 @@ path: "/catalogo",
 {
   path:"admin/orders",
   element:<OrderAdmin/>
+},{
+  path:"/admin/categorias",
+  element:<ListadoCategoriasAdmin/>
 }
 ])
 

@@ -21,6 +21,22 @@
   cursor: pointer;
 }
 
+.mainOrdersAdmin .buscarO{
+  background-color: rgb(58,164,35);
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainOrdersAdmin section{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+
 .mainOrdersAdmin .BuscadorU{
   display: flex;
   text-align: center;
@@ -50,6 +66,5 @@
   color: green;
 
 }
-
 
 
