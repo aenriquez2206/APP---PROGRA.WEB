@@ -32,7 +32,7 @@ const DashAdmin =()=>{
     const [usuariosPagina, setUsuariosPagina] = useState([]);
     const [userDetail, setUserDetail] = useState(user1)
     const pedidos = pedidosApi.get();
-
+    const [recargar,SetRecarga] = useState(false);
 
     //paginacion usuarios
     const totalUsuarios = usuariosApi.get().length;
@@ -81,8 +81,11 @@ const DashAdmin =()=>{
     useEffect(() => {
         const usersInit = usuariosApi.get();
         setUsuarios(usersInit);
-    },[]);
+    },[recargar]);
 
+    const handleRecargaUsuarios = () => {
+        setRecargar(prev => !prev); 
+    }
  
     
 
@@ -126,7 +129,8 @@ const DashAdmin =()=>{
                             {
                                 usuariosActuales.map((usuario)=>{
                                     return(
-                                        <UserRow user={usuario} OnClick={handleUserDetail}/>
+                                        <UserRow user={usuario} OnClick={handleUserDetail}
+                                        />
                                     )
                                 })
                             }
