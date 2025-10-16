@@ -18,21 +18,19 @@ const ListaO = () => {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = () => {
-    const ordenesFiltrados = ordenesDefault .filter((item) =>
-      item.id.toLowerCase().includes(textoBusqueda.toLowerCase())
-    );
-    setOrdenes(ordenesFiltrados);
+    if (textoBusqueda === '') return setOrdenes(ordenesDefault);
+    const id = textoBusqueda;
+    setOrdenes(ordenesDefault.filter(o => o.id === id));
   };
-
 
   return (
     <main className='mainOrdersAdmin' > 
       <h1>Listado de órdenes</h1>
 
-        <section className="BuscadorU">
-            <div className="Busuario">
+        <section className="BuscadorO">
+            <div>
             <input 
-                id="bUsuario" 
+                id="bOrden" 
                 type="text" 
                 placeholder="Buscar una orden"
                 value={textoBusqueda}
@@ -40,7 +38,7 @@ const ListaO = () => {
                 >
             </input>
             </div>
-            <button onClick={()=>handleBuscar()}>Buscar</button>
+            <button className='buscarO' onClick={handleBuscar}>Buscar</button>
         </section>
         <br />
 
