@@ -1,45 +1,28 @@
 import './Banner.css'
-import hell from '/productosAssets/hell.jpeg'
-import dying from '/productosAssets/dying.jpg'
+import productosApi from '../../api/productosApi'
 import Card from '../Card/Card'
 
 const Banner = () => {
 
-  const destacados = [
-    {
-      id: 1,
-      titulo: "Hell is Us | Deluxe Edition (PC)",
-      plataforma: "Steam Key - GLOBAL",
-      precio: 69.99,
-      descuento: 37,
-      img: hell
-    },
-    {
-      id: 2,
-      titulo: "Dying Light: The Beast (PC)",
-      plataforma: "Steam Account - GLOBAL",
-      precio: 29.99,
-      descuento: 50,
-      img: dying
-    }
-  ]
+  const todosLosProductos = productosApi.get() 
+  const productosDestacados = todosLosProductos.slice(0, 2)
 
   return (
     <div>
       <div className="banner-section">
-      <div className="banner-container">
-        {destacados.map((item) => (
-          <Card
-            key={item.id}
-            titulo={item.titulo}
-            plataforma={item.plataforma}
-            precio={item.precio}
-            descuento={item.descuento}
-            img={item.img}
-          />
-        ))}
+        <div className="banner-container">
+          {productosDestacados.map((item) => (
+            <Card
+              key={item.id}
+              titulo={item.nombre}
+              plataforma={item.presentacion} 
+              precio={item.precio}
+              descuento={item.descuento}
+              img={item.img}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   )
 }
