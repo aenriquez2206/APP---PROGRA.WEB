@@ -7,7 +7,7 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+.detalle-usuario-container  h2 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
@@ -50,19 +50,19 @@ h2 {
     margin-bottom: 10px;
 }
 
-table {
+.ordenes-section  table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-th, td {
+.ordenes-section  th, td {
     text-align: left;
     padding: 10px 12px;
     border-bottom: 1px solid #ddd;
 }
 
-th {
+.ordenes-section th {
     font-weight: 600;
 }
 

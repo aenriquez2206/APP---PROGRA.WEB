@@ -1,12 +1,12 @@
 import './header.css'
 import Searcher from '../Searcher/Searcher'
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useCart } from '../PagCarrito/CartContext';
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useCart } from '../PagCarrito/CartContext'
 
 
 const Header = ()=>{
     const navigate = useNavigate();
-    const { getTotalPrice } = useCart(); // accedes al total del carrito
+    const { getTotalPrice } = useCart();
     const precioTotal = getTotalPrice();
 
     return(
@@ -18,7 +18,7 @@ const Header = ()=>{
                         <h1>.</h1>
                     </span>
             </div>
-            <Searcher/>
+            <Searcher placeh ="Buscar un producto"/>
             <button id="comprasButton" onClick={() => navigate('/carrito')} >
                 <img class="img_header" src="/productosAssets/carritosinfondo.png" alt="img"/>
                 <div class="boton_text">

@@ -2,17 +2,29 @@
 
 
 .userTableView{
-  border: 1px solid;
-  padding: 8px 8px;
-  text-align: left;
-
+     border: 1px solid  rgb(191, 191, 191) ;
+    border-radius: 0.5cap;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: calc(100%);
+    text-align: left;
+    margin-top: 10px;
+    table-layout: fixed;
 }
-
+.userTableView tr,th,td{
+    padding: 10px;
+}
+.userTableView th,td{
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+.userTableView tbody tr:hover {
+    background-color: rgb(229, 227, 227);
+}
 
 .imagenTabla{
   width: 20px;
   width: 20px;
-}
+} 
 
 .mainListaUsuarios {
     padding: 10px 30px;

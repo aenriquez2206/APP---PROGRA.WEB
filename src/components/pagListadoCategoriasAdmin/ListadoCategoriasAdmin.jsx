@@ -87,7 +87,7 @@ const ListadoCategoriasAdmin = () => {
       </div>
 
       <div className="tabla-container">
-        <table>
+        <table className="tableCategoriesAdmin"> 
           <thead>
             <tr>
               <th>Nombre</th>

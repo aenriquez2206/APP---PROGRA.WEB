@@ -4,27 +4,22 @@ import Card from '../Card/Card'
 
 const Banner = () => {
 
-  const todosLosProductos = productosApi.get() 
-  const productosDestacados = todosLosProductos.slice(0, 2)
+    const todosLosProductos = productosApi.get() 
 
-  return (
-    <div>
-      <div className="banner-section">
-        <div className="banner-container">
-          {productosDestacados.map((item) => (
-            <Card
-              key={item.id}
-              titulo={item.nombre}
-              plataforma={item.presentacion} 
-              precio={item.precio}
-              descuento={item.descuento}
-              img={item.img}
-            />
-          ))}
+    return (
+        <div>
+            <div className="banner-section">
+                <div className="banner-container">
+                    {todosLosProductos.slice(0,2).map((item) => (
+                        <Card
+                            key={item.id}
+                            producto={item} 
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default Banner

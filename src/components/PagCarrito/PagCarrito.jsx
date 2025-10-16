@@ -24,7 +24,7 @@ function PagCarrito() {
     <>
       <Header/>
       <NavBar/>
-      <main>
+      <main className='mainCarrito'>
       <div class='carrito_headers'>
         <h1>Carro</h1>
         <p id='cantidad'>({n_productos} productos)</p>
