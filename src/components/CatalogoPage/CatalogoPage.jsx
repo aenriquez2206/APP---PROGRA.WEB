@@ -1,24 +1,28 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import productosApi from '../../api/productosApi'
 import ProductoCard from '../ProductoCard/ProductoCard' 
 import MenuLateral from '../MenuLateral/MenuLateral' 
-import Paginacion from '../Paginacion/Paginacion'
+import Paginacion from '../Paginacion/Paginacion' 
 
 import './CatalogoPage.css'
 
 const ProductosxPagina = 12;
 
 const CatalogoPage = () => {
-    const ProductosCompletos = productosApi.get()
-    const { categoriaNombre } = useParams();
-    const [paginaActual, setPaginaActual] = useState(1);
+    const ProductosCompletos = productosApi.get();
+    const { categoriaNombre } = useParams()
+    const location = useLocation()
     
-    const [productosMostrados, setProductosMostrados] = useState(ProductosCompletos);
+    const [paginaActual, setPaginaActual] = useState(1)
+    const [productosMostrados, setProductosMostrados] = useState(ProductosCompletos)
+
+    const queryParams = new URLSearchParams(location.search)
+    const textoBusqueda = queryParams.get('search') || ''
 
     useEffect(() => {
         setPaginaActual(1);
-    }, [categoriaNombre]);
+    }, [categoriaNombre, textoBusqueda]);
 
     useEffect(() => {
         let productosFiltrados = ProductosCompletos;
@@ -29,15 +33,35 @@ const CatalogoPage = () => {
                 producto.categoria.toLowerCase() === categoriaBuscada
             );
         }
+        if (textoBusqueda) {
+            const textoLimpio = textoBusqueda.toLowerCase();
+            productosFiltrados = productosFiltrados.filter(producto => 
+                producto.nombre.toLowerCase().includes(textoLimpio) ||
+                (producto.descripcion && producto.descripcion.toLowerCase().includes(textoLimpio)) || 
+                producto.categoria.toLowerCase().includes(textoLimpio)
+            );
+        }
+
         setProductosMostrados(productosFiltrados);
         setPaginaActual(1);
-    }, [categoriaNombre]);
+    }, [categoriaNombre, textoBusqueda]);
     
     const totalProductos = productosMostrados.length;
     const totalPaginas = Math.ceil(totalProductos / ProductosxPagina);
     const indiceInicio = (paginaActual - 1) * ProductosxPagina;
     const indiceFin = indiceInicio + ProductosxPagina;
     const productosPagina = productosMostrados.slice(indiceInicio, indiceFin);
+
+    let tituloCategoria;
+    if (categoriaNombre) {
+        const leido = categoriaNombre.replace(/-/g, ' ');
+        tituloCategoria = leido.charAt(0).toUpperCase() + leido.slice(1);
+    } else if (textoBusqueda) {
+        tituloCategoria = `Resultados para: "${textoBusqueda}"`;
+    } 
+    else {
+        tituloCategoria = 'Catálogo Completo';
+    }
     
     return (
         <div className="catalogo-layout">
@@ -46,7 +70,9 @@ const CatalogoPage = () => {
                     <MenuLateral activeCategory={categoriaNombre} />
                 </div>
                 <div className="productos-area">
-
+                    <div className="catalogo-header">
+                        <h2 className="catalogo-titulo">{tituloCategoria}</h2>
+                    </div>
                     
                     <div className="productos-grid">
                         {productosPagina.length > 0 ? (
