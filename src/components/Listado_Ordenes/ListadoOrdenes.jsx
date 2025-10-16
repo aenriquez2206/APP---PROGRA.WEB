@@ -24,21 +24,21 @@ const ListaO = () => {
   };
 
   return (
-    <main className='mainOrdersAdmin' > 
-      <h1>Listado de órdenes</h1>
+    <main className='mainOrdersAdmin' >
 
         <section className="BuscadorO">
             <div>
+              <h2>Tus órdenes</h2>
             <input 
                 id="bOrden" 
                 type="text" 
-                placeholder="Buscar una orden"
+                placeholder="Buscar una órden"
                 value={textoBusqueda}
                 onChange={(e) => setTextoBusqueda(e.target.value)}
                 >
             </input>
-            </div>
             <button className='buscarO' onClick={handleBuscar}>Buscar</button>
+            </div>
         </section>
         <br />
 

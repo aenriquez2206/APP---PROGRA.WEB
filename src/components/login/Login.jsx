@@ -22,9 +22,10 @@ function Login(){
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (email.trim() == 'admin@gameplay.com' && password.trim() == 'admin') {
+    if (email.trim() == 'admin@gameplay.com' && password == 'admin') {
       navigate('/admin');
     }
+    else{navigate('/misordenes')}
   };
 
     return(
