@@ -11,7 +11,7 @@ const Header = ()=>{
                         <h1>.</h1>
                     </span>
             </div>
-            <Searcher/>
+            <Searcher placeh="Buscar un producto"/>
             <button id="comprasButton" >
                 <img src="" alt="img"/>
                 <div>
