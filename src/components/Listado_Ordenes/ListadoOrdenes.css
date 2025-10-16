@@ -55,17 +55,10 @@
   margin-left: 20px;
 }
 
-.mainOrdersAdmin section{
+.mainOrdersAdmin .BuscadorO{
   display: flex;
   gap: 15px;
-  align-items: center;
-}
-
-
-.mainOrdersAdmin .BuscadorU{
-  display: flex;
   text-align: center;
-  gap: 5px;
 }
 
 .mainOrdersAdmin .tableOrdersAdmin td{
@@ -76,6 +69,12 @@
   text-align: center;
 
 }
+
+.mainOrdersAdmin .tableOrdersAdmin tbody td{
+  text-align: center;
+
+}
+
 
 .mainOrdersAdmin .tableOrdersAdmin .estado_rojo{
   color:red

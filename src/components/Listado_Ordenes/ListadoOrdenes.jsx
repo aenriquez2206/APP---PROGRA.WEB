@@ -18,17 +18,18 @@ const ListaO = () => {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = () => {
-    if (textoBusqueda === '') return setOrdenes(ordenesDefault);
-    const id = textoBusqueda;
-    setOrdenes(ordenesDefault.filter(o => o.id === id));
-  };
+  if (textoBusqueda === '') {
+    return setOrdenes(ordenesDefault);
+  }
 
+  setOrdenes(ordenesDefault.filter(o => o.id == textoBusqueda));
+};
   return (
     <main className='mainOrdersAdmin' >
-
+        <h2>Tus órdenes</h2>
         <section className="BuscadorO">
             <div>
-              <h2>Tus órdenes</h2>
+              
             <input 
                 id="bOrden" 
                 type="text" 
