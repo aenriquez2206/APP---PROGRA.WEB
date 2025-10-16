@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 const EditProdAdmin=()=>{
     
     const location = useLocation();
-    const productoDefault = location.state?.producto;
+    const productoDefault = location.state.producto;
 
     const categorias = categoriasApi.get()
     const [producto,setProducto] =useState(productoDefault)
@@ -96,8 +96,8 @@ const EditProdAdmin=()=>{
                             {
                                 categorias.map((categoria)=>{
                                     return(
-                                        <option value={categoria}>
-                                            {categoria}
+                                        <option value={categoria.nombre}>
+                                            {categoria.nombre}
                                         </option>
                                     )
                                 })
