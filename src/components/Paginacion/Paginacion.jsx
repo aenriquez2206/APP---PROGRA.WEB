@@ -16,7 +16,7 @@ const Paginacion = ({totalPaginas, paginaActual, setPaginaActual}) => {
                 onClick={() => handlePageChange(paginaActual - 1)}
                 disabled={paginaActual===1}
             >
-                
+                <h3 className = "flecha-izq">{'<'}</h3>
             </button>
 
             {pages.map(page => (
@@ -34,6 +34,7 @@ const Paginacion = ({totalPaginas, paginaActual, setPaginaActual}) => {
                 onClick={() => handlePageChange(paginaActual + 1)}
                 disabled={paginaActual === totalPaginas}
             >
+                <h3 className = "flecha-der">{'>'}</h3>
             </button>
         </div>
     );

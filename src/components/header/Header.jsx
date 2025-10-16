@@ -1,12 +1,12 @@
 import './header.css'
 import Searcher from '../Searcher/Searcher'
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useCart } from '../PagCarrito/CartContext';
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useCart } from '../PagCarrito/CartContext'
 
 
 const Header = ()=>{
     const navigate = useNavigate();
-    const { getTotalPrice } = useCart(); // accedes al total del carrito
+    const { getTotalPrice } = useCart();
     const precioTotal = getTotalPrice();
 
     return(
