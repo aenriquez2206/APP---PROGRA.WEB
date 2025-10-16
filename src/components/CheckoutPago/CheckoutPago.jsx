@@ -60,7 +60,7 @@ function CheckoutPago() {
     <>
       <Header/>
       <NavBar/>
-      <main>
+      <main class='main_carrito'>
         <h1><u>Checkout</u></h1>
         <div class='checkout_headers'>
             <h3>Método de pago</h3>

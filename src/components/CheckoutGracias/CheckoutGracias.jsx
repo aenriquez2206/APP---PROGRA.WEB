@@ -47,7 +47,7 @@ function CheckoutGracias() {
     <>
       <Header/>
       <NavBar/>
-      <main>
+      <main class='main_carrito'>
         <h1>Orden completada 😃</h1>
         <p>¡Gracias por tu compra!</p>
         <div>
