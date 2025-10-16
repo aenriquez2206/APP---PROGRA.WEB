@@ -4,9 +4,15 @@
     align-items: baseline;
 }
 
+.main_carrito{
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
 .div1{
     display: flex;
     gap: 90px;
+
 }
 
 .div2{
