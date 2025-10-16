@@ -128,7 +128,7 @@ const ProductosAdmin =()=>{
                                     <td>#{item.id}</td>
                                     <td>{item.nombre}</td>
                                     <td>{item.presentacion}</td>
-                                    <td title={item.descripcion}>{item.descripcion}</td>
+                                    <td className="descripcionProd" title={item.descripcion}>{item.descripcion}</td>
                                     <td><strong>{item.categoria}</strong></td>
                                     <td>{item.stock}</td>
                                     <td >
