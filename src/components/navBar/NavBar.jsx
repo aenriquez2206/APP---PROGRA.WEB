@@ -1,22 +1,26 @@
 import './NavBar.css'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const NavBar =()=>{
+    const navigate = useNavigate();
     return(
         <>
         <section id="navBarSection">
             <nav>
                 <ul>
                     <li>
-                        <img id="imgCat" src='' alt='cat'/>
-                        <p>categoria</p>
+                        <button class='boton_NavBar' onClick={() => navigate('/catalogo')}>
+                        <img id="imgCat" src='/itemsAssets/list.png' alt='cat'/>
+                        Categoría
+                        </button>
                     </li>
-                    <li>Productos</li>
-                    <li>Nosotros</li>
+                    <li> <button class='boton_NavBar'>Productos</button></li>
+                    <li> <button class='boton_NavBar'>Nosotros</button></li>
                 </ul>
             </nav>
             <div id="ofertas">
-                <p>OFERTAS</p>
-                 <img id="imgOfertas" src='' alt='ofer'/>
+                <button class='boton_NavBar'>OFERTAS 👋</button>
+                 
             </div>
         </section>
         

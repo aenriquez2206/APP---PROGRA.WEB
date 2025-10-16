@@ -26,10 +26,10 @@
     
 }
 
-/* Sombreado al pasar el mouse */
+
 .opcion:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
-  background-color: #f0f0f0; /* opcional: cambia color de fondo */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #f0f0f0; 
 }
 
 .circuloSeleccion{

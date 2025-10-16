@@ -1,4 +1,4 @@
-import Header from "../components/Header/Header"
+import Header from "../components/header/Header"
 import NavBar from "../components/navBar/NavBar"
 import DetalleProductoPage from "../components/DetalleProductoPage/DetalleProductoPage"
 

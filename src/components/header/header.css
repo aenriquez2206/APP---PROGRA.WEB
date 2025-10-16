@@ -15,6 +15,14 @@
     text-align: center;
 }
 
+#botonInicio{
+    border: 0;
+    font-size: 35px;
+    font-weight: 1000;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
 #dotLogo{ 
     text-align: center;
     align-items: center;
@@ -24,7 +32,23 @@
     color:rgb(58,164,35);    
 }
 
+.img_header{
+    height: 30px;
+    width: 30px;
+    padding-right: 15px;
+}
 
+.boton_text p{
+    padding-top: 0 ;
+    padding-bottom: 0 ;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
+#precio_soles{
+    display: flex;
+}
 
 #comprasButton{
     font-family: "Montserrat","sans-serif";
@@ -42,6 +66,8 @@
     margin-right: 20px;
     
 }
+
+
 
 
 

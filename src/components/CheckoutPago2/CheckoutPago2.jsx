@@ -2,12 +2,23 @@ import Header from '../header/Header'
 import NavBar from '../navBar/NavBar'
 import "./CheckoutPago2.css"
 import PagCarrito from '../PagCarrito/PagCarrito'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {useState} from 'react';
+import { useCart } from '../PagCarrito/CartContext';
 import {useEffect} from 'react';
 
 function CheckoutPago2() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const {
+      nombre,
+      apellido,
+      ciudad,
+      departamento,
+      direccion,
+      codigoP,
+      telefono
+    } = location.state || {};
 
     const [tarjeta, setTarjeta] = useState("");
     const [fecha, setFecha] = useState("");
@@ -29,6 +40,17 @@ function CheckoutPago2() {
         setCVV(value);
     };    
 
+    const {
+      getTotalPrice,
+      getTotalQuantity,
+    } = useCart();
+    const n_productos = getTotalQuantity();
+    const precio_productos = getTotalPrice();
+    const p_delivery = precio_productos > 100 ? 0 : precio_productos * 0.2;
+    const delivery = precio_productos > 100 ? 'GRATIS' : `S/. ${p_delivery.toFixed(2)}`;
+    const descuentos = 0.1*precio_productos;
+    const total = precio_productos + p_delivery - descuentos;
+
     return (
     <>
       <Header/>
@@ -44,7 +66,7 @@ function CheckoutPago2() {
             <div id='Tarjeta_datos'>
             
             <div class="imagen_Tarjeta">
-               <img id='Tarjeta' src="src/components/imagenes/TarjetaEjemplo.jpg" alt="Tarjeta"/>
+               <img id='Tarjeta' src="/itemsAssets/TarjetaEjemplo.jpg" alt="Tarjeta"/>
                  
             </div>
             <div class='div11'>
@@ -66,32 +88,37 @@ function CheckoutPago2() {
                 </div>
             </div>
 
-
-
             <div class="imagen_Tarjeta">
-               <button id='boton3' onClick={() => navigate('/OrdenCompletada')}>Pagar</button>
+               <button id='boton3' onClick={() => navigate('/carrito/compraexitosa', {
+                  state: {
+                    nombre,
+                    apellido,
+                    ciudad,
+                    departamento,
+                    direccion,
+                    codigoP,
+                    telefono
+                  }})}>Pagar</button>
                  
             </div>
             </div>
-
-
             <div class='resumen_info_sin'>
           <div class='contenido'>
-            <p>Productos ({PagCarrito.n_productos})</p>
-            <p class='precios'>S/. {PagCarrito.precio_productos}</p>
+            <p>Productos ({n_productos})</p>
+            <p class='precios'>S/. {precio_productos.toFixed(2)}</p>
           </div>
           <div class='contenido'>
             <p>Delivery</p>
-            <p class='precios'>{PagCarrito.delivery}</p>
+            <p class='precios'>{delivery}</p>
           </div>
           <div class='contenido'>
             <p>Descuentos</p>
-            <p class='precios'>-S/. {PagCarrito.descuentos}</p>
+            <p class='precios_desc'>-S/. {descuentos.toFixed(2)}</p>
           </div>
           <hr/>
           <div class='contenido'>
             <p><b>Total</b></p>
-            <p class='precios'>S/. {PagCarrito.total}</p>
+            <p class='precios'>S/. {total.toFixed(2)}</p>
           </div>
           
         </div>

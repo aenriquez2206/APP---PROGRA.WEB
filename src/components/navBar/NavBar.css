@@ -1,9 +1,8 @@
 #navBarSection{
     background-color: rgb(58,164,35);
-    padding: 5px;
+    padding: 5px 20px;
     display: flex;
     justify-content: space-between;
-    text-align: center;
     align-items: center;
     height: 50px;
     color:white;
@@ -12,16 +11,19 @@
 nav ul{
     display: flex;
     list-style-type: none;
+    
 }
+
+
+
 ul li{
     margin-right: 50px;
     display: flex;
     align-items: center;
-    text-align: space-between;
 }
 
 #imgCat{
-    margin-right: 10px;
+    padding-right: -20px;
 }
 
 #ofertas{
@@ -31,4 +33,19 @@ ul li{
 }
 #imgOfertas{
     margin-left: 20px;
+}
+
+.boton_NavBar{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: white;
+    height: 50px;
+    width: 110px;
+    cursor: pointer;
+    background-color: rgb(58,164,35);
+    border: none;
+    padding: 0 10px; 
+    font-size: 18px;
 }

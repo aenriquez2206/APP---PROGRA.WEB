@@ -54,6 +54,15 @@
     
 }
 #boton2:hover {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
-  background-color: #0fc036; /* opcional: cambia color de fondo */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+  background-color: #0fc036; 
+}
+
+.resumen_info2{
+    border: 2px solid #ccc;
+    width: 500px;
+    border-radius: 10px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: 20px;
 }

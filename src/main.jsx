@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider} from 'react-router-dom'
 import './index.css'
 import PagCarrito from './components/PagCarrito/PagCarrito.jsx'
+import PagCheckout from './components/PagCheckout/PagCheckout.jsx'
 import Login from './components/login/Login.jsx'
 import Register from './components/register/Register.jsx'
 import Forgot from './components/forgot/Forgot.jsx'
@@ -22,6 +23,11 @@ import OrderAdmin from './routes/OrderAdmin.jsx'
 import PaginaCatalogo from './routes/PaginaCatalogo.jsx'
 import PaginaDetalleProducto from './routes/PaginaDetalleProducto.jsx'
 import PaginaPrincipal from './routes/PaginaPrincipal.jsx'
+import CheckoutPago from './components/CheckoutPago/CheckoutPago.jsx'
+import CheckoutPago1 from './components/CheckoutPago1/CheckoutPago1.jsx'
+import CheckoutPago2 from './components/CheckoutPago2/CheckoutPago2.jsx'
+import CheckoutGracias from './components/CheckoutGracias/CheckoutGracias.jsx'
+import { CartProvider } from "./components/PagCarrito/CartContext.jsx"
 
 const router = createBrowserRouter([
 {
@@ -31,6 +37,26 @@ const router = createBrowserRouter([
 {
   path:"/carrito",
   element: <PagCarrito/>
+},
+{
+  path:"/carrito/checkout",
+  element: <PagCheckout/>
+},
+{
+  path:"/carrito/checkout/pago",
+  element: <CheckoutPago/>
+},
+{
+  path:"/carrito/checkout/pago/qr",
+  element: <CheckoutPago1/>
+},
+{
+  path:"/carrito/checkout/pago/tarjeta",
+  element: <CheckoutPago2/>
+},
+{
+  path:"/carrito/compraexitosa",
+  element: <CheckoutGracias/>
 },
 {
   path:"login",
@@ -106,6 +132,8 @@ path: "/catalogo",
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </StrictMode>,
 )

@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import './DetalleProductoPage.css'
 import productosApi from '../../api/productosApi' 
 import ProductoCard from '../../components/ProductoCard/ProductoCard'
+import { useCart } from "../PagCarrito/CartContext";
 
 const CardSlider = ({ title, productos }) => {
     if (productos.length === 0) return null;
@@ -25,6 +26,7 @@ const CardSlider = ({ title, productos }) => {
 
 
 const DetalleProductoPage = () => {
+    const { addToCart } = useCart();
     const { id } = useParams(); 
     const productId = parseInt(id, 10);
 
@@ -69,7 +71,7 @@ const DetalleProductoPage = () => {
                         </p>
                     )}
                     <p className="detalle-precio">S/ {producto.precio.toFixed(2)}</p> 
-                    <button className="detalle-btn-agregar">AGREGAR AL CARRITO</button>
+                    <button className="detalle-btn-agregar" onClick={() => (addToCart(producto), alert(`✅ Se agregó "${producto.nombre}" al carrito`))}>AGREGAR AL CARRITO</button>
                     
                     <div className="detalle-specs">
                         {producto.genero && <span>Género: {producto.genero}</span>}
