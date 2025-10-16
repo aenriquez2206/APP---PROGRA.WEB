@@ -14,7 +14,7 @@
   width: 20px;
 }
 
-main {
+.mainListaUsuarios {
     padding: 10px 30px;
 }
 
@@ -30,19 +30,19 @@ main {
 
 }
 
-main .BuscadorU{
+.mainListaUsuarios .BuscadorU{
   display: flex;
   gap: 20px;
   align-items: center;
   margin-bottom: 20px;
 }
 
-main .BuscadorU .bUsuario{
+.mainListaUsuarios .BuscadorU .bUsuario{
   flex: 1
 }
 
 
-main .BuscadorU button {
+.mainListaUsuarios .BuscadorU button {
 
     font-family: "Montserrat","sans-serif";
     color: white;
@@ -53,26 +53,32 @@ main .BuscadorU button {
     align-items: center;
     height: 40px;
     padding: 10px 20px;
-    background: rgb(125, 172, 55);
+    background: rgb(58,164,35);
     width: 90px;
     margin-right: 20px;
     cursor: pointer;
 }
 
-main .BuscadorU {
+.mainListaUsuarios .BuscadorU {
     align-items: center;
 
 }
 
-main table .estado_rojo{
+.mainListaUsuarios .userTableView .estado_rojo{
   color:red;
 }
 
-main table .estado_verde{
+.mainListaUsuarios .userTableView .estado_verde{
   color:green;
 }
 
-
-
-
-
+.userTableView tbody button{
+    font-family: "Montserrat","sans-serif";
+    color: white;
+    border-radius: 1cap;
+    border: 0px;
+    height: 40px;
+    padding: 10px 20px;
+    background: rgb(58,164,35);
+    cursor: pointer;
+} 

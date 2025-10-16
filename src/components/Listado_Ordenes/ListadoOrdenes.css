@@ -1,19 +1,19 @@
 
 
 
-table{
+.tableOrdersAdmin{
   padding: 16px 16px;
   text-align: left;
   border: solid;
 }
 
 
-main {
+.mainOrdersAdmin {
     padding: 10px 30px;
 }
 
-table button{
-  background-color: rgb(127, 173, 57);
+.tableOrdersAdmin button{
+  background-color: rgb(58,164,35);
   padding: 8px 15px;
   color: white;
   border-radius: 8px;
@@ -21,35 +21,34 @@ table button{
   cursor: pointer;
 }
 
-main .BuscadorU{
+.mainOrdersAdmin .BuscadorU{
   display: flex;
   text-align: center;
   gap: 5px;
 }
 
-main table td{
+.mainOrdersAdmin .tableOrdersAdmin td{
   padding: 12px 25px;
 }
 
-main table thead{
+.mainOrdersAdmin .tableOrdersAdmin thead{
   text-align: center;
 
 }
 
-main table .estado_rojo{
+.mainOrdersAdmin .tableOrdersAdmin .estado_rojo{
   color:red
 }
 
 
-main table .estado_verde{
+.mainOrdersAdmin .tableOrdersAdmin .estado_verde{
   color:green
 }
 
 
-main table tbody .Id_Orden{
+.mainOrdersAdmin .tableOrdersAdmin tbody .Id_Orden{
   color: green;
 
 }
-
 
 
