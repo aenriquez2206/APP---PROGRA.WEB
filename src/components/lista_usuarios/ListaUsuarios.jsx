@@ -1,8 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './ListaUsuarios.css';
 import { estadoClase } from './camcolor';
 import usuariosApi from '../../api/usuariosApi';
+
 const ListaU = () => {
+
+  const navigate = useNavigate();
+  const verDetalleUsuario = (id) => {
+    navigate(`/admin/detalle-usuario/`);
+  };
   
  const usuariosDefault = usuariosApi.get();
   const [usuarios, setUsuarios] = useState(usuariosDefault);
@@ -67,7 +74,7 @@ const ListaU = () => {
                 <button onClick={() => cambiarEstado(u.id, u.estado)}>
                   {u.estado == true ? 'Desactivar' : 'Activar'}
                 </button>
-                <button>Ver detalles</button>
+                <button onClick={() => verDetalleUsuario()}>Ver detalles</button>
                 
               </td>
             </tr>
