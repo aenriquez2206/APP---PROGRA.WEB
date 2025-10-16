@@ -18,7 +18,7 @@ const Header = ()=>{
                         <h1>.</h1>
                     </span>
             </div>
-            <Searcher/>
+            <Searcher placeh ="Buscar un producto"/>
             <button id="comprasButton" onClick={() => navigate('/carrito')} >
                 <img class="img_header" src="/productosAssets/carritosinfondo.png" alt="img"/>
                 <div class="boton_text">
