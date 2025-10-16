@@ -1,7 +1,10 @@
 import './header.css'
 import Searcher from '../Searcher/Searcher'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Header = ()=>{
+    const navigate = useNavigate();
+    
     return(
     <>
     <header  id="headerSection">
@@ -12,7 +15,7 @@ const Header = ()=>{
                     </span>
             </div>
             <Searcher/>
-            <button id="comprasButton" >
+            <button id="comprasButton" onClick={() => navigate('/carrito')} >
                 <img src="" alt="img"/>
                 <div>
                     <p>Carrito</p>
