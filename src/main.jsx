@@ -27,7 +27,9 @@ import CheckoutPago from './components/CheckoutPago/CheckoutPago.jsx'
 import CheckoutPago1 from './components/CheckoutPago1/CheckoutPago1.jsx'
 import CheckoutPago2 from './components/CheckoutPago2/CheckoutPago2.jsx'
 import CheckoutGracias from './components/CheckoutGracias/CheckoutGracias.jsx'
+import ListaO from './components/Listado_Ordenes/ListadoOrdenes.jsx'
 import { CartProvider } from "./components/PagCarrito/CartContext.jsx"
+import MisOrdenes from './components/MisOrdenes/MisOrdenes.jsx'
 
 const router = createBrowserRouter([
 {
@@ -130,6 +132,9 @@ path: "/catalogo",
 },{
   path:"/admin/categorias",
   element:<ListadoCategoriasAdmin/>
+},{
+  path:"/misordenes",
+  element:<MisOrdenes/>
 }
 ])
 

@@ -1,5 +1,16 @@
+#bOrden
+{
+  border-radius: 10px;
+  border-color: solid rgb(223, 223, 223);
+  height: 30px;
+  width: 1100px;
+}
 
-
+.tableOrdersAdmin{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid;
+}
 
 .mainOrdersAdmin {
     padding: 10px 30px;
@@ -27,20 +38,21 @@
 
 .tableOrdersAdmin button{
   background-color: rgb(58,164,35);
-  padding: 8px 15px;
+  padding: 10px 15px;
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
 }
 
 .mainOrdersAdmin .buscarO{
   background-color: rgb(58,164,35);
-  padding: 8px 15px;
+  padding: 10px 15px;
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .mainOrdersAdmin section{
