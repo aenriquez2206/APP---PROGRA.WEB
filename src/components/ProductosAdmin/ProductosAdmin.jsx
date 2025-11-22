@@ -88,7 +88,7 @@ const ProductosAdmin =()=>{
         <section className="sectionProductosAdmin" >
             <h2>Listado de Productos</h2>
             <section className="busquedaProductosAdmin" >
-                <Searcher valor={textoBusqueda} render={setTextoBusqueda} placeh="Buscar un producto"/>
+                <Searcher valor={textoBusqueda} onChange={setTextoBusqueda} placeh="Buscar un producto"/>
                 <button 
                 className='botonListadoProductosAdmin'
                 onClick={()=>handleBuscar()}

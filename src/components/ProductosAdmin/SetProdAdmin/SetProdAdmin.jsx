@@ -37,9 +37,8 @@ const SetProdAdmin=()=>{
     }
     
 
-    
+/*
   // Manejar selección de imagen desde el input
-  // tener cuidado con el setProducto() falta actualizarlo
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -48,6 +47,26 @@ const SetProdAdmin=()=>{
       setPreview(URL.createObjectURL(file));
     }
   };
+*/
+const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        
+        // Cuando termine de leer el archivo, lo guardamos como texto en el estado
+        reader.onloadend = () => {
+            setImagen(file); // (Opcional, por si lo usas en otro lado)
+            setPreview(reader.result); // Para mostrar la vista previa
+            
+            // AQUÍ ESTÁ LA CLAVE: Guardamos la cadena Base64 en el producto
+            setProducto({ ...producto, img: reader.result }); 
+        };
+
+        // Leemos el archivo como URL de datos (Base64)
+        reader.readAsDataURL(file); 
+    }
+};
+
 
   // Manejar "drag and drop"
   const handleDrop = (e) => {
@@ -136,7 +155,7 @@ const SetProdAdmin=()=>{
                             id="imagenInput"
                             type="file"
                             accept="image/*"
-                            value={producto.img}
+                            //value={producto.img}
                             onChange={handleFileChange}
                             style={{ display: "none" }}
                             />
