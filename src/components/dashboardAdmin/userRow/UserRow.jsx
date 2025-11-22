@@ -1,20 +1,27 @@
 import './UserRow.css'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import usuariosApi from '../../../api/usuariosApi'
 import { useNavigate } from "react-router-dom";
 const UserRow =({user,OnClick})=>{
 
     const [estado,setEstado] = useState(user.estado)
-    
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setEstado(user.estado);
+    }, [user]); 
+    
      const handleEstado =(ID)=>{
         usuariosApi.actualizarEstado(ID,!estado)
         setEstado(usuariosApi.obtenerEstado(ID))
     }
 
+
     const handleNavigateDetalle=()=>{
         navigate('/admin/detalle-usuario')
     }
+
+    
 
     return(
         <>
