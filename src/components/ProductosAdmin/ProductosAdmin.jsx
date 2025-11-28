@@ -139,7 +139,7 @@ const ProductosAdmin =()=>{
                     {
                        
                         //productosActuales.length > 0 ? 
-                        productosOriginales.map((item)=>{
+                        productosActuales.map((item)=>{
                             return (
                                 <tr>
                                     <td><img className="imgRowProdAdmin"
