@@ -22,16 +22,14 @@ const EditProdAdmin=()=>{
         navigate('/admin')
     }
 
-    const handleSubmit =(producto)=>{
+    const handleSubmit = async(producto)=>{
         if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria || !producto.stock ){
             alert("Por favor complete todos los campos")
             return
         }
-        productosApi.edit(producto)
+        await productosApi.update(producto)
         //alert("JSON.stringify(producto)")
         alert("Producto Editado!")
-        handleOnLoad()
-        setShowForm(!showForm)
     }
     
 
@@ -160,6 +158,44 @@ const EditProdAdmin=()=>{
                         </>
                 )}
                 </div>
+                <br/>
+                <label>Genero</label>
+                <br/>
+                        <input
+                        type="text"
+                        min="0"
+                        max="100"
+                        className='StockSection'
+                        value={producto.genero}
+                        placeholder='Genero'
+                        onChange={(e)=>setProducto({...producto, genero:e.target.value})}></input>
+                <br/>
+                <br/>
+                <label>Precio</label>
+                <br/>
+                
+                        <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        className='StockSection'
+                        value={producto.precio}
+                        placeholder='Stock'
+                        onChange={(e)=>setProducto({...producto, precio:e.target.value})}></input>
+                <br/>
+                <br/>
+                <label>Descuento</label>
+                <br/>
+                        <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        className='StockSection'
+                        value={producto.descuento}
+                        placeholder='Stock'
+                        onChange={(e)=>setProducto({...producto, descuento:e.target.value})}></input>
+                <br/>
+                <br/>
                 <label>Stock</label>
                 <div className='sectionSubmitProd'>
                         <br/>

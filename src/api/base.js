@@ -1,14 +1,7 @@
 const URI = 'http://localhost:3005/'
 
 const get = async(endpoint) => {
-    const objPayload = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    return await fetch(URI + endpoint,objPayload)
+    return await fetch(URI + endpoint)
                     .then(response => response.json())
                     .then(data => {
                         return data;
@@ -49,7 +42,6 @@ const remove = async(endpoint) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
     }
 
     return await fetch(URI + endpoint, objPayload)

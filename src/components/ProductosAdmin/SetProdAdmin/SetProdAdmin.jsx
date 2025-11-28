@@ -12,6 +12,9 @@ const SetProdAdmin=()=>{
         descripcion:"",
         categoria: "",
         stock: 0,
+        precio:0,
+        descuento:0,
+        genero:"",
     }
     const categorias = categoriasApi.get()
     const [producto,setProducto] =useState(productoDefault)
@@ -24,16 +27,15 @@ const SetProdAdmin=()=>{
         navigate('/admin')
     }
 
-    const handleSubmit =(producto)=>{
+    const handleSubmit =async (producto)=>{
         if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria || !producto.stock ){
             alert("Por favor complete todos los campos")
             return
         }
-        productosApi.insert(producto)
+        await productosApi.create(producto)
         //alert("JSON.stringify(producto)")
         alert("Producto Agregado!")
-        handleOnLoad()
-        setShowForm(!showForm)
+        navigate('/admin/productos/')
     }
     
 
@@ -162,7 +164,47 @@ const handleFileChange = (e) => {
                         </>
                 )}
                 </div>
+                <br/>
+                <br/>
+                <label>Genero</label>
+                <br/>
+                        <input
+                        type="text"
+                        min="0"
+                        max="100"
+                        className='StockSection'
+                        value={producto.genero}
+                        placeholder='Genero'
+                        onChange={(e)=>setProducto({...producto, genero:e.target.value})}></input>
+                <br/>
+                <br/>
+                <label>Precio</label>
+                <br/>
+                
+                        <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        className='StockSection'
+                        value={producto.precio}
+                        placeholder='Stock'
+                        onChange={(e)=>setProducto({...producto, precio:e.target.value})}></input>
+                <br/>
+                <br/>
+                <label>Descuento</label>
+                <br/>
+                        <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        className='StockSection'
+                        value={producto.descuento}
+                        placeholder='Stock'
+                        onChange={(e)=>setProducto({...producto, descuento:e.target.value})}></input>
+                <br/>
+                <br/>
                 <label>Stock</label>
+
                 <div className='sectionSubmitProd'>
                         <br/>
                         <input
@@ -178,8 +220,9 @@ const handleFileChange = (e) => {
                         Crear producto
                     </button>
                 </div>
-
+                
                 </section>
+                
             </section>
             
         </article>
