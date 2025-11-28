@@ -7,8 +7,24 @@ import Paginacion from '../Paginacion/Paginacion'
 
 const ProductosAdmin =()=>{
 
-    const productosOriginales = productosApi.get()
+    const [productosOriginales,setProductosOriginales] =useState([]);
+    const handleOnLoad = async () => {
+    try {
+        const rawprod = await productosApi.findAll();
+        console.log("Datos recibidos:", rawprod); // Agrega esto para verificar en consola
+        
+        if (rawprod) {
+            setProductosOriginales(rawprod);
+            setProductos(rawprod); // <--- AGREGA ESTA LÍNEA
+        }
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
+}
 
+    useEffect(()=>{
+        handleOnLoad()
+    },[])
     const [textoBusqueda,setTextoBusqueda] =useState('')
     const [productos, setProductos] =useState(productosOriginales)
     const navigate =useNavigate()
@@ -30,14 +46,16 @@ const ProductosAdmin =()=>{
     }
   },[productos])
 
-  useEffect(()=>{
-      if(textoBusqueda === ''){
-        setProductos(productosOriginales) 
-      }
-      else if(textoBusqueda.length > 3)
-        handleBuscar()
-    },[textoBusqueda])
-
+  useEffect(() => {
+    if (textoBusqueda === '') {
+        setProductos(productosOriginales);
+    } else if (textoBusqueda.length > 3) { // Ojo: > 3 significa que con 3 letras no busca
+        handleBuscar();
+    } else {
+        // Si hay texto pero es corto, tal vez quieras mostrar todo o filtrar igual
+        setProductos(productosOriginales); 
+    }
+}, [textoBusqueda, productosOriginales]);
 
   const handleBuscar  = () => {
     const filtrados = 
@@ -120,7 +138,8 @@ const ProductosAdmin =()=>{
                 <tbody>
                     {
                        
-                        productosActuales.length > 0 ? productosActuales.map((item)=>{
+                        //productosActuales.length > 0 ? 
+                        productosOriginales.map((item)=>{
                             return (
                                 <tr>
                                     <td><img className="imgRowProdAdmin"
@@ -145,7 +164,7 @@ const ProductosAdmin =()=>{
                                 </tr>
                             
                             )
-                        } ): <h2>No hay productos.</h2>
+                        } )//: <h2>No hay productos.</h2>
                     }
                 </tbody>
 

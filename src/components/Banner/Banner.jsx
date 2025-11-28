@@ -1,10 +1,20 @@
 import './Banner.css'
 import productosApi from '../../api/productosApi'
 import Card from '../Card/Card'
+import {useState,useEffect} from 'react'
 
 const Banner = () => {
+    const [todosLosProductos,setTodosLosProductos] = useState([])
+    
+    const handleOnLoad = async () =>{
+        const rawproductos = await productosApi.findAll();
+        setTodosLosProductos(rawproductos);
+    }
 
-    const todosLosProductos = productosApi.get() 
+    useEffect(() => {
+        handleOnLoad()
+    }, [])
+    
 
     return (
         <div>

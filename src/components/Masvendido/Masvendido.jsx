@@ -2,10 +2,21 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import ProductoCard from '../ProductoCard/ProductoCard'
 import productosApi from '../../api/productosApi'
+import {useState, useEffect} from 'react'
 import './MasVendido.css'
 
 const MasVendido = () => {
-    const ProductosCompletos = productosApi.get()
+
+    const [ProductosCompletos,setProductosCompletos] = useState([])
+    
+    const handleOnLoad = async () =>{
+        const rawproductos = await productosApi.findAll();
+        setProductosCompletos(rawproductos);
+    }
+
+    useEffect(() => {
+        handleOnLoad()
+    }, [])
 
     const productosOrdenadosPorStock = ProductosCompletos
         .slice() 

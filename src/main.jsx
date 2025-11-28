@@ -140,8 +140,8 @@ path: "/catalogo",
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
     </StrictMode>,
 )

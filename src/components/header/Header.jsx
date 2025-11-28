@@ -12,7 +12,17 @@ const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isSearchActive, setIsSearchActive] = useState(false); 
-    const todosLosProductos = productosApi.get();
+    const [todosLosProductos,setTodosLosProductos] = useState('')
+
+    const handleOnLoad = async () =>{
+        const rawproductos = await productosApi.findAll();
+        setTodosLosProductos(rawproductos);
+    }
+
+    useEffect(() => {
+        handleOnLoad()
+    }, [])
+
     const handleSearchChange = (text) => {
         setSearchTerm(text);
         setIsSearchActive(false); 
