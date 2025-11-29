@@ -22,7 +22,7 @@ const Categorias =()=>{
                     {categoriasMostradas.map((categoria) => (
                         <Link 
                             key={categoria.id} 
-                            to={`/categorias/${categoria.ruta}`} 
+                            to={`/catalogo/${categoria.ruta}`} 
                             className="categoria-link" 
                         >
                             <CategoriaItem
