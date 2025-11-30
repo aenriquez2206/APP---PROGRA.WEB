@@ -17,8 +17,7 @@ const get = async(endpoint) => {
         method: 'GET',
         headers: getHeaders()
     }
-
-    return await handleFetch(URI + endpoint, objPayload)
+    return await handleFetch(URI + endpoint,objPayload)
 }
 
 const post = async(endpoint, payload) => {

@@ -1,33 +1,25 @@
-import base from './base.js'
+import base from './base.js';
 
-const carritoApi = {
-  // Obtener carrito por usuario
-  getCarritoByUser: (idUsuario) => 
-    base.get(`carrito/${idUsuario}`),
+const endpoint = 'carrito';
 
-  // Crear un carrito nuevo
-  createCarrito: (idUsuario) => 
-    base.post(`carrito`, { idUsuario }),
+// 🟢 Obtener carrito de un usuario
+const getCarritoByUser = async (userId) => 
+    await base.get(`${endpoint}/${userId}`);
 
-  // Obtener items del carrito
-  getItems: (carritoId) => 
-    base.get(`carrito/${carritoId}/items`),
+// 🟢 Agregar un producto al carrito
+// payload = { carritoId, productoId, cantidad }
+const addItem = async (payload) => 
+    await base.post(`${endpoint}/add`, payload);
 
-  // Agregar item al carrito
-  addItem: (carritoId, idProducto, cantidad) =>
-    base.post(`carrito/${carritoId}/items`, { idProducto, cantidad }),
+// 🟢 Quitar un producto del carrito
+// payload = { carritoId, productoId }
+const removeItem = async (payload) => 
+    await base.post(`${endpoint}/remove`, payload);
 
-  // Actualizar cantidad de un item del carrito
-  updateItem: (itemId, cantidad) =>
-    base.put(`carrito/items/${itemId}`, { cantidad }),
+// 🟢 Vaciar todo el carrito de un usuario
+const clearCart = async (userId) => 
+    await base.remove(`${endpoint}/${userId}/clear`);
 
-  // Eliminar un item específico
-  deleteItem: (itemId) =>
-    base.remove(`carrito/items/${itemId}`),
-
-  // Vaciar todo el carrito
-  clearCarrito: (carritoId) =>
-    base.remove(`carrito/${carritoId}/items`)
-}
+const carritoApi = { getCarritoByUser, addItem, removeItem, clearCart };
 
 export default carritoApi;

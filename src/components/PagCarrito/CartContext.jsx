@@ -189,6 +189,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-// Hook para acceder al contexto del carrito
-export const useCart = () => useContext(CartContext);
