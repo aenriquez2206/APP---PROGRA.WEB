@@ -1,8 +1,8 @@
 import './UserRow.css'
 import { useState,useEffect } from 'react'
-import usuariosApi from '../../../api/usuariosApi'
+import usuariosApi from '../../../api/auth.js'
 import { useNavigate } from "react-router-dom";
-const UserRow =({user,OnClick})=>{
+const UserRow =({user,fecha,OnClick})=>{
 
     const [estado,setEstado] = useState(user.estado)
     const navigate = useNavigate()
@@ -11,9 +11,12 @@ const UserRow =({user,OnClick})=>{
         setEstado(user.estado);
     }, [user]); 
     
-     const handleEstado =(ID)=>{
-        usuariosApi.actualizarEstado(ID,!estado)
-        setEstado(usuariosApi.obtenerEstado(ID))
+     const handleEstado =async (user)=>{
+        //AGREGA FUNCION PARA ACUTUALIZA EL ESTADO
+        const newestado = !user.estado
+        user.estado = newestado
+        await usuariosApi.update(user)
+        setEstado(newestado)
     }
 
 
@@ -32,6 +35,12 @@ const UserRow =({user,OnClick})=>{
                     <span>{user.nombre}</span>
                 </div>
             </td>
+            {
+                fecha ? 
+                <td>
+                    {user.fecharegistro.slice(0,10)}
+                </td>: null
+            }
             <td >
                 <div 
                 className={estado ?'estadoActivo' :'estadoInactivo' }>
@@ -40,7 +49,7 @@ const UserRow =({user,OnClick})=>{
                 </div>
             </td>
             <td className="accionesButton">
-                <button className="buttonDesactivar" onClick={()=>handleEstado(user.id)}>{estado ?'Desactivar':'Activar'}</button>
+                <button className="buttonDesactivar" onClick={()=>handleEstado(user)}>{estado ?'Desactivar':'Activar'}</button>
                 <button className="buttonDetalle" onClick={()=>handleNavigateDetalle()}>Ver detalle</button>
             </td>
         </tr>    

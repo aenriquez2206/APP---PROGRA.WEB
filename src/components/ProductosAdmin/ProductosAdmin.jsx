@@ -66,7 +66,7 @@ const ProductosAdmin =()=>{
 
 
   const NavigateAddProduct =()=>{
-        navigate('/admin/productos/agregar')
+        navigate('/admin/productos/agregar',{state:{}})
   }
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -94,7 +94,7 @@ const ProductosAdmin =()=>{
   };
 
   const handleEditclick = (producto) => {
-        navigate('/admin/productos/editar',{state:{producto}});
+        navigate('/admin/productos/agregar',{state:{producto}});
   }
 
 
@@ -145,7 +145,7 @@ const ProductosAdmin =()=>{
                                     <td>{item.nombre}</td>
                                     <td>{item.presentacion}</td>
                                     <td className="descripcionProd" title={item.descripcion}>{item.descripcion}</td>
-                                    <td><strong>{item.categoria}</strong></td>
+                                    <td><strong>{item.categoriaDetail?.nombre}</strong></td>
                                     <td>{item.stock}</td>
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>

@@ -1,26 +1,52 @@
 import './SetProdAdmin.css'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import categoriasApi from '../../../api/categoriasApi'
 import productosApi from '../../../api/productosApi'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+
 const SetProdAdmin=()=>{
     const productoDefault ={
-        id: 0,
         img: "",
         nombre: "",
         presentacion: "",
         descripcion:"",
-        categoria: "",
+        categoria_id: -1,
         stock: 0,
         precio:0,
         descuento:0,
         genero:"",
     }
-    const categorias = categoriasApi.get()
+
+    const location = useLocation();
+    const obj = location.state.producto;
+    
+    const [categorias,setcategorias] =useState([]);
     const [producto,setProducto] =useState(productoDefault)
     const navigate = useNavigate()
     const [imagen, setImagen] = useState(null);
-    const [preview, setPreview] = useState(null);
+    const [preview, setPreview] = useState(obj ? obj.img : null);
+
+    const handleOnLoad = async () => {
+    try {
+        const rawcat = await categoriasApi.findAll();
+        
+        if (rawcat) {
+            setcategorias(rawcat);
+        }
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
+}
+
+    useEffect(()=>{
+        if (obj){
+            setProducto(obj)
+        }
+        handleOnLoad()
+    },[])
+
+    
 
     //llenar crea categoria
     const handleNavigateCrearCategoria=()=>{
@@ -28,28 +54,22 @@ const SetProdAdmin=()=>{
     }
 
     const handleSubmit =async (producto)=>{
-        if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria || !producto.stock ){
+        if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria_id || !producto.stock ){
             alert("Por favor complete todos los campos")
             return
         }
-        await productosApi.create(producto)
-        //alert("JSON.stringify(producto)")
-        alert("Producto Agregado!")
+        if (obj){
+            await productosApi.update(producto)
+            alert("Producto Editado!")
+        }
+        else{
+            await productosApi.create(producto)
+            alert("Producto Agregado!")
+        }
         navigate('/admin/productos/')
     }
     
 
-/*
-  // Manejar selección de imagen desde el input
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagen(file);
-      setProducto({ ...producto, img: file });
-      setPreview(URL.createObjectURL(file));
-    }
-  };
-*/
 const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -75,8 +95,19 @@ const handleFileChange = (e) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file) {
-      setImagen(file);
-      setPreview(URL.createObjectURL(file));
+      const reader = new FileReader();
+      
+      // Cuando termine de leer el archivo, lo guardamos como texto en el estado
+      reader.onloadend = () => {
+        setImagen(file); // (Opcional)
+        setPreview(reader.result); // Para mostrar la vista previa
+        
+        // AQUÍ ESTÁ LA CLAVE: Guardamos la cadena Base64 en el producto
+        setProducto({ ...producto, img: reader.result }); 
+      };
+
+      // Leemos el archivo como URL de datos (Base64)
+      reader.readAsDataURL(file);
     }
   };
 
@@ -86,7 +117,7 @@ const handleFileChange = (e) => {
     return(
         <>
         <article  className="insertSecProd">
-            <h2>Agregar un producto</h2>
+            <h2>{obj ? "Editar producto" :"Agregar un producto"}</h2>
             <section className="containerInsertProd">
                 <section className='sectInsertProd'>
                     <label>Nombre del producto</label>
@@ -111,14 +142,15 @@ const handleFileChange = (e) => {
                     <br/>
                     <div className='cateogriaDivision'>
                         <select 
+                        value={producto.categoria_id}
                         className='selectSectionProd'
-                        onChange={(e)=>setProducto({...producto,categoria: e.target.value})}
+                        onChange={(e)=>setProducto({...producto,categoria_id: e.target.value})}
                         >
-                            <option className="optionInic" value="" disabled selected>Selecciona la categoria del producto</option>
+                            <option className="optionInic" value="{}" disabled selected>Selecciona la categoria del producto</option>
                             {
                                 categorias.map((categoria)=>{
                                     return(
-                                        <option value={categoria.nombre}>
+                                        <option value={categoria.id}>
                                             {categoria.nombre}
                                         </option>
                                     )
@@ -157,7 +189,6 @@ const handleFileChange = (e) => {
                             id="imagenInput"
                             type="file"
                             accept="image/*"
-                            //value={producto.img}
                             onChange={handleFileChange}
                             style={{ display: "none" }}
                             />
@@ -217,7 +248,7 @@ const handleFileChange = (e) => {
                     
                     <button className='buttonSubmitProd'
                     onClick={()=>handleSubmit(producto)}>
-                        Crear producto
+                        {obj ? "Editar producto" : "Crear producto"}
                     </button>
                 </div>
                 
