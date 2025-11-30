@@ -1,12 +1,7 @@
 import './ListadoOrdenes.css'
 import estadoClase from './camcolor'
-<<<<<<< HEAD
-import { useState } from 'react';
-import pedidosApi from '../../api/ordenes';
-=======
 import { useState, useEffect } from "react";
 import pedidosApi from '../../api/ordenesApi';
->>>>>>> c520da8c2d80ae1052f5c2e66789314c1045cfd0
 const Botones = () => {
   return (
       <td>
@@ -16,15 +11,7 @@ const Botones = () => {
 };
 
 const ListaO = () => {
-<<<<<<< HEAD
-
-  const ordenesDefault = pedidosApi.get();
-  
-  const [ordenes, setOrdenes] = useState(ordenesDefault);
-
-=======
   const [ordenes, setOrdenes] = useState([]);
->>>>>>> c520da8c2d80ae1052f5c2e66789314c1045cfd0
   const [textoBusqueda, setTextoBusqueda] = useState('');
   
   useEffect(() => {
@@ -97,7 +84,7 @@ const ListaO = () => {
                 <td>{o.id_user}</td>
                 <td>{o.fecha}</td>
                 <td>{o.total}</td>
-                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Entregado' : 'No entregado'}</b></td>
+                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
                 <Botones />
               </tr>
             ))}
