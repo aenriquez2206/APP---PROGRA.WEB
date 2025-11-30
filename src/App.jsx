@@ -2,7 +2,7 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import PagCarrito from './components/PagCarrito/PagCarrito.jsx'
 import PagCheckout from './components/PagCheckout/PagCheckout.jsx'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx'
 import Login from './components/login/Login.jsx'
 import Register from './components/register/Register.jsx'
 import Forgot from './components/forgot/Forgot.jsx'
@@ -31,135 +31,54 @@ import { CartProvider } from "./components/PagCarrito/CartContext.jsx"
 import { UserProvider } from './context/UserContext.jsx'
 
 const router = createBrowserRouter([
+
+  { path: "/", element: <PaginaPrincipal/> },
+  { path: "/catalogo", element: <PaginaCatalogo /> },
+  { path: "/catalogo/:categoriaNombre", element: <PaginaCatalogo /> },
+  { path: "/producto/:id", element: <PaginaDetalleProducto /> },
+
+  { path: "login", element: <Login/> },
+  { path: "register", element: <Register/> },
+  { path: "forgot", element: <Forgot/> },
+  { path: "recover", element: <Recover/> },
+  { path: "change", element: <Change/> },
+
   {
-    path:"/",
-    element: <PaginaPrincipal/>
+  
+    element: <ProtectedRoute allowedRoles={['cliente']} />,
+    children: [
+      { path: "/carrito", element: <PagCarrito /> },
+      { path: "/carrito/checkout", element: <PagCheckout /> },
+      { path: "/carrito/checkout/pago", element: <CheckoutPago /> },
+      { path: "/carrito/checkout/pago/qr", element: <CheckoutPago1 /> },
+      { path: "/carrito/checkout/pago/tarjeta", element: <CheckoutPago2 /> },
+      { path: "/carrito/compraexitosa", element: <CheckoutGracias /> },
+      { path: "/misordenes", element: <MisOrdenes/> },
+    ]
   },
+  
   {
-    path: "/carrito",
-    element: (
-      <ProtectedRoute>
-        <PagCarrito />
-      </ProtectedRoute>
-    )
+    element: <ProtectedRoute allowedRoles={['admin']} />,
+    children: [
+      { path: "admin", element: <DashboardAdminPage/> },
+      { path: "admin/detalle-usuario", element: <DetalleUsuario/> },
+      { path: "admin/detalle-orden/:id", element: <DetalleOrden/> },
+      { path: "admin/productos", element: <ProductosAdminPage/> },
+      { path: "admin/productos/agregar", element: <ProdSetAdminPage/> },
+      { path: "admin/users", element: <UserAdmin/> },
+      { path: "admin/orders", element: <OrderAdmin/> },
+      { path: "admin/categorias", element: <ListadoCategoriasAdmin/> },
+      { path: "admin/categorias/agregar", element: <SetCategoriasPage/> },
+    ]
   },
+  
   {
-    path: "/carrito/checkout",
-    element: (
-      <ProtectedRoute>
-        <PagCheckout />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: "/carrito/checkout/pago",
-    element: (
-      <ProtectedRoute>
-        <CheckoutPago />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: "/carrito/checkout/pago/qr",
-    element: (
-      <ProtectedRoute>
-        <CheckoutPago1 />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: "/carrito/checkout/pago/tarjeta",
-    element: (
-      <ProtectedRoute>
-        <CheckoutPago2 />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path: "/carrito/compraexitosa",
-    element: (
-      <ProtectedRoute>
-        <CheckoutGracias />
-      </ProtectedRoute>
-    )
-  },
-  {
-    path:"login",
-    element:<Login/>  
-  },
-  {
-    path:"register",
-    element:<Register/>  
-  },
-  {
-    path:"forgot",
-    element:<Forgot/>
-  },
-  {
-    path:"recover",
-    element:<Recover/>
-  },
-  {
-    path:"change",
-    element:<Change/>
-  },
-  {
-    path: "/cambiar-contraseña",
-    element: <CambiarContraseña/>
-  },
-  {
-    path:"admin",
-    element:<DashboardAdminPage/>
-  },
-  {   
-    path: "/catalogo",
-    element: <PaginaCatalogo />
-  },
-  {
-    path: "/catalogo/:categoriaNombre",
-    element: <PaginaCatalogo />
-  },
-  {
-    path: "/producto/:id",
-    element: <PaginaDetalleProducto />
-  },
-  {
-    path: "/admin/detalle-usuario",
-    element: <DetalleUsuario/>
-  },
-  {
-    path: "/admin/detalle-orden/:id",
-    element: <DetalleOrden/>
-  },
-  {
-    path:"admin/productos",
-    element:<ProductosAdminPage/>
-  },
-  {
-    path:"admin/productos/agregar",
-    element:<ProdSetAdminPage/>  
-  },
-  {
-    path:"admin/users",
-    element:<UserAdmin/>
-  },
-  {
-    path:"admin/orders",
-    element:<OrderAdmin/>
-  },
-  {
-    path:"/admin/categorias",
-    element:<ListadoCategoriasAdmin/>
-  },
-  {
-    path:"/admin/categorias/agregar",
-    element:<SetCategoriasPage/>
-  },
-  {
-    path:"/misordenes",
-    element:<MisOrdenes/>
+    element: <ProtectedRoute />, 
+    children: [
+      { path: "/cambiar-contraseña", element: <CambiarContraseña/> },
+    ]
   }
-])
+]);
 
 function App() {
   return (
