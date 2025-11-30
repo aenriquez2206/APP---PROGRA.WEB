@@ -5,11 +5,11 @@ const UserContext = createContext()
 
 export function UserProvider({ children }) {
 
-    const initialUser = JSON.parse(localStorage.getItem('user')) || null;
+    const initialUser = JSON.parse(localStorage.getItem('usuario')) || null;
     const initialToken = localStorage.getItem('token') || null;
 
-    const [ user, setUser ] = useState(null)
-    const [ token, setToken] = useState(null)
+    const [ user, setUser ] = useState(initialUser)
+    const [ token, setToken] = useState(initialToken)
 
     const login = async (correo, password) => {
 
@@ -25,7 +25,7 @@ export function UserProvider({ children }) {
                 
                 setUser(usuario);
                 setToken(token);
-                localStorage.setItem("user", JSON.stringify(usuario));
+                localStorage.setItem("usuario", JSON.stringify(usuario));
                 localStorage.setItem("token", token);
                 
                 return resultado;
@@ -53,7 +53,7 @@ export function UserProvider({ children }) {
             const { token, usuario } = resultado;
             setUser(usuario);
             setToken(token);
-            localStorage.setItem("user", JSON.stringify(usuario)); 
+            localStorage.setItem("usuario", JSON.stringify(usuario)); 
             localStorage.setItem("token", token);
         } 
         
@@ -69,7 +69,8 @@ export function UserProvider({ children }) {
 
     const logout = () => {
         setUser(null)
-        localStorage.removeItem('user')
+        setToken(null)
+        localStorage.removeItem('usuario')
         localStorage.removeItem('token')
     }
 
