@@ -18,12 +18,16 @@ const DashAdmin =()=>{
     const [orders, setOrders] =useState([]);
 
     const handleOnLoad =async()=>{
-        const rawuser = await usuariosApi.findOne(1);
-        setUser1(rawuser);
         const allUsers = await usuariosApi.findAll();
         const raworders = await ordenesAPi.findAll()
+        
+        // Obtener el primer usuario de la lista
+        const firstUser = Array.isArray(allUsers) ? allUsers[0] : (allUsers?.data?.[0] ?? {});
+        
         setRawUsers(allUsers)
         setUsuarios(allUsers)
+        setUser1(firstUser)
+        setUserDetail(firstUser)
         setOrders(raworders)
     }
     useEffect(()=>{
@@ -66,7 +70,7 @@ const DashAdmin =()=>{
 
     const navigate =useNavigate()
     
-    const [userDetail, setUserDetail] = useState(user1)
+    const [userDetail, setUserDetail] = useState(null)
     const [recargar,SetRecarga] = useState(false);
 
     //paginacion usuarios
