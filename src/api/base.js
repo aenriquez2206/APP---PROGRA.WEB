@@ -4,21 +4,21 @@ const getHeaders = () => {
     const headers = {
         'Content-Type': 'application/json'
     };
-    const token = localStorage.getItem('token'); // Asumo que el token se llama 'token'
+    const token = localStorage.getItem('token');
     
     if (token) {
-        // Añadir el token de autenticación
         headers['Authorization'] = `Bearer ${token}`; 
     }
     return headers;
 }
 
 const get = async(endpoint) => {
-    return await fetch(URI + endpoint)
-                    .then(response => response.json())
-                    .then(data => {
-                        return data;
-                    })
+    const objPayload = {
+        method: 'GET',
+        headers: getHeaders()
+    }
+
+    return await handleFetch(URI + endpoint, objPayload)
 }
 
 const post = async(endpoint, payload) => {
@@ -41,7 +41,7 @@ const put = async(endpoint, payload) => {
     return await handleFetch(URI + endpoint, objPayload)
 }
 
-const remove = async(endpoint) => {
+const remove = async(endpoint, payload) => {
     const objPayload = {
         method: 'DELETE',
         headers: {
@@ -57,8 +57,15 @@ const handleFetch = async (url, options) => {
     try {
         const response = await fetch(url, options);
 
+        // Si es 401, limpiar token y redirigir a login
+        if (response.status === 401) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            window.location.href = '/login';
+            return null;
+        }
+
         if (!response.ok) {
-            
             const errorData = await response.json().catch(() => ({})); 
             
             throw { 
