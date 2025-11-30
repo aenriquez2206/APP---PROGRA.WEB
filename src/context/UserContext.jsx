@@ -1,36 +1,87 @@
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import authApi from '../api/auth.js'
 
 const UserContext = createContext()
 
 export function UserProvider({ children }) {
+
+    const initialUser = JSON.parse(localStorage.getItem('user')) || null;
+    const initialToken = localStorage.getItem('token') || null;
+
     const [ user, setUser ] = useState(null)
     const [ token, setToken] = useState(null)
 
-    const login = async (usuario, password) => {
+    const login = async (correo, password) => {
 
-        const resultado = await authApi.login({usuario, password})
+        try {
+        
+            const resultado = await authApi.login({correo, password});
 
-        console.log({resultado})
+            console.log({resultado});
+
+            if (resultado.success) {
+            
+                const { token, usuario } = resultado;
+                
+                setUser(usuario);
+                setToken(token);
+                localStorage.setItem("user", JSON.stringify(usuario));
+                localStorage.setItem("token", token);
+                
+                return resultado;
+        } 
+       
+        return resultado; 
+
+        } catch (error) {
+            
+            console.error("Error en el login del Contexto:", error);
+    
+            return { 
+                success: false, 
+                message: error.message || "Error de red o servidor no disponible." 
+            };
+        }
+    }
+
+    const registrar = async (userData) => {
+    try {
+
+        const resultado = await authApi.registrar(userData); 
 
         if (resultado.success) {
-            setUser(resultado)
-            setToken(resultado.token)
-            localStorage.setItem("usuario", JSON.stringify(resultado));
-            return true;
-        } else 
-            return false;
+            const { token, usuario } = resultado;
+            setUser(usuario);
+            setToken(token);
+            localStorage.setItem("user", JSON.stringify(usuario)); 
+            localStorage.setItem("token", token);
+        } 
+        
+        return resultado;
+        
+    } catch (error) {
+        return { 
+            success: false, 
+            message: error.message || "Error de red al intentar registrar." 
+        };
     }
+}
 
     const logout = () => {
         setUser(null)
-        localStorage.removeItem('usuario')
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
     }
+
+    const isAuthenticated = !!token && !!user;
 
     const value = {
         user,
+        token,
+        isAuthenticated,
         login,
-        logout
+        logout,
+        registrar
     }
 
     return (
@@ -42,5 +93,8 @@ export function UserProvider({ children }) {
 
 export function useUser () {
     const context = useContext(UserContext)
+    if (context === undefined) {
+        throw new Error('useUser debe ser usado dentro de un UserProvider');
+    }
     return context;
 }

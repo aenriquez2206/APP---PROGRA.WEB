@@ -5,28 +5,46 @@ import Footer from '../footer/Footer';
 import LoginCard from '../loginCard/loginCard';
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
+import {useUser} from '../../context/UserContext';
 
-function LgnBttn({children})
+function LgnBttn({children, disabled, ...props})
 {
     return(
-        <button id='loginButton' type='submit'>{children}</button>
+        <button id='loginButton' type='submit' disabled={disabled} {...props}>{children}</button>
     )
 }
 
 function Login(){
 
+  const {login} = useUser(); 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    
+    setError(null);
+    setLoading(true);
 
-    if (email.trim() == 'admin@gameplay.com' && password == 'admin') {
-      navigate('/admin');
+    const result = await login(email, password); 
+    setLoading(false);
+
+    if (result.success) {
+        
+        const userRole = result.usuario.rol;
+        
+        if (userRole === 'admin') {
+            navigate('/admin');
+        } else {
+            navigate('/misordenes');
+        }
+    } else {
+        setError(result.message || 'Error desconocido al iniciar sesión. Verifique sus credenciales.');
     }
-    else{navigate('/misordenes')}
-  };
+  };
 
     return(
         <>
@@ -59,13 +77,18 @@ function Login(){
 
                     <br></br>
 
-                    <LgnBttn onClick={handleLogin}>Iniciar sesión</LgnBttn>
+                    {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
+                    <LgnBttn disabled={loading}>
+                        {loading ? 'Verificando...' : 'Iniciar sesión'}
+                    </LgnBttn>
                     
                     </form>
 
                     <p id="reg"><a href='/register'>Registrarme</a></p>
 
                     <p id="olv"><a href='/forgot'>Olvidé mi contraseña</a></p>
+            
             </LoginCard>
 
             <Footer />

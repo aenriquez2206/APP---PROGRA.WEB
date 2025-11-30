@@ -9,7 +9,10 @@ const update = async (payload) => await base.put(endpoint,payload);
 const remove = async (id) => await base.remove(`${endpoint}/${id}`);
 const findOne = async (id) => await base.get(`${endpoint}/${id}`);
 
+const registrar = async (payload) => {
+    return await base.post(endpoint + '/registrar', payload); 
+};
 
-const api = { login,findAll,create,update, remove, findOne }
+const api = {login,registrar,findAll,create,update,remove,findOne}
 
 export default api;
