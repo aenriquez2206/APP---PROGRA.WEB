@@ -12,7 +12,7 @@ const MenuLateral = ({ activeCategory }) => {
                 {categorias.map(cat => (
                     <li key={cat.nombre} className="menu-item">
                         <Link 
-                            to={`/categorias/${cat.nombre}`}
+                            to={`/catalogo/${cat.ruta}`}
                             className={`menu-link ${activeCategory === cat.nombre ? 'activo' : ''}`}
                         >
                             {cat.label}

@@ -93,7 +93,7 @@ path: "/catalogo",
     element: <PaginaCatalogo />
 },
 {
-    path: "/categorias/:categoriaNombre",
+    path: "/catalogo/:categoriaNombre",
     element: <PaginaCatalogo />
 },
 {
