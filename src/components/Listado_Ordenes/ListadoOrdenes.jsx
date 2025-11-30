@@ -97,7 +97,7 @@ const ListaO = () => {
                 <td>{o.id_user}</td>
                 <td>{o.fecha}</td>
                 <td>{o.total}</td>
-                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
+                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Entregado' : 'No entregado'}</b></td>
                 <Botones />
               </tr>
             ))}
