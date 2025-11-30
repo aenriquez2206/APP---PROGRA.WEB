@@ -28,18 +28,7 @@ const MasVendido = () => {
             <h2 className="mas-vendido-titulo">Lo más vendido</h2>           
             <div className="mas-vendido-contenedor">
                 {productosOrdenadosPorStock.map(producto => (
-                    <Link to={`/producto/${producto.id}`} className="producto-card-link">
-                        <div className="producto-card">
-                        <div className="producto-img-container">
-                        <img src={producto.img} alt={producto.nombre} className="producto-imagen" />
-                        </div>
-                        <div className="producto-info">
-                            <h3 className="producto-titulo">{producto.nombre}</h3>
-                            <div className="producto-precio">S/{producto.precio}</div>         
-                            <button className="producto-boton-agregar">AGREGAR</button>
-                        </div>
-                        </div>
-                    </Link>
+                    <ProductoCard key = {producto.id} producto = {producto} />
                 ))}
             </div>
         </div>
