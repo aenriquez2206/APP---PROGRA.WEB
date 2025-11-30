@@ -4,7 +4,7 @@ import "./CheckoutPago2.css";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCart } from '../PagCarrito/CartContext';
-import ordenApi from '../../api/ordenApi';
+import ordenApi from '../../api/ordenesApi';
 
 function CheckoutPago2() {
   const navigate = useNavigate();

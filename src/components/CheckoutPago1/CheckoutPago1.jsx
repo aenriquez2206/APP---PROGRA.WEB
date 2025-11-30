@@ -3,7 +3,7 @@ import NavBar from '../navBar/NavBar';
 import "./CheckoutPago1.css";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../PagCarrito/CartContext';
-import ordenApi from '../../api/ordenApi';
+import ordenApi from '../../api/ordenesApi';
 
 function CheckoutPago1() {
   const navigate = useNavigate();
