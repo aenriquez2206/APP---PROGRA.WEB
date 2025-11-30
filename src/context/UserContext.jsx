@@ -8,8 +8,8 @@ export function UserProvider({ children }) {
     const initialUser = JSON.parse(localStorage.getItem('usuario')) || null;
     const initialToken = localStorage.getItem('token') || null;
 
-    const [ user, setUser ] = useState(null)
-    const [ token, setToken] = useState(null)
+    const [ user, setUser ] = useState(initialUser)
+    const [ token, setToken] = useState(initialToken)
 
     const login = async (correo, password) => {
 
@@ -69,6 +69,7 @@ export function UserProvider({ children }) {
 
     const logout = () => {
         setUser(null)
+        setToken(null)
         localStorage.removeItem('usuario')
         localStorage.removeItem('token')
     }

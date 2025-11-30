@@ -4,10 +4,9 @@ const getHeaders = () => {
     const headers = {
         'Content-Type': 'application/json'
     };
-    const token = localStorage.getItem('token'); // Asumo que el token se llama 'token'
+    const token = localStorage.getItem('token');
     
     if (token) {
-        // Añadir el token de autenticación
         headers['Authorization'] = `Bearer ${token}`; 
     }
     return headers;
