@@ -1,7 +1,7 @@
 import './ListadoOrdenes.css'
 import estadoClase from './camcolor'
 import { useState } from 'react';
-import pedidosApi from '../../api/ordenesApi';
+import pedidosApi from '../../api/ordenes';
 const Botones = () => {
   return (
       <td>
@@ -13,6 +13,7 @@ const Botones = () => {
 const ListaO = () => {
 
   const ordenesDefault = pedidosApi.get();
+  
   const [ordenes, setOrdenes] = useState(ordenesDefault);
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
