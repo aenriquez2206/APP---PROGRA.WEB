@@ -1,13 +1,12 @@
 import './DashAdmin.css'
 import ButtonDisplay from './buttonDisplay/buttonDisplay'
-import usuariosApi from '../../api/usuariosApi'
 import pedidosApi from '../../api/ordenesApi'
 import UserRow from './userRow/UserRow'
 import DetailUser from './DetailUser/DetailUser'
 import Paginacion from '../Paginacion/Paginacion'
-
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
+import usuariosApi from '../../api/auth.js'
 const DashAdmin =()=>{
 
     const objetos =[
@@ -26,16 +25,29 @@ const DashAdmin =()=>{
     
     ]
 
-    const user1 = usuariosApi.get()[0]
+    const [user1,setUser1] = useState({});
+    const [rawUsers, setRawUsers] =useState([]);
+
+    const handleOnLoad =async()=>{
+        const rawuser = await usuariosApi.findOne(1);
+        setUser1(rawuser);
+        const allUsers = await usuariosApi.findAll();
+        setRawUsers(allUsers)
+        setUsuarios(allUsers)
+    }
+    useEffect(()=>{
+        handleOnLoad()
+    },[])
+
+    
     const navigate =useNavigate()
     const [usuarios, setUsuarios] = useState([]);
-    const [usuariosPagina, setUsuariosPagina] = useState([]);
     const [userDetail, setUserDetail] = useState(user1)
-    const pedidos = pedidosApi.get();
+    const pedidos = rawUsers;
     const [recargar,SetRecarga] = useState(false);
 
     //paginacion usuarios
-    const totalUsuarios = usuariosApi.get().length;
+    const totalUsuarios = rawUsers.length;
     const [paginaActualUser, setPaginaActualUser] = useState(1);
     const usuariosxPagina = 6;
     const totalPaginasUsers = Math.ceil(totalUsuarios / usuariosxPagina);
@@ -79,8 +91,8 @@ const DashAdmin =()=>{
     }
 
     useEffect(() => {
-        const usersInit = usuariosApi.get();
-        setUsuarios(usersInit);
+        handleOnLoad()
+        setUsuarios(rawUsers);
     },[recargar]);
 
     const handleRecargaUsuarios = () => {
@@ -89,8 +101,6 @@ const DashAdmin =()=>{
  
     
 
-
-   
 
     return(
         <>
@@ -129,7 +139,7 @@ const DashAdmin =()=>{
                             {
                                 usuariosActuales.map((usuario)=>{
                                     return(
-                                        <UserRow user={usuario} OnClick={handleUserDetail}
+                                        <UserRow user={usuario} fecha ={false} OnClick={handleUserDetail}
                                         />
                                     )
                                 })

@@ -12,12 +12,12 @@ import Change from './components/change/Change.jsx'
 import App from './App.jsx'
 import DashboardAdminPage from './routes/DashboardAdminPage.jsx'
 import ListadoCategoriasAdmin from './routes/ListadoCategoriasAdmin.jsx'
+import SetCategoriasPage from './routes/SetCategoriaPage'
 import DetalleUsuario from './routes/DetalleUsuario.jsx'
 import DetalleOrden from './routes/DetalleOrden.jsx'
 import CambiarContraseña from './routes/CambiarContraseña.jsx'
 import ProductosAdminPage from './routes/ProductosAdminPage.jsx'
 import ProdSetAdminPage from './routes/ProdSetAdminPage.jsx'
-import ProdEditAdminPage from './routes/ProdEditAdminPage.jsx'
 import UserAdmin from './routes/UsersAdmin.jsx'
 import OrderAdmin from './routes/OrderAdmin.jsx'
 import PaginaCatalogo from './routes/PaginaCatalogo.jsx'
@@ -119,10 +119,7 @@ path: "/catalogo",
   path:"admin/productos/agregar",
   element:<ProdSetAdminPage/>  
 },
-{
-  path:"admin/productos/editar",
-  element:<ProdEditAdminPage/>  
-},
+
 {
   path:"admin/users",
   element:<UserAdmin/>
@@ -133,7 +130,12 @@ path: "/catalogo",
 },{
   path:"/admin/categorias",
   element:<ListadoCategoriasAdmin/>
-},{
+},
+{
+  path:"/admin/categorias/agregar",
+  element:<SetCategoriasPage/>
+},
+{
   path:"/misordenes",
   element:<MisOrdenes/>
 }
