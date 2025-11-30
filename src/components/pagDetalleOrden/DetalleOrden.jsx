@@ -1,30 +1,100 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import "./DetalleOrden.css";
 import Paginacion from '../Paginacion/Paginacion'
-import img1 from "./imgs/mario_kart.webp";
-import img2 from "./imgs/2k26.webp";
-import img3 from "./imgs/nintendo_switch.png";
-import img4 from "./imgs/gengar.png";
-import img5 from "./imgs/metal_gear.webp";
-import img6 from "./imgs/auriculares.webp";
+import ordenesApi from '../../api/ordenesApi'
 
 const DetalleOrden = () => {
   const { id } = useParams();
+  const location = useLocation();
+  
+  // Obtener orden desde state o desde API
+  const [orden, setOrden] = useState(location.state?.orden ?? null);
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const productos = [
-    { id: 2223, nombre: "Mario Kart", categoria: "Videojuegos", cantidad: 10, total: 19.0, img: img1 },
-    { id: 6425, nombre: "2K26", categoria: "Videojuegos", cantidad: 4, total: 19.0, img: img2 },
-    { id: 2344, nombre: "Nintendo Switch with Joy", categoria: "Consola", cantidad: 4, total: 19.0, img: img3 },
-    { id: 4344, nombre: "Jazwares Pokemon Gengar 24", categoria: "Coleccionable", cantidad: 12, total: 19.0, img: img4 },
-    { id: 5454, nombre: "METAL GEAR SOLID DELT", categoria: "Videojuegos", cantidad: 1, total: 19.0, img: img5 },
-    { id: 8123, nombre: "Auriculares PC", categoria: "Periférico", cantidad: 1, total: 19.0, img: img6 },
-  ];
+  // Cargar detalles de la orden y sus productos
+  useEffect(() => {
+    const cargarOrden = async () => {
+      try {
+        setLoading(true);
+        
+        // Si ya tenemos la orden desde state, usarla directamente
+        let ordenData = null;
+        
+        if (location.state?.orden && Object.keys(location.state.orden).length > 0) {
+          // Usar la orden pasada en state (ya tiene todos los detalles)
+          ordenData = location.state.orden;
+          console.log('Orden desde state:', ordenData);
+        } else {
+          // Si no viene en state, cargar desde API
+          const rawordenes = await ordenesApi.findOne(id);
+          console.log('ID buscado:', id);
+          console.log('Respuesta del API:', rawordenes);
+          
+          // Normalizar respuesta
+          let ordenesArray = [];
+          if (Array.isArray(rawordenes)) {
+            ordenesArray = rawordenes;
+          } else if (rawordenes?.data && Array.isArray(rawordenes.data)) {
+            ordenesArray = rawordenes.data;
+          } else if (rawordenes?.data) {
+            ordenesArray = [rawordenes.data];
+          } else {
+            ordenesArray = [rawordenes];
+          }
+          
+          // Filtrar por idp o id que coincida con el parámetro de ruta
+          const idNumerico = Number(id);
+          ordenData = ordenesArray.find(o => 
+            Number(o.idp) === idNumerico || Number(o.id) === idNumerico
+          ) ?? null;
+          
+          console.log('Orden encontrada:', ordenData);
+        }
+        
+        if (!ordenData || !ordenData.detalles) {
+          setError(`No se encontraron detalles para la orden ${id}`);
+          setOrden(null);
+          setProductos([]);
+          setLoading(false);
+          return;
+        }
+        
+        setOrden(ordenData);
+        
+        // Obtener productos de la orden desde detalles[].producto
+        const productosOrden = Array.isArray(ordenData.detalles) 
+          ? ordenData.detalles.map(detalle => ({
+              ...detalle.producto,
+              cantidad: detalle.cantidad ?? 1,
+              detalleId: detalle.id
+            }))
+          : [];
+        
+        setProductos(productosOrden);
+        console.log('Productos cargados:', productosOrden);
+        setError(null);
+      } catch (err) {
+        console.error("Error cargando orden:", err);
+        setError("Error al cargar los detalles de la orden");
+        setProductos([]);
+        setOrden(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      cargarOrden();
+    }
+  }, [id, location.state]);
   
 
   // Estado de paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  const productosPorPagina = 3;
+  const productosPorPagina = 5;
 
   // Cálculos de paginación
   const indiceUltimo = paginaActual * productosPorPagina;
@@ -32,6 +102,18 @@ const DetalleOrden = () => {
   const productosMostrados = productos.slice(indicePrimero, indiceUltimo);
 
   const totalPaginas = Math.ceil(productos.length / productosPorPagina);
+
+  if (loading) {
+    return <div className="detalle-orden-container"><h2>Cargando detalles de la orden...</h2></div>;
+  }
+
+  if (error || !orden) {
+    return (
+      <div className="detalle-orden-container">
+        <h2>{error || "No se encontró la orden"}</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="detalle-orden-container">
@@ -41,13 +123,15 @@ const DetalleOrden = () => {
       <div className="orden-card">
         <div className="orden-info">
           <h3>
-            Orden <span className="orden-id">#{id}</span>
+            Orden <span className="orden-id">#{orden.idp ?? orden.id}</span>
           </h3>
         </div>
 
         <div className="orden-datos">
-          <p><strong>Estado:</strong> <span className="estado">Entregado</span></p>
-          <p><strong>Monto total:</strong> S/400.00</p>
+          <p><strong>Estado:</strong> <span className="estado">{orden.estado ? 'Entregado' : 'Pendiente'}</span></p>
+          <p><strong>Monto total:</strong> S/{(Number(orden.total) || 0).toFixed(2)}</p>
+          <p><strong>Fecha:</strong> {typeof orden.fecha === 'string' ? orden.fecha.slice(0, 10) : orden.fecha}</p>
+          <p><strong>Usuario:</strong> {orden.usuario?.nombre ?? 'N/A'}</p>
         </div>
       </div>
 
@@ -60,24 +144,41 @@ const DetalleOrden = () => {
             <tr>
               <th>Id</th>
               <th>Nombre</th>
-              <th>Categoría</th>
+              <th>Género</th>
               <th>Cantidad</th>
-              <th>Total</th>
+              <th>Precio Unitario</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody>
-            {productosMostrados.map((p) => (
-              <tr key={p.id}>
-                <td className="producto-id">
-                  <img src={p.img} alt={p.nombre} />
-                  <span className="id-link">#{p.id}</span>
-                </td>
-                <td>{p.nombre}</td>
-                <td><strong>{p.categoria}</strong></td>
-                <td>{p.cantidad}</td>
-                <td>S/{p.total.toFixed(2)}</td>
+            {productos.length > 0 ? (
+              productosMostrados.map((p) => {
+                const cantidad = p.cantidad ?? 1;
+                const precio = Number(p.precio) || 0;
+                const subtotal = cantidad * precio;
+                return (
+                  <tr key={p.id ?? p.detalleId ?? Math.random()}>
+                    <td className="producto-id">
+                      {p.img ? (
+                        <img src={p.img} alt={p.nombre} />
+                      ) : (
+                        <div className="img-placeholder">Sin imagen</div>
+                      )}
+                      <span className="id-link">#{p.id}</span>
+                    </td>
+                    <td>{p.nombre}</td>
+                    <td><strong>{p.genero}</strong></td>
+                    <td>{cantidad}</td>
+                    <td>S/{precio.toFixed(2)}</td>
+                    <td><strong>S/{subtotal.toFixed(2)}</strong></td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="6" style={{ textAlign: 'center' }}>No hay productos en esta orden</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
 
