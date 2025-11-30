@@ -33,9 +33,8 @@ const Paginacion = ({totalPaginas, paginaActual, setPaginaActual}) => {
         <div className="paginacion-container">
             <button
                 className="paginacion-flecha"
-                onClick={() => handlePageChange(1)}
-                disabled={paginaActual === 1}
-                aria-label="Ir a la primera página"
+                onClick={() => handlePageChange(paginaActual - 1)}
+                disabled={paginaActual===1}
             >
                 <h3 className = "flecha-izq">{'<'}</h3>
             </button>
@@ -52,9 +51,8 @@ const Paginacion = ({totalPaginas, paginaActual, setPaginaActual}) => {
 
             <button
                 className="paginacion-flecha"
-                onClick={() => handlePageChange(totalPaginas)}
+                onClick={() => handlePageChange(paginaActual + 1)}
                 disabled={paginaActual === totalPaginas}
-                aria-label="Ir a la última página"
             >
                 <h3 className = "flecha-der">{'>'}</h3>
             </button>

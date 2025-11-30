@@ -21,11 +21,9 @@ const DashAdmin =()=>{
         const rawuser = await usuariosApi.findOne(1);
         setUser1(rawuser);
         const allUsers = await usuariosApi.findAll();
-        const user = await usuariosApi.findOne(1);
         const raworders = await ordenesAPi.findAll()
         setRawUsers(allUsers)
         setUsuarios(allUsers)
-        setUser1(user)
         setOrders(raworders)
     }
     useEffect(()=>{
