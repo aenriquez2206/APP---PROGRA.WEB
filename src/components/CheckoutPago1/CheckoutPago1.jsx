@@ -22,24 +22,48 @@ function CheckoutPago1() {
 
   const handlePagoQR = async () => {
     try {
-      // Crear la orden
-      const payload = {
+      // ✅ Enviar todos los datos de los items
+      const cartItemsPayload = cartItems.map(item => ({
+        id: item.id,
+        cantidad: item.cantidad,
+        nombre: item.nombre,
+        precio: item.precio,
+        img: item.img,
+        categoria: item.categoria
+      }));
+
+      const payloadOrden = {
         id_user: usuario.id,
         total,
         precio_productos,
-        items: cartItems.map(p => ({ id_producto: p.id, cantidad: p.cantidad }))
+        NroTarjeta: null,
+        TipoTarjeta: 'QR',
+        estado: true
       };
 
-      const respuesta = await ordenesApi.create(payload);
+      const nuevaOrden = await ordenesApi.createWithItems(payloadOrden, cartItemsPayload);
 
-      // Vaciar carrito
+      // Limpiar carrito
       clearCart();
 
-      // Navegar a página de gracias con datos de la orden
-      navigate('/checkout/compraexitosa', { state: { metodoPago: 'QR', orden: respuesta } });
+      // Redirigir a CheckoutGracias
+      navigate('/carrito/compraexitosa', {
+        state: {
+          nombre,
+          apellido,
+          ciudad,
+          departamento,
+          direccion,
+          codigoP,
+          telefono,
+          metodoPago: 'QR',
+          nuevaOrden,
+          items: cartItemsPayload
+        }
+      });
     } catch (error) {
-      console.error("Error creando orden:", error);
-      alert("Ocurrió un error al generar la orden.");
+      console.error("Error al crear la orden:", error);
+      alert("Ocurrió un error al crear la orden.");
     }
   };
 
