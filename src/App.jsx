@@ -2,6 +2,7 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import PagCarrito from './components/PagCarrito/PagCarrito.jsx'
 import PagCheckout from './components/PagCheckout/PagCheckout.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Login from './components/login/Login.jsx'
 import Register from './components/register/Register.jsx'
 import Forgot from './components/forgot/Forgot.jsx'
@@ -35,28 +36,52 @@ const router = createBrowserRouter([
     element: <PaginaPrincipal/>
   },
   {
-    path:"/carrito",
-    element: <PagCarrito/>
+    path: "/carrito",
+    element: (
+      <ProtectedRoute>
+        <PagCarrito />
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/carrito/checkout",
-    element: <PagCheckout/>
+    path: "/carrito/checkout",
+    element: (
+      <ProtectedRoute>
+        <PagCheckout />
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/carrito/checkout/pago",
-    element: <CheckoutPago/>
+    path: "/carrito/checkout/pago",
+    element: (
+      <ProtectedRoute>
+        <CheckoutPago />
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/carrito/checkout/pago/qr",
-    element: <CheckoutPago1/>
+    path: "/carrito/checkout/pago/qr",
+    element: (
+      <ProtectedRoute>
+        <CheckoutPago1 />
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/carrito/checkout/pago/tarjeta",
-    element: <CheckoutPago2/>
+    path: "/carrito/checkout/pago/tarjeta",
+    element: (
+      <ProtectedRoute>
+        <CheckoutPago2 />
+      </ProtectedRoute>
+    )
   },
   {
-    path:"/carrito/compraexitosa",
-    element: <CheckoutGracias/>
+    path: "/carrito/compraexitosa",
+    element: (
+      <ProtectedRoute>
+        <CheckoutGracias />
+      </ProtectedRoute>
+    )
   },
   {
     path:"login",
