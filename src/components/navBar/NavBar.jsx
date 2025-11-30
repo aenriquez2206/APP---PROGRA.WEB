@@ -9,7 +9,7 @@ const NavBar =()=>{
             <nav>
                 <ul>
                     <li>
-                        <button class='boton_NavBar' onClick={() => navigate('/catalogo')}>
+                        <button className='boton_NavBar' onClick={() => navigate('/catalogo')}>
                         <img id="imgCat" src='/itemsAssets/list.png' alt='cat'/>
                         Categoría
                         </button>

@@ -66,7 +66,7 @@ const ProductosAdmin =()=>{
 
 
   const NavigateAddProduct =()=>{
-        navigate('/admin/productos/agregar')
+        navigate('/admin/productos/agregar',{state:{}})
   }
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -94,7 +94,7 @@ const ProductosAdmin =()=>{
   };
 
   const handleEditclick = (producto) => {
-        navigate('/admin/productos/editar',{state:{producto}});
+        navigate('/admin/productos/agregar',{state:{producto}});
   }
 
 
