@@ -1,13 +1,22 @@
-import base from './base.js'
+import base from './base.js';
 
-const endpoint = 'orden'
+const endpoint = 'orden';
 
 const findAll = async () => await base.get(endpoint);
-const create = async (payload) => await base.post(endpoint,payload);
-//const update = async (payload) => await base.put(endpoint,payload);
-//const remove = async (id) => await base.remove(`${endpoint}/${id}`);
-const findOne = async (id) => await base.get(`${endpoint}/${id}`);
 
-const api = { findAll, create, findOne }
+const findByUser = async (userId) => await base.get(`${endpoint}/${userId}`);
+
+// ⚡ Crear orden (checkout)
+const createWithItems = async (ordenData, itemsData) => {
+  // Enviar el payload tal como espera el backend
+  const payload = {
+    ...ordenData,
+    items: itemsData
+  };
+  return await base.post(endpoint, payload);
+};
+
+
+const api = { findAll, findByUser, createWithItems };
 
 export default api;

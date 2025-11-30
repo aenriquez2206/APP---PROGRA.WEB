@@ -17,8 +17,7 @@ const get = async(endpoint) => {
         method: 'GET',
         headers: getHeaders()
     }
-
-    return await handleFetch(URI + endpoint, objPayload)
+    return await handleFetch(URI + endpoint,objPayload)
 }
 
 const post = async(endpoint, payload) => {
@@ -44,8 +43,10 @@ const put = async(endpoint, payload) => {
 const remove = async(endpoint, payload) => {
     const objPayload = {
         method: 'DELETE',
-        headers: getHeaders(),
-        body: JSON.stringify(payload)
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
     }
 
     return await handleFetch(URI + endpoint, objPayload)
