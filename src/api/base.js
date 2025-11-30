@@ -4,29 +4,20 @@ const getHeaders = () => {
     const headers = {
         'Content-Type': 'application/json'
     };
-    const token = localStorage.getItem('token'); // Asumo que el token se llama 'token'
+    const token = localStorage.getItem('token');
     
     if (token) {
-        // Añadir el token de autenticación
         headers['Authorization'] = `Bearer ${token}`; 
     }
     return headers;
 }
 
 const get = async(endpoint) => {
-<<<<<<< HEAD
     const objPayload = {
         method: 'GET',
         headers: getHeaders()
     }
     return await handleFetch(URI + endpoint,objPayload)
-=======
-    return await fetch(URI + endpoint)
-                    .then(response => response.json())
-                    .then(data => {
-                        return data;
-                    })
->>>>>>> 21cdd8b3105031e834f72e15f3ad8f5d2aed961a
 }
 
 const post = async(endpoint, payload) => {
@@ -52,14 +43,8 @@ const put = async(endpoint, payload) => {
 const remove = async(endpoint) => {
     const objPayload = {
         method: 'DELETE',
-<<<<<<< HEAD
         headers: getHeaders(),
         body: JSON.stringify(payload)
-=======
-        headers: {
-            'Content-Type': 'application/json'
-        },
->>>>>>> 21cdd8b3105031e834f72e15f3ad8f5d2aed961a
     }
 
     return await handleFetch(URI + endpoint, objPayload)
