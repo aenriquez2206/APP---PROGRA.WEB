@@ -172,6 +172,7 @@ const handleFileChange = (e) => {
 
                 </section>
                 <section className='sectInsertProd'>
+                <p>Solo se admiten imagenes hasta 60 KB.</p>
                 <div
                 className="zona-imagen"
                 onDrop={handleDrop}
