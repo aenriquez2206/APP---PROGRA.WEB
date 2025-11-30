@@ -11,7 +11,7 @@ const SetProdAdmin=()=>{
         nombre: "",
         presentacion: "",
         descripcion:"",
-        categoria: "",
+        categoria_id: -1,
         stock: 0,
         precio:0,
         descuento:0,
@@ -54,7 +54,7 @@ const SetProdAdmin=()=>{
     }
 
     const handleSubmit =async (producto)=>{
-        if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria || !producto.stock ){
+        if(!producto.nombre || !producto.presentacion || !producto.descripcion || !producto.categoria_id || !producto.stock ){
             alert("Por favor complete todos los campos")
             return
         }
@@ -142,15 +142,15 @@ const handleFileChange = (e) => {
                     <br/>
                     <div className='cateogriaDivision'>
                         <select 
-                        value={producto.categoria}
+                        value={producto.categoria_id}
                         className='selectSectionProd'
-                        onChange={(e)=>setProducto({...producto,categoria: e.target.value})}
+                        onChange={(e)=>setProducto({...producto,categoria_id: e.target.value})}
                         >
                             <option className="optionInic" value="{}" disabled selected>Selecciona la categoria del producto</option>
                             {
                                 categorias.map((categoria)=>{
                                     return(
-                                        <option value={categoria.nombre}>
+                                        <option value={categoria.id}>
                                             {categoria.nombre}
                                         </option>
                                     )

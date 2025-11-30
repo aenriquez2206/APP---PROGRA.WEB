@@ -145,7 +145,7 @@ const ProductosAdmin =()=>{
                                     <td>{item.nombre}</td>
                                     <td>{item.presentacion}</td>
                                     <td className="descripcionProd" title={item.descripcion}>{item.descripcion}</td>
-                                    <td><strong>{item.categoria}</strong></td>
+                                    <td><strong>{item.categoriaDetail?.nombre}</strong></td>
                                     <td>{item.stock}</td>
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>
