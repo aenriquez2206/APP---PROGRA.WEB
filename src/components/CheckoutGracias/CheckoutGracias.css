@@ -1,0 +1,56 @@
+#Resumen_final{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 1100px;
+    height: 600px;
+}
+
+#derecha{
+    padding-left: 30px;
+}
+
+#envio{
+    
+    border: 2px solid #ccc;
+    width: 500px;
+    border-radius: 10px;
+    height: 270px;
+    margin: 20px;
+}
+
+.text_caja{
+    padding-left: 20px;
+}
+
+#img_delivery{
+    width: 50px;
+    height: 50px;
+    text-align: right;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#moto_img{
+    display: flex;
+    text-align: right;
+    justify-content: space-between;
+}
+
+.Volver{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 400px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#Volver_div{
+    text-align: right;
+    padding-top: 20px;
+   
+}

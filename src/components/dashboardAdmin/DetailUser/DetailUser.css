@@ -1,0 +1,12 @@
+.colorPedidoTabla{
+    color: rgb(58,164,35);
+    font-weight: bold ;
+    text-decoration: underline;
+}
+
+.imgUserDetail{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}

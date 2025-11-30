@@ -1,0 +1,83 @@
+
+
+
+.maindetalleusuario .tabla_DU{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid 1px gray;
+  border-radius: 8px;
+
+}
+
+
+.maindetalleusuario {
+    padding: 10px 30px;
+}
+
+.tabla_DU button{
+  background-color: rgb(127, 173, 57);
+  padding: 8px 15px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.maindetalleusuario .CContra{
+  background-color: rgb(127, 173, 57);
+  padding: 15px 12px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+}
+
+.maindetalleusuario .Titulo{
+  display: flex;
+  gap: 350px;
+}
+
+.maindetalleusuario .card .Principal{
+  display:flex;
+  gap: 100px;
+}
+
+.maindetalleusuario .card .Principal img{
+  width: 200px;
+  height: 200px;
+}
+
+.maindetalleusuario .card{
+  border:solid 1px gray;
+  padding: 30px;
+  
+}
+
+.maindetalleusuario .tabla_DU tbody .Id_Orden{
+  color:green
+  
+}
+
+
+.maindetalleusuario .tabla_DU .estado_rojo{
+  color:red;
+}
+
+.maindetalleusuario .tabla_DU .estado_verde{
+  color:green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,239 @@
+
+
+.mainCarrito{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+.producto_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.producto_guardado{  
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fff;
+opacity: 0.7;
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
+  padding-top: 10px;
+
+}
+
+.producto_checkbox {
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+
+
+.producto_img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.producto_detalles {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.producto_nombre {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.producto_categoria {
+  font-size: 14px;
+  color: #666;
+}
+
+.producto_precio_cantidad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.producto_precio {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.producto_cantidad_control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.boton_cantidad_control{
+    border: none;
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.cantidad_control{
+    width: 20px;
+    text-align: center;
+}
+
+.carrito_btn_elimina{
+    border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #28a745;
+}
+
+
+
+.carrito_headers{
+    display: flex;
+    align-items: baseline;
+}
+
+#cantidad{
+    padding-left: 10px;
+}
+
+.resumen{
+    margin-left: auto;
+    margin-right: 295px;
+}
+
+.compras{
+    display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.resumen_compra{
+    width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-height: 500px;  /* o el alto que quieras */
+  overflow-y: auto;   /* para que salga scroll cuando exceda altura */
+}
+
+.resumen_info{
+    border: 2px solid #ccc;
+    width: 500px;
+    border-radius: 10px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.contenido{
+    
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.precios{
+
+    text-align: right;
+    
+}
+
+.precios_desc{
+    color: red;
+    text-align: right;
+}
+
+#boton1{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+    
+}
+
+#boton1:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
+  background-color: #0fc036; /* opcional: cambia color de fondo */
+}
+
+.botonesResumen{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.BotonesR{
+    text-align: center;
+}
+
+#botonBorrar{
+    color: white;
+    background-color: red;
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+    
+}
+
+#botonBorrar:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
+  background-color: #a82424; /* opcional: cambia color de fondo */
+}
+
+#botonGuardar{
+    color: white;
+    background-color: orange;
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+    
+}
+#botonGuardar:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* sombra externa */
+  background-color: #c4570e; /* opcional: cambia color de fondo */
+}
+
+
+.resumen_compra{
+    display: flex;
+  flex-direction: column;
+  flex: 2;
+  gap: 10px;
+}

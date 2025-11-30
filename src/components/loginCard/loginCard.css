@@ -1,0 +1,90 @@
+#email
+{
+    border: solid rgb(210, 205, 205) 1px;
+    border-radius: 10px;
+    color: black;
+    display: block;
+    height: 35px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 95%;
+}
+
+#lC {
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgb(215, 215, 215);
+    padding: 60px 60px 60px 60px;
+    width: 500px;                
+    margin: 60px auto;
+    background-color: #fff;
+}
+
+#loginButton, #registerButton, #forgotButton, #changeButton
+{
+    background-color: rgb(58, 164, 35);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    margin: 0 auto;
+    padding: 10px;
+    padding-left: 100px;
+    padding-right: 100px;
+    width: 75%;
+}
+
+#loginScreen
+{
+    display: flex;
+    padding-bottom: 50px;
+    padding-top: 80px;
+    justify-content: center;
+}
+
+#pword, #pword1, #pword2, #name, #surname, #DNI
+{
+    border: solid rgb(210, 205, 205) 1px;
+    border-radius: 10px;
+    color: black;
+    display: block;
+    height: 35px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 95%;
+}
+
+::placeholder
+{
+    color: rgb(152, 162, 179);
+}
+
+#olv
+{
+    color:rgb(58, 164, 35);
+    text-align: center;
+}
+#olv a:visited
+{
+    color:rgb(58, 164, 35);
+}
+
+#reg
+{
+    color:rgb(58, 164, 35);
+    font-weight: bold;
+    text-align: center;
+}
+#reg a:visited
+{
+    color:rgb(58, 164, 35);
+}
+
+#title
+{
+    margin-bottom: 20px;
+}

@@ -1,0 +1,119 @@
+.detalle-usuario-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 900px;
+    margin: 40px auto;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-usuario-container  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.usuario-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.usuario-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.usuario-info p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.usuario-info a {
+    color: #000;
+    text-decoration: underline;
+}
+
+.usuario-foto img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ordenes-section h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.ordenes-section  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.ordenes-section  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.ordenes-section th {
+    font-weight: 600;
+}
+
+.id-link {
+    color: rgb(58, 164, 35);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-ver {
+    background-color: rgb(58, 164, 35);
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-ver:hover {
+    background-color: rgb(58, 164, 35);
+}
+
+.btn-ver:active{
+    transform: scale(0.95); 
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.paginacion button {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.paginacion button.activo {
+    background-color: rgb(58, 164, 35);
+    color: white;
+    border: none;
+    transform: scale(0.95); 
+    
+}
+
+.paginacion span {
+    padding: 0 4px;
+    color: #555;
+}

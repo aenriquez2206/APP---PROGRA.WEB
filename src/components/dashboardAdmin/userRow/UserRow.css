@@ -1,0 +1,58 @@
+
+
+.nombreTable{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    font-size: clamp(10px,1.5vw,20px);
+}
+
+.imagenNombreTable{
+    height: 40px;
+    border-radius: 90%;
+}
+
+.estadoActivo{
+    color:rgb(58,164,35);
+     font-size: clamp(10px,1.5vw,20px);
+}
+
+.estadoInactivo{
+    color:red ;
+     font-size: clamp(10px,1.5vw,20px);
+}
+.accionesButton{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonDesactivar{
+    width: calc(45%);
+    background:  rgb(58,164,35);
+    border:0px;
+    color:white;
+    border-radius: 0.5cap;
+    height: 40px;
+    font-size: clamp(9px, 1.1vw, 15px);
+    margin-right: 5px;
+}
+.buttonDesactivar:hover{
+    transform: scale(0.95); 
+}
+
+.buttonDetalle{
+    width: calc(45%);
+    background:  white;
+    border:solid rgb(58,164,35) 1px ;
+    color:rgb(58,164,35);
+    border-radius: 0.5cap;
+    height: 40px;
+    font-size: clamp(9px, 1.1vw, 15px);
+}
+
+.buttonDetalle:hover {
+    background-color: rgb(58,164,35); 
+    color:white;
+    transform: scale(0.95); 
+}

@@ -1,0 +1,21 @@
+.searchSection{
+    align-items: center;
+    margin: 1px;
+    border: solid rgb(210, 205, 205) 1px;
+    border-radius: 1cap;
+    display: flex;
+    padding: 10px;
+    height: auto;
+    width: calc(80%);
+    margin-right: 40px;
+    justify-content: space-between;
+    height: 25px;
+}
+
+.search{
+    border: none;
+    outline:none;
+    margin-right: 50px;
+    width: 100%;
+    height: 25px;
+}

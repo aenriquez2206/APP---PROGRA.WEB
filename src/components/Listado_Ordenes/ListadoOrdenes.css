@@ -1,0 +1,94 @@
+#bOrden
+{
+  border-radius: 10px;
+  border-color: solid rgb(223, 223, 223);
+  height: 30px;
+  width: 1100px;
+}
+
+.tableOrdersAdmin{
+  padding: 16px 16px;
+  text-align: left;
+  border: solid;
+}
+
+.mainOrdersAdmin {
+    padding: 10px 30px;
+}
+
+.tableOrdersAdmin{
+    border: 1px solid  rgb(191, 191, 191) ;
+    border-radius: 0.5cap;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: calc(100%);
+    text-align: left;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+.tableOrdersAdmin tr,th,td{
+    padding: 10px;
+}
+.tableOrdersAdmin th,td{
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+.tableOrdersAdmin tbody tr:hover {
+    background-color: rgb(229, 227, 227);
+}
+
+.tableOrdersAdmin button{
+  background-color: rgb(58,164,35);
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.mainOrdersAdmin .buscarO{
+  background-color: rgb(58,164,35);
+  padding: 10px 15px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.mainOrdersAdmin .BuscadorO{
+  display: flex;
+  gap: 15px;
+  text-align: center;
+}
+
+.mainOrdersAdmin .tableOrdersAdmin td{
+  padding: 12px 25px;
+}
+
+.mainOrdersAdmin .tableOrdersAdmin thead{
+  text-align: center;
+
+}
+
+.mainOrdersAdmin .tableOrdersAdmin tbody td{
+  text-align: center;
+
+}
+
+
+.mainOrdersAdmin .tableOrdersAdmin .estado_rojo{
+  color:red
+}
+
+
+.mainOrdersAdmin .tableOrdersAdmin .estado_verde{
+  color:green
+}
+
+
+.mainOrdersAdmin .tableOrdersAdmin tbody .Id_Orden{
+  color: green;
+
+}
+
+

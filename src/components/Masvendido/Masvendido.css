@@ -1,0 +1,95 @@
+.mas-vendido-seccion {
+    max-width: 1200px;
+    margin: 40px auto; 
+    padding: 0 20px;
+    
+}
+
+.mas-vendido-titulo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.mas-vendido-contenedor {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.mas-vendido-link {
+    text-decoration: none;
+    display: block; 
+    height: 100%;
+    flex-shrink: 0;
+    width: 250px;
+    margin: 0; 
+    padding: 0;
+}
+
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd; 
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white; 
+    transition: box-shadow 0.2s;
+}
+
+.producto-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.producto-img-container {
+    width: 90%;
+    padding-left: 10px;
+    height: 180px; 
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+}
+
+.producto-titulo {
+    font-size: 13pt;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    line-height: 1.3;
+    height: 70px; 
+    text-decoration: none;
+    color: #333;
+}
+.producto-precio {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.producto-boton-agregar {
+    background-color: transparent;
+    border: 1px solid #4CAF50; 
+    color: #4CAF50;
+    padding: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: auto; 
+}
+
+.producto-boton-agregar:hover {
+    background-color: #4CAF50;
+    color: white;
+}

@@ -1,0 +1,76 @@
+
+.checkout_headers{
+    display: flex;
+    align-items: baseline;
+    gap: 1000px;
+}
+
+#PagosResumen{
+    display: flex;
+}
+
+#TiposPagos{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.opcion{
+    display: flex;
+    flex-direction: row;  
+    align-items: center;    
+    cursor: pointer;
+    padding: 20px;
+    gap: 30px;
+    font-size: 30px;
+    
+}
+
+
+.opcion:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  background-color: #f0f0f0; 
+}
+
+.circuloSeleccion{
+    width: 50px;
+    height: 50px;
+}
+
+#QRscan{
+    width: 300px;
+    height: 300px;
+}
+
+#MetodosPago{
+    width: 700px;
+    height: 300px;
+}
+
+.texto1{
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#direccion{
+  width: 920px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#boton2{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+}

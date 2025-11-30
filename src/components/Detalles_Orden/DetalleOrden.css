@@ -1,0 +1,86 @@
+
+
+
+.tabla_DO {
+  padding: 16px 16px;
+  text-align: left;
+  border: solid;
+}
+
+
+.maindetalleorden {
+    padding: 10px 30px;
+}
+
+.tabla_DO head{
+  align-items: center;
+}
+.tabla_DO td{
+  padding: 12px 12px;
+
+}
+
+.maindetalleorden .l1{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.maindetalleorden div .estado_rojo{
+  color:red;
+}
+
+.maindetalleorden div .estado_verde{
+  color:green;
+}
+
+
+.maindetalleorden table tbody .Id_Producto{
+  color: green;
+
+}
+
+.maindetalleorden div .infoO{
+  display: flex;
+  align-items:end;
+  gap: 530px;
+  
+}
+
+.maindetalleorden div .infoO .estado{
+  display: flex;
+
+  gap: 5px;
+  
+
+}
+
+.maindetalleorden .Principal .infoO .orden{
+  display: flex;
+  gap: 5px;
+
+}
+.maindetalleorden .Principal .infoO .N_Orden{
+  color: green;
+}
+
+
+
+
+.maindetalleorden .Principal{
+  border: solid 1px gray;
+  padding: 40px;
+}
+
+
+.maindetalleorden .Principal .Monto{
+  text-align: right;
+}
+
+.maindetalleorden .Principal .tabla_DO tbody img{
+  width: 80px;
+  height: 80px;
+}
+
+
+

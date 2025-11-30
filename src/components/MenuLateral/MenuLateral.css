@@ -1,0 +1,51 @@
+.menu-lateral {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.menu-titulo{
+    padding-left: 10px;
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block; 
+    text-decoration: none;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 0;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 0;
+    transition: background-color 0.2s;
+    width: 100%; 
+    box-sizing: border-box;
+    
+}
+
+.menu-item:hover {
+    background-color: #f0ffef;
+}
+
+.menu-item.active {
+    background-color: #4CAF50; 
+    color: white;
+    font-weight: 700;
+}
+
+.active-arrow {
+    font-weight: 900;
+    font-size: 1.2rem;
+}

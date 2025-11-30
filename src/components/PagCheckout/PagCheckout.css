@@ -1,0 +1,74 @@
+
+.checkout_headers{
+    display: flex;
+    align-items: baseline;
+}
+
+.main_carrito{
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.div1{
+    display: flex;
+    gap: 90px;
+
+}
+
+.div2{
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+}
+.div3{
+    display: flex;
+    padding: 20px;
+    gap: 100px;
+    width: 1000px;
+}
+
+.div3_dir{
+    padding: 20px;
+    width: 1000px;
+}
+
+.texto1{
+  width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#direccion{
+  width: 920px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#boton2{
+    color: white;
+    background-color: rgb(58, 164, 35);
+    border: 0;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    
+}
+#boton2:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+  background-color: #0fc036; 
+}
+
+.resumen_info2{
+    border: 2px solid #ccc;
+    width: 500px;
+    border-radius: 10px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: 20px;
+}

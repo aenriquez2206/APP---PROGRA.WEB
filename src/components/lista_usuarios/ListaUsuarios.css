@@ -1,0 +1,113 @@
+
+
+
+.userTableView{
+     border: 1px solid  rgb(191, 191, 191) ;
+    border-radius: 0.5cap;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: calc(100%);
+    text-align: left;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+.userTableView tr,th,td{
+    padding: 10px;
+}
+.userTableView th,td{
+    border-bottom: 1px solid rgb(191, 191, 191);
+}
+.userTableView tbody tr:hover {
+    background-color: rgb(229, 227, 227);
+}
+
+.imagenTabla{
+  width: 20px;
+  width: 20px;
+} 
+
+.mainListaUsuarios {
+    padding: 10px 30px;
+}
+
+
+.userTableView .Estado{
+  color:green;
+  
+}
+
+.principalB {
+  padding: 0px 12px;
+
+
+}
+
+.mainListaUsuarios .BuscadorU{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mainListaUsuarios .BuscadorU .bUsuario{
+  flex: 1
+}
+
+
+.mainListaUsuarios .BuscadorU button {
+
+    font-family: "Montserrat","sans-serif";
+    color: white;
+    border-radius: 1cap;
+    border: 0px;
+    width:auto ;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 10px 20px;
+    background: rgb(58,164,35);
+    width: 90px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.mainListaUsuarios .BuscadorU {
+    align-items: center;
+
+}
+
+.mainListaUsuarios .userTableView .estado_rojo{
+  color:red;
+}
+
+.mainListaUsuarios .userTableView .estado_verde{
+  color:green;
+}
+
+.userTableView tbody button{
+    font-family: "Montserrat","sans-serif";
+    color: white;
+    border-radius: 1cap;
+    border: 0px;
+    height: 40px;
+    padding: 10px 20px;
+    background: rgb(58,164,35);
+    cursor: pointer;
+} 
+
+.userTableView tbody td{
+  text-align: center;
+
+}
+.userTableView thead{
+  text-align: center;
+
+}
+
+#bUsuario
+{
+  border-radius: 10px;
+  border-color: solid rgb(223, 223, 223);
+  height: 30px;
+  width: 1100px;
+}

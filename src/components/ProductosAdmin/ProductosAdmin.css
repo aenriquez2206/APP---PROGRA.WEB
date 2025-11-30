@@ -1,0 +1,116 @@
+.sectionProductosAdmin{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.busquedaProductosAdmin{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.descripcionProd{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.botonListadoProductosAdmin{
+    width: calc(10%);
+    background:  rgb(58,164,35);
+    border:0px;
+    color:white;
+    border-radius: 0.5cap;
+    height: 40px;
+    font-size: clamp(9px, 1.1vw, 15px);
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.botonListadoProductosAdmin:hover{
+    transform: scale(0.95); 
+}
+
+.sectionBotonRowProdAdmin{
+    display: flex;
+}
+
+.BotonRowProdAdmin{
+    margin:2px;
+    height: 30px;
+    border:0px;
+    background: none;
+    
+}
+
+.BotonRowProdAdmin:hover{
+    transform: scale(0.95);
+}
+
+.imgRowProdAdmin{
+    width: calc(70%);
+    object-fit: cover;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.modal p {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.confirm-btn {
+  background-color: rgb(58,164,35);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  transform: scale(0.95);
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #b5b5b5;
+}

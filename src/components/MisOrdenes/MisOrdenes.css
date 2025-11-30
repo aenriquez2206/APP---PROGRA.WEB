@@ -1,0 +1,38 @@
+#dpde
+{
+    display: flex;
+    gap: 20px;
+    padding-left: 60px;
+}
+
+#dp,#de
+{
+    border: 2px solid rgb(225, 225, 225);
+    border-radius: 10px;
+    padding: 20px;
+    padding-right: 100px;
+}
+
+#fusuario
+{
+    height: 200px;
+    width: auto;
+}
+
+#ord,#maho
+{
+    background-color: rgb(58, 164, 35);
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    padding: 20px;
+    width: 250px;
+}
+
+#saludo
+{
+    padding-left: 30px;
+    padding-top: 60px;
+}
+
