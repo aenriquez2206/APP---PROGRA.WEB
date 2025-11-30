@@ -30,6 +30,7 @@ import CheckoutGracias from './components/CheckoutGracias/CheckoutGracias.jsx'
 import ListaO from './components/Listado_Ordenes/ListadoOrdenes.jsx'
 import { CartProvider } from "./components/PagCarrito/CartContext.jsx"
 import MisOrdenes from './components/MisOrdenes/MisOrdenes.jsx'
+import { UserProvider } from './context/UserContext.jsx'
 
 const router = createBrowserRouter([
 {
@@ -142,8 +143,10 @@ path: "/catalogo",
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <CartProvider>
-          <RouterProvider router={router} />
-        </CartProvider>
+        <UserProvider>
+            <CartProvider>
+                <RouterProvider router={router} />
+            </CartProvider>
+        </UserProvider>
     </StrictMode>,
 )

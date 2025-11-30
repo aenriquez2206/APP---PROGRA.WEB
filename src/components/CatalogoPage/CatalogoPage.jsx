@@ -10,65 +10,76 @@ import './CatalogoPage.css'
 const ProductosxPagina = 12;
 
 const CatalogoPage = () => {
-    const ProductosCompletos = productosApi.get();
-    const { categoriaNombre } = useParams()
-    const location = useLocation()
+    const { categoriaNombre } = useParams();
+    const location = useLocation();
     
-    const [paginaActual, setPaginaActual] = useState(1)
-    const [productosMostrados, setProductosMostrados] = useState(ProductosCompletos)
+    const [paginaActual, setPaginaActual] = useState(1);
+    const [productosCompletos, setProductosCompletos] = useState([]);
+    const [productosMostrados, setProductosMostrados] = useState([]);
 
-    const queryParams = new URLSearchParams(location.search)
-    const textoBusqueda = queryParams.get('search') || ''
-
-    useEffect(() => {
-        setPaginaActual(1);
-    }, [categoriaNombre, textoBusqueda]);
+    const queryParams = new URLSearchParams(location.search);
+    const textoBusqueda = queryParams.get('search') || '';
 
     useEffect(() => {
-        let productosFiltrados = ProductosCompletos;
+        const cargarProductos = async () => {
+            try {
+                const productosBD = await productosApi.findAll();
+                setProductosCompletos(productosBD);
+            } catch (error) {
+                console.error("Error al cargar productos:", error);
+            }
+        };
+        cargarProductos();
+    }, []);
+
+    useEffect(() => {
+        let filtrados = productosCompletos;
 
         if (categoriaNombre) {
-            const categoriaBuscada = categoriaNombre.toLowerCase();
-            productosFiltrados = productosFiltrados.filter(producto => 
-                producto.categoria.toLowerCase() === categoriaBuscada
-            );
-        }
-        if (textoBusqueda) {
-            const textoLimpio = textoBusqueda.toLowerCase();
-            productosFiltrados = productosFiltrados.filter(producto => 
-                producto.nombre.toLowerCase().includes(textoLimpio) ||
-                (producto.descripcion && producto.descripcion.toLowerCase().includes(textoLimpio)) || 
-                producto.categoria.toLowerCase().includes(textoLimpio)
-            );
+            const categoriaBuscada = categoriaNombre.toLowerCase()
+            filtrados = filtrados.filter(
+                p => p.categoria.toLowerCase() === categoriaBuscada
+            )
         }
 
-        setProductosMostrados(productosFiltrados);
+        if (textoBusqueda) {
+            const texto = textoBusqueda.toLowerCase()
+            filtrados = filtrados.filter(
+                p =>
+                    p.nombre.toLowerCase().includes(texto) ||
+                    (p.descripcion && p.descripcion.toLowerCase().includes(texto)) ||
+                    p.categoria.toLowerCase().includes(texto)
+            )
+        }
+
+        setProductosMostrados(filtrados);
         setPaginaActual(1);
-    }, [categoriaNombre, textoBusqueda]);
-    
-    const totalProductos = productosMostrados.length;
-    const totalPaginas = Math.ceil(totalProductos / ProductosxPagina);
-    const indiceInicio = (paginaActual - 1) * ProductosxPagina;
-    const indiceFin = indiceInicio + ProductosxPagina;
-    const productosPagina = productosMostrados.slice(indiceInicio, indiceFin);
+    }, [categoriaNombre, textoBusqueda, productosCompletos]);
+
+    const totalProductos = productosMostrados.length
+    const totalPaginas = Math.ceil(totalProductos / ProductosxPagina)
+    const indiceInicio = (paginaActual - 1) * ProductosxPagina
+    const indiceFin = indiceInicio + ProductosxPagina
+
+    const productosPagina = productosMostrados.slice(indiceInicio, indiceFin)
 
     let tituloCategoria;
     if (categoriaNombre) {
-        const leido = categoriaNombre.replace(/-/g, ' ');
-        tituloCategoria = leido.charAt(0).toUpperCase() + leido.slice(1);
+        const leido = categoriaNombre.replace(/-/g, ' ')
+        tituloCategoria = leido.charAt(0).toUpperCase() + leido.slice(1)
     } else if (textoBusqueda) {
-        tituloCategoria = `Resultados para: "${textoBusqueda}"`;
-    } 
-    else {
-        tituloCategoria = 'Catálogo Completo';
+        tituloCategoria = `Resultados para: "${textoBusqueda}"`
+    } else {
+        tituloCategoria = 'Catálogo Completo'
     }
-    
+
     return (
         <div className="catalogo-layout">
             <div className="catalogo-content">
                 <div className="catalogo-sidebar">
                     <MenuLateral activeCategory={categoriaNombre} />
                 </div>
+
                 <div className="productos-area">
                     <div className="catalogo-header">
                         <h2 className="catalogo-titulo">{tituloCategoria}</h2>
@@ -103,6 +114,6 @@ const CatalogoPage = () => {
             )}
         </div>
     );
-}
+};
 
 export default CatalogoPage;

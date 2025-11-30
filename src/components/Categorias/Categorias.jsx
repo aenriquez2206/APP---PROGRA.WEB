@@ -2,13 +2,19 @@ import './Categorias.css'
 import { Link } from 'react-router-dom'
 import CategoriaItem from '../CategoriaItem/CategoriaItem'
 import categoriasApi from '../../api/categoriasApi'
+import { useState, useEffect } from 'react'
 
 const Categorias =()=>{
-    const categoriasCompletas = categoriasApi.findAll()
-    
-    const categoriasMostradas = categoriasCompletas.filter(categoria => 
-        categoria.id >= 1 && categoria.id <= 4
-    );
+    const [todasLasCategorias, setTodasLasCategorias] = useState([])
+
+    const handleOnLoad = async () => {
+        const rawcategorias = await categoriasApi.findAll()
+        setTodasLasCategorias(rawcategorias)
+    }
+
+    useEffect(()=>{
+        handleOnLoad()
+    }, [])
 
     return(
         <div>
@@ -19,7 +25,7 @@ const Categorias =()=>{
                     <div className = "flecha-izq">
                         {'<'}
                     </div>
-                    {categoriasMostradas.map((categoria) => (
+                    {todasLasCategorias.slice(0,4).map((categoria) => (
                         <Link 
                             key={categoria.id} 
                             to={`/catalogo/${categoria.ruta}`} 
