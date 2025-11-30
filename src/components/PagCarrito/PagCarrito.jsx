@@ -5,20 +5,50 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useCart } from "./CartContext";
 import { useEffect, useState } from 'react';
 import Footer from '../footer/Footer';
+import carritoApi from "../../api/carritoApi"; // <-- donde esté tu archivo
+
 
 function PagCarrito() {
     const navigate = useNavigate();
-    const {cartItems, savedItems, addToCart, removeFromCart, removeItemCompletely, clearCart, moveToSaved, moveToCart, getTotalPrice, getTotalQuantity, selectedItems, toggleSelectItem,
-          setCartItems,
+
+    const {
+        cartItems, savedItems, addToCart, removeFromCart, removeItemCompletely,
+        clearCart, moveToSaved, moveToCart, getTotalPrice, getTotalQuantity,
+        selectedItems, toggleSelectItem, setCartItems,
     } = useCart();
 
-    const n_productos = getTotalQuantity();
-    const precio_productos = getTotalPrice();
-    let p_delivery = precio_productos > 100 ? 0 : precio_productos * 0.2;
-    let delivery = precio_productos > 100 ? 'GRATIS' : `S/. ${p_delivery.toFixed(2)}`;
-    const descuentos = 0.1*precio_productos;
-    const total = precio_productos + p_delivery - descuentos;
+    const [carritoId, setCarritoId] = useState(null);
 
+    // 🔥 Traer usuario del localStorage
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    // -------------------------------
+    // 🚀 Cargar carrito al entrar
+    // -------------------------------
+    useEffect(() => {
+        const cargarCarrito = async () => {
+            if (!usuario) {
+                console.log("No hay usuario logueado");
+                return;
+            }
+
+            // 1️⃣ Buscar carrito
+            const carrito = await carritoApi.getByUsuario(usuario.id);
+
+            // 2️⃣ Si NO existe → crearlo
+            if (!carrito || carrito.message === "Carrito no encontrado") {
+                const nuevoCarrito = await carritoApi.crear(usuario.id);
+
+                if (nuevoCarrito) {
+                    setCarritoId(nuevoCarrito.id);
+                }
+            } else {
+                setCarritoId(carrito.id);
+            }
+        };
+
+        cargarCarrito();
+    }, []);
 
     return (
     <>

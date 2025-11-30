@@ -49,7 +49,7 @@ const remove = async(endpoint) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
+
     }
 
     return await fetch(URI + endpoint, objPayload)
