@@ -1,19 +1,27 @@
-import { Navigate } from 'react-router-dom';
-import { isAuthenticated, isAdmin } from '../../utils/authUtils';
+import React from 'react';
+import { Navigate, Outlet} from 'react-router-dom';
+import {useUser} from '../../context/UserContext';
 
-/**
- * Componente para proteger rutas que requieren autenticación
- */
-export const ProtectedRoute = ({ children, requiredRole = null }) => {
-    if (!isAuthenticated()) {
+const ProtectedRoute = ({ allowedRoles }) => {
+
+    const { user, token, isAuthenticated, isLoading } = useUser(); 
+    
+    if (isLoading) {
+        return <div>Verificando sesión...</div>;
+    }
+
+    if (!isAuthenticated) { 
         return <Navigate to="/login" replace />;
     }
 
-    if (requiredRole && requiredRole === 'admin' && !isAdmin()) {
-        return <Navigate to="/" replace />;
+    if (allowedRoles && allowedRoles.length > 0) {
+    
+        if (!user || !user.rol || !allowedRoles.includes(user.rol)) {
+            return <Navigate to="/" replace />; 
+        }
     }
-
-    return children;
+    
+    return <Outlet />; 
 };
 
 export default ProtectedRoute;

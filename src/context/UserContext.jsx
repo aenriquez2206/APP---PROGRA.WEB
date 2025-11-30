@@ -11,6 +11,12 @@ export function UserProvider({ children }) {
     const [ user, setUser ] = useState(initialUser)
     const [ token, setToken] = useState(initialToken)
 
+    const [ isLoading, setIsLoading ] = useState(true);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, []);
+
     const login = async (correo, password) => {
 
         try {
@@ -79,6 +85,7 @@ export function UserProvider({ children }) {
     const value = {
         user,
         token,
+        isLoading,
         isAuthenticated,
         login,
         logout,
