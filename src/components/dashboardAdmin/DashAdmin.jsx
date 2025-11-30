@@ -85,8 +85,8 @@ const DashAdmin =()=>{
         navigate('/admin/orders')
     }
 
-    const handleUserDetail =(id)=>{
-        const newUser = usuarios.find((user) => user.id === id);
+    const handleUserDetail =async (id)=>{
+        const newUser = await usuariosApi.findOne(id);
         setUserDetail(newUser);
     }
 
