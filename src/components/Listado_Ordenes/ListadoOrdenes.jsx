@@ -1,6 +1,6 @@
 import './ListadoOrdenes.css'
 import estadoClase from './camcolor'
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import pedidosApi from '../../api/ordenesApi';
 const Botones = () => {
   return (
@@ -11,19 +11,41 @@ const Botones = () => {
 };
 
 const ListaO = () => {
-
-  const ordenesDefault = pedidosApi.get();
-  const [ordenes, setOrdenes] = useState(ordenesDefault);
-
+  const [ordenes, setOrdenes] = useState([]);
   const [textoBusqueda, setTextoBusqueda] = useState('');
+  
+  useEffect(() => {
+    handleOnLoad();
+  }, []);
 
-  const handleBuscar = () => {
-  if (textoBusqueda === '') {
-    return setOrdenes(ordenesDefault);
-  }
+  const handleOnLoad = async () => {
+    try {
+      const rawordenes = await pedidosApi.findAll();  
+        setOrdenes(rawordenes);
+    } catch (error) {
+      console.error("Error cargando órdenes:", error);
+      setOrdenes([]); 
+    }
+  };
 
-  setOrdenes(ordenesDefault.filter(o => o.id == textoBusqueda));
-};
+  const handleBuscar = async () => {
+    if (textoBusqueda === '') {
+      return handleOnLoad();
+    }
+    try {
+      const data = await pedidosApi.findOne(textoBusqueda);  
+      if (data) {
+        setOrdenes([data]);
+      } else {
+        setOrdenes([]);
+      }
+
+    } catch (error) {
+      console.error("Error buscando orden:", error);
+      setOrdenes([]);
+    }
+  };
+  
   return (
     <main className='mainOrdersAdmin' >
         <h2>Tus órdenes</h2>
@@ -59,8 +81,8 @@ const ListaO = () => {
             {ordenes.map((o, i) => (
               <tr key={i}>
                 <td className="Id_Orden"><b><u>{o.id}</u></b></td>
-                <td>{o.usuario}</td>
-                <td>{o.fechaOrden}</td>
+                <td>{o.id_user}</td>
+                <td>{o.fecha}</td>
                 <td>{o.total}</td>
                 <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
                 <Botones />

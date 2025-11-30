@@ -4,7 +4,7 @@ import CategoriaItem from '../CategoriaItem/CategoriaItem'
 import categoriasApi from '../../api/categoriasApi'
 
 const Categorias =()=>{
-    const categoriasCompletas = categoriasApi.get()
+    const categoriasCompletas = categoriasApi.findAll()
     
     const categoriasMostradas = categoriasCompletas.filter(categoria => 
         categoria.id >= 1 && categoria.id <= 4
