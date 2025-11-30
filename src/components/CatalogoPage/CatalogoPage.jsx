@@ -1,60 +1,73 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom'
 import productosApi from '../../api/productosApi'
+import categoriasApi from '../../api/categoriasApi'
 import ProductoCard from '../ProductoCard/ProductoCard' 
 import MenuLateral from '../MenuLateral/MenuLateral' 
 import Paginacion from '../Paginacion/Paginacion' 
 
 import './CatalogoPage.css'
 
-const ProductosxPagina = 12;
+const ProductosxPagina = 12
 
 const CatalogoPage = () => {
-    const { categoriaNombre } = useParams();
-    const location = useLocation();
+    const { categoriaNombre } = useParams()
+    const location = useLocation()
     
-    const [paginaActual, setPaginaActual] = useState(1);
-    const [productosCompletos, setProductosCompletos] = useState([]);
-    const [productosMostrados, setProductosMostrados] = useState([]);
+    const [paginaActual, setPaginaActual] = useState(1)
+    const [productosCompletos, setProductosCompletos] = useState([])
+    const [productosMostrados, setProductosMostrados] = useState([])
+    const [categorias, setCategorias] = useState([])
 
-    const queryParams = new URLSearchParams(location.search);
-    const textoBusqueda = queryParams.get('search') || '';
-
-    useEffect(() => {
-        const cargarProductos = async () => {
-            try {
-                const productosBD = await productosApi.findAll();
-                setProductosCompletos(productosBD);
-            } catch (error) {
-                console.error("Error al cargar productos:", error);
-            }
-        };
-        cargarProductos();
-    }, []);
+    const queryParams = new URLSearchParams(location.search)
+    const textoBusqueda = queryParams.get('search') || ''
 
     useEffect(() => {
-        let filtrados = productosCompletos;
+    const cargarDatos = async () => {
+        try {
+            const productosBD = await productosApi.findAll()
+            setProductosCompletos(productosBD)
 
-        if (categoriaNombre) {
-            const categoriaBuscada = categoriaNombre.toLowerCase()
-            filtrados = filtrados.filter(
-                p => p.categoria.toLowerCase() === categoriaBuscada
-            )
+            const categoriasBD = await categoriasApi.findAll()
+            setCategorias(categoriasBD)
+
+        } catch (error) {
+            console.error("Error al cargar datos:", error)
         }
+    }
+    cargarDatos()
+    }, [])
 
-        if (textoBusqueda) {
-            const texto = textoBusqueda.toLowerCase()
-            filtrados = filtrados.filter(
-                p =>
-                    p.nombre.toLowerCase().includes(texto) ||
-                    (p.descripcion && p.descripcion.toLowerCase().includes(texto)) ||
-                    p.categoria.toLowerCase().includes(texto)
-            )
-        }
+    useEffect(() => {
+    let filtrados = productosCompletos;
 
-        setProductosMostrados(filtrados);
-        setPaginaActual(1);
-    }, [categoriaNombre, textoBusqueda, productosCompletos]);
+    let idCategoria = null;
+    if (categoriaNombre && categorias.length > 0) {
+        const cat = categorias.find(
+            c => c.ruta.toLowerCase() === categoriaNombre.toLowerCase()
+        );
+        if (cat) idCategoria = cat.id
+    }
+
+    if (idCategoria !== null) {
+        filtrados = filtrados.filter(
+            p => p.categoria_id === idCategoria
+        );
+    }
+
+    if (textoBusqueda) {
+        const texto = textoBusqueda.toLowerCase();
+        filtrados = filtrados.filter(
+            p =>
+                p.nombre.toLowerCase().includes(texto) ||
+                (p.descripcion && p.descripcion.toLowerCase().includes(texto))
+        );
+    }
+
+    setProductosMostrados(filtrados);
+    setPaginaActual(1);
+
+    }, [categoriaNombre, textoBusqueda, productosCompletos, categorias]);
 
     const totalProductos = productosMostrados.length
     const totalPaginas = Math.ceil(totalProductos / ProductosxPagina)
