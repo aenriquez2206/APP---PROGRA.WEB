@@ -1,33 +1,33 @@
-
 import base from './base.js'
 
 const carritoApi = {
   // Obtener carrito por usuario
-  getCarritoByUser: (idUsuario) => base.get(`carrito/${idUsuario}`),
+  getCarritoByUser: (idUsuario) => 
+    base.get(`carrito/${idUsuario}`),
 
-  // Crear carrito
-  createCarrito: (idUsuario) => base.post(`carrito/`, { idUsuario }),
+  // Crear un carrito nuevo
+  createCarrito: (idUsuario) => 
+    base.post(`carrito`, { idUsuario }),
 
   // Obtener items del carrito
-  getItems: (carritoId) => base.get(`itemDeLaOrden/${carritoId}`),
+  getItems: (carritoId) => 
+    base.get(`carrito/${carritoId}/items`),
 
-  // Agregar item
-  addItem: (carritoId, productoId, cantidad) =>
-    base.post(`itemDeLaOrden/`, { carritoId, productoId, cantidad }),
+  // Agregar item al carrito
+  addItem: (carritoId, idProducto, cantidad) =>
+    base.post(`carrito/${carritoId}/items`, { idProducto, cantidad }),
 
-  // Actualizar cantidad
+  // Actualizar cantidad de un item del carrito
   updateItem: (itemId, cantidad) =>
-    base.put(`itemDeLaOrden/${itemId}`, { cantidad }),
+    base.put(`carrito/items/${itemId}`, { cantidad }),
 
-  // Eliminar un item
+  // Eliminar un item específico
   deleteItem: (itemId) =>
-    base.remove(`itemDeLaOrden/${itemId}`),
+    base.remove(`carrito/items/${itemId}`),
 
-  // Vaciar carrito
+  // Vaciar todo el carrito
   clearCarrito: (carritoId) =>
-    base.remove(`itemDeLaOrden/carrito/${carritoId}`)
+    base.remove(`carrito/${carritoId}/items`)
 }
 
 export default carritoApi;
-
-
