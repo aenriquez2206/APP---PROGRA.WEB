@@ -63,7 +63,7 @@ const ListaO = () => {
                 <td>{o.usuario}</td>
                 <td>{o.fechaOrden}</td>
                 <td>{o.total}</td>
-                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
+                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Entregado' : 'No entregado'}</b></td>
                 <Botones />
               </tr>
             ))}
