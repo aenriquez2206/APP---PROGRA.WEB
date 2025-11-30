@@ -41,7 +41,7 @@ const put = async(endpoint, payload) => {
     return await handleFetch(URI + endpoint, objPayload)
 }
 
-const remove = async(endpoint) => {
+const remove = async(endpoint,payload) => {
     const objPayload = {
         method: 'DELETE',
         headers: getHeaders(),

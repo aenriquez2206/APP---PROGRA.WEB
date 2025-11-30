@@ -21,7 +21,7 @@ const UserRow =({user,fecha,OnClick})=>{
 
 
     const handleNavigateDetalle=()=>{
-        navigate('/admin/detalle-usuario')
+        navigate('/admin/detalle-usuario', { state: { usuario: user } })
     }
 
     

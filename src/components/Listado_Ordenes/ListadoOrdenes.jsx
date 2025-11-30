@@ -1,45 +1,71 @@
 import './ListadoOrdenes.css'
 import estadoClase from './camcolor'
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import pedidosApi from '../../api/ordenesApi';
-const Botones = () => {
+import Searcher from '../Searcher/Searcher'
+import { useNavigate } from 'react-router-dom'
+
+const Botones = ({ orden }) => {
+  const navigate = useNavigate();
+  
+  const handleVerDetalle = () => {
+    navigate(`/admin/detalle-orden/${orden.id ?? orden.idp}`, { state: { orden } });
+  };
+
   return (
-      <td>
-        <button>Ver detalle</button>
-      </td>
+    <td>
+      <button onClick={handleVerDetalle}>Ver detalle</button>
+    </td>
   );
 };
 
 const ListaO = () => {
-
-  const ordenesDefault = pedidosApi.get();
-  const [ordenes, setOrdenes] = useState(ordenesDefault);
-
+  const [ordenes, setOrdenes] = useState([]);
+  const [ordenesOriginales, setOrdenesOriginales] = useState([]);
   const [textoBusqueda, setTextoBusqueda] = useState('');
+  
+  useEffect(() => {
+    handleOnLoad();
+  }, []);
 
-  const handleBuscar = () => {
-  if (textoBusqueda === '') {
-    return setOrdenes(ordenesDefault);
-  }
+  const handleOnLoad = async () => {
+    try {
+      const rawordenes = await pedidosApi.findAll();
+      // Normalizar si viene envuelto en { data }
+      const data = Array.isArray(rawordenes) ? rawordenes : (rawordenes?.data ?? []);
+      setOrdenesOriginales(data);
+      setOrdenes(data);
+    } catch (error) {
+      console.error("Error cargando órdenes:", error);
+      setOrdenes([]);
+      setOrdenesOriginales([]);
+    }
+  };
 
-  setOrdenes(ordenesDefault.filter(o => o.id == textoBusqueda));
-};
+
+
+  useEffect(() => {
+    if (textoBusqueda.trim() === '') {
+      // Si el búsqueda está vacío, mostrar todas las órdenes
+      setOrdenes(ordenesOriginales);
+    } else {
+      // Filtrar por número de orden (idp) o nombre de usuario (case-insensitive, búsqueda parcial)
+      const busquedaLower = textoBusqueda.toLowerCase();
+      const filtrados = ordenesOriginales.filter((item) =>
+        // Buscar en número de orden (convertir a string)
+        String(item.idp ?? item.id ?? '').toLowerCase().includes(busquedaLower) ||
+        // Buscar en nombre de usuario
+        item.usuario?.nombre?.toLowerCase().includes(busquedaLower)
+      );
+      setOrdenes(filtrados);
+    }
+  }, [textoBusqueda, ordenesOriginales]);
+  
   return (
     <main className='mainOrdersAdmin' >
         <h2>Tus órdenes</h2>
         <section className="BuscadorO">
-            <div>
-              
-            <input 
-                id="bOrden" 
-                type="text" 
-                placeholder="Buscar una órden"
-                value={textoBusqueda}
-                onChange={(e) => setTextoBusqueda(e.target.value)}
-                >
-            </input>
-            <button className='buscarO' onClick={handleBuscar}>Buscar</button>
-            </div>
+              <Searcher valor={textoBusqueda} onChange={setTextoBusqueda} placeh="Buscar una  orden"/>
         </section>
         <br />
 
@@ -49,21 +75,21 @@ const ListaO = () => {
               <th>#ORDEN</th>
               <th>Usuario</th>
               <th>Fecha de órden</th>
-              <th>Total</th>
-              <th>Estado</th>
+              <th>Total orden</th>
+              <th>Estado de la orden</th>
               <th>Acciones</th>
             </tr>
           </thead>
 
           <tbody>
-            {ordenes.map((o, i) => (
-              <tr key={i}>
-                <td className="Id_Orden"><b><u>{o.id}</u></b></td>
-                <td>{o.usuario}</td>
-                <td>{o.fechaOrden}</td>
+            {ordenes.map((o) => (
+              <tr key={o.id ?? o.idp ?? Math.random()}>
+                <td className="Id_Orden"><b><u>{o.idp}</u></b></td>
+                <td>{o.usuario?.nombre}</td>
+                <td>{o.fecha.slice(0,10)}</td>
                 <td>{o.total}</td>
-                <td class={estadoClase(o.estado)}> <b>{o.estado == true ? 'Activo' : 'Inactivo'}</b></td>
-                <Botones />
+                <td className={estadoClase(o.estado)}><b>{o.estado === true ? 'Activo' : 'Inactivo'}</b></td>
+                <Botones orden={o} />
               </tr>
             ))}
           </tbody>

@@ -7,43 +7,70 @@ import Paginacion from '../Paginacion/Paginacion'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import usuariosApi from '../../api/auth.js'
+import ordenesAPi from '../../api/ordenesApi.js'
 const DashAdmin =()=>{
-
-    const objetos =[
-    {
-        titulo: "Órdenes",
-        valor:8
-    },
-    {
-        titulo:"Usuarios nuevos",
-        valor:12
-    },
-    {
-        titulo:"Ingresos totales",
-        valor:"S/.10,000.00"
-    }
     
-    ]
+    
 
     const [user1,setUser1] = useState({});
+    const [usuarios, setUsuarios] = useState([]);
     const [rawUsers, setRawUsers] =useState([]);
+    const [orders, setOrders] =useState([]);
 
     const handleOnLoad =async()=>{
-        const rawuser = await usuariosApi.findOne(1);
-        setUser1(rawuser);
         const allUsers = await usuariosApi.findAll();
+        const raworders = await ordenesAPi.findAll()
+        
+        // Obtener el primer usuario de la lista
+        const firstUser = Array.isArray(allUsers) ? allUsers[0] : (allUsers?.data?.[0] ?? {});
+        
         setRawUsers(allUsers)
         setUsuarios(allUsers)
+        setUser1(firstUser)
+        setUserDetail(firstUser)
+        setOrders(raworders)
     }
     useEffect(()=>{
         handleOnLoad()
     },[])
+    // Calcula ingresos totales (suma de `total` de cada orden). Protege tipos.
+    const calculateTotalIncome = (ordersArray) => {
+        if (!Array.isArray(ordersArray)) return 0
+        return ordersArray.reduce((acc, orden) => {
+            // Aceptar varias posibles claves y convertir a número
+            const t = orden?.total ?? orden?.totalPedido ?? orden?.totalAmount ?? 0
+            const n = Number(t)
+            return acc + (isNaN(n) ? 0 : n)
+        }, 0)
+    }
 
-    
+    // Cuenta usuarios registrados en los últimos 30 días
+    const countNewUsersLast30Days = (usersArray) => {
+        if (!Array.isArray(usersArray)) return 0
+        const now = new Date()
+        const past = new Date(now)
+        past.setDate(now.getDate() - 30)
+        return usersArray.filter(u => {
+            const dateStr = u?.fechaRegistro ?? u?.fecha_registro ?? u?.createdAt ?? u?.created_at ?? u?.created
+            if (!dateStr) return false
+            const d = new Date(dateStr)
+            if (isNaN(d)) return false
+            return d >= past && d <= now
+        }).length
+    }
+
+    const ingresosTotales = calculateTotalIncome(orders)
+    const usuariosNuevosUltimoMes = countNewUsersLast30Days(rawUsers)
+
+    const objetos = [
+        { titulo: 'Órdenes', valor: orders.length },
+        { titulo: 'Usuarios nuevos', valor: usuariosNuevosUltimoMes },
+        { titulo: 'Ingresos totales', valor: ingresosTotales.toFixed(2) }
+    ]
+
     const navigate =useNavigate()
-    const [usuarios, setUsuarios] = useState([]);
-    const [userDetail, setUserDetail] = useState(user1)
-    const pedidos = rawUsers;
+    
+    const [userDetail, setUserDetail] = useState(null)
     const [recargar,SetRecarga] = useState(false);
 
     //paginacion usuarios
@@ -59,14 +86,14 @@ const DashAdmin =()=>{
 
     //paginacion listado de ordenes
 
-    const totalOrdenes = pedidos.length;
+    const totalOrdenes = orders.length;
     const [paginaActualOrden, setPaginaActualOrden] = useState(1);
     const OrdenesxPagina = 4;
     const TotalPaginasOrdenes = Math.ceil(totalOrdenes / OrdenesxPagina);
 
     const indexUltimaOrden = paginaActualOrden * OrdenesxPagina;
     const indexPrimeraOrden = indexUltimaOrden - OrdenesxPagina;
-    const OrdenesActuales = pedidos.slice(indexPrimeraOrden, indexUltimaOrden);
+    const OrdenesActuales = orders.slice(indexPrimeraOrden, indexUltimaOrden);
 
     
     
@@ -85,8 +112,8 @@ const DashAdmin =()=>{
         navigate('/admin/orders')
     }
 
-    const handleUserDetail =(id)=>{
-        const newUser = usuarios.find((user) => user.id === id);
+    const handleUserDetail =async (id)=>{
+        const newUser = await usuariosApi.findOne(id);
         setUserDetail(newUser);
     }
 
@@ -110,11 +137,9 @@ const DashAdmin =()=>{
             <div className="dashboardTitle" ><h1>Dashboard</h1></div>
             <section className="buttonDisplaySection" >
                 {
-                    objetos.map((objeto)=>{
-                        return (
-                            <ButtonDisplay {...objeto}/>
-                        )
-                    })
+                    objetos.map((objeto) => (
+                        <ButtonDisplay key={objeto.titulo} {...objeto} />
+                    ))
                 }
             </section>
             <section className="sectionUsuarios">
@@ -137,12 +162,14 @@ const DashAdmin =()=>{
                         </thead>
                         <tbody>
                             {
-                                usuariosActuales.map((usuario)=>{
-                                    return(
-                                        <UserRow user={usuario} fecha ={false} OnClick={handleUserDetail}
-                                        />
-                                    )
-                                })
+                                usuariosActuales.map((usuario) => (
+                                    <UserRow
+                                        key={usuario.id ?? usuario._id ?? usuario.correo}
+                                        user={usuario}
+                                        fecha={false}
+                                        OnClick={handleUserDetail}
+                                    />
+                                ))
                             }
                         </tbody>
                     </table>
@@ -173,7 +200,7 @@ const DashAdmin =()=>{
                 <table className='generalTable'>
                     <thead>
                         <tr>
-                            <th>#ID</th>
+                            <th>#ORDEN</th>
                             <th>Usuario</th>
                             <th>Fecha de Orden</th>
                             <th>Total</th>
@@ -185,9 +212,9 @@ const DashAdmin =()=>{
                             OrdenesActuales.map((pedido)=>{
                                 return(
                                     <tr>
-                                        <td>{pedido.id}</td>
-                                        <td>{pedido.usuario}</td>
-                                        <td>{pedido.fechaOrden}</td>
+                                        <td>{pedido.idp}</td>
+                                        <td>{pedido.usuario?.nombre}</td>
+                                        <td>{typeof pedido.fecha ==="string" ? pedido.fecha.slice(0,10):""}</td>
                                         <td>{pedido.total}</td>
                                         <td>{pedido.estado ?'Entregado' : 'No Entregado'}</td>
                                     </tr>

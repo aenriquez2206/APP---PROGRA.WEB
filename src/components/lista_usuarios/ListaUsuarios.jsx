@@ -20,9 +20,6 @@ const ListaU = () => {
         handleOnLoad()
     },[])
 
-
-  
-
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   const handleBuscar = () => {
