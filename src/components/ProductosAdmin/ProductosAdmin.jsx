@@ -25,8 +25,9 @@ const ProductosAdmin =()=>{
     useEffect(()=>{
         handleOnLoad()
     },[])
+
     const [textoBusqueda,setTextoBusqueda] =useState('')
-    const [productos, setProductos] =useState(productosOriginales)
+    const [productos, setProductos] =useState([])
     const navigate =useNavigate()
 
 
@@ -40,12 +41,7 @@ const ProductosAdmin =()=>{
     const indexPrimerProd = indexUltimoProd - Productosxpagina;
     const productosActuales = productos.slice(indexPrimerProd, indexUltimoProd);
  
-  useEffect(()=>{
-    if(productos.length <=0){
-      alert("no se encontran productos")
-    }
-  },[productos])
-
+  
   useEffect(() => {
     if (textoBusqueda === '') {
         setProductos(productosOriginales);
@@ -70,7 +66,7 @@ const ProductosAdmin =()=>{
 
 
   const NavigateAddProduct =()=>{
-        navigate('/admin/productos/agregar')
+        navigate('/admin/productos/agregar',{state:{}})
   }
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -83,9 +79,10 @@ const ProductosAdmin =()=>{
   };
 
   // Confirmar eliminación
-  const confirmDelete = (id) => {
-        productosApi.deleteProducto(id);
-        setProductos(productosApi.get());
+  const confirmDelete = async (id) => {
+        await productosApi.remove(id);
+        const prod = await productosApi.findAll();
+        setProductos(prod);
         setShowModal(false);
         setSelectedProduct(null);
   };
@@ -97,7 +94,7 @@ const ProductosAdmin =()=>{
   };
 
   const handleEditclick = (producto) => {
-        navigate('/admin/productos/editar',{state:{producto}});
+        navigate('/admin/productos/agregar',{state:{producto}});
   }
 
 
@@ -148,7 +145,7 @@ const ProductosAdmin =()=>{
                                     <td>{item.nombre}</td>
                                     <td>{item.presentacion}</td>
                                     <td className="descripcionProd" title={item.descripcion}>{item.descripcion}</td>
-                                    <td><strong>{item.categoria}</strong></td>
+                                    <td><strong>{item.categoriaDetail?.nombre}</strong></td>
                                     <td>{item.stock}</td>
                                     <td >
                                         <div className='sectionBotonRowProdAdmin'>

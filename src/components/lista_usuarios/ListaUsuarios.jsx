@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import './ListaUsuarios.css';
 import { estadoClase } from './camcolor';
-import usuariosApi from '../../api/usuariosApi';
-
+import usuariosApi from '../../api/auth';
+import UserRow from '../dashboardAdmin/userRow/UserRow'
 const ListaU = () => {
 
   const navigate = useNavigate();
-  const verDetalleUsuario = (id) => {
+  const verDetalleUsuario = () => {
     navigate(`/admin/detalle-usuario/`);
   };
-  
- const usuariosDefault = usuariosApi.get();
-  const [usuarios, setUsuarios] = useState(usuariosDefault);
+  const [usuarios, setUsuarios] = useState([]);
+
+    const handleOnLoad =async()=>{
+        const allUsers = await usuariosApi.findAll();
+        setUsuarios(allUsers)
+    }
+    useEffect(()=>{
+        handleOnLoad()
+    },[])
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
@@ -22,15 +28,17 @@ const ListaU = () => {
     );
     setUsuarios(usuariosFiltrados);
   };
+  
 
-  const cambiarEstado = (id, estadoActual) => {
-      const nuevoEstado = !estadoActual; 
-      usuariosApi.actualizarEstado(id, nuevoEstado); 
+  const cambiarEstado = async (user) => {
+      const newestado = !user.estado
+      user.estado = newestado
+      await usuariosApi.update(user)
       const nuevosUsuarios = usuarios.map(u =>
         u.id === id ? { ...u, estado: nuevoEstado } : u
       );
 
-      setUsuarios(nuevosUsuarios);
+      
     };
 
   return (
@@ -63,21 +71,9 @@ const ListaU = () => {
         </thead>
 
         <tbody>
-          {usuarios.map((u) => (
-            <tr key={u.id}>
-              <td>
-                <img className="imagenTabla"src={u.img} alt="foto" /> {u.nombre}
-              </td>
-              <td>{u.fechaRegistro}</td>
-              <td className={estadoClase(u.estado)}><b>{u.estado == true ? 'Activo' : 'Inactivo'}</b></td>
-              <td>
-                <button onClick={() => cambiarEstado(u.id, u.estado)}>
-                  {u.estado == true ? 'Desactivar' : 'Activar'}
-                </button>
-                <button onClick={() => verDetalleUsuario()}>Ver detalles</button>
-                
-              </td>
-            </tr>
+          {usuarios.map((user) => (
+            <UserRow user={user} fecha={true} OnClick={verDetalleUsuario}
+                                        />
           ))}
         </tbody>
       </table>

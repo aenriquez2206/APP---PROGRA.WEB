@@ -1,158 +1,186 @@
-import React, { useState } from "react";
-import './ListadoCategoriasAdmin.css'
+import '../ProductosAdmin/ProductosAdmin'
+import categoriasApi from '../../api/categoriasApi'
+import Searcher from '../Searcher/Searcher'
+import {useEffect,useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import Paginacion from '../Paginacion/Paginacion'
 
-const ListadoCategoriasAdmin = () => {
+const ListadoCategoriasAdmin =()=>{
 
-  const [categorias, setCategorias] = useState([
-    { nombre: "Videojuegos", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Consolas", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Periféricos", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Juguetes", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Ropa", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Merch", descripcion: "Lorem ipsum dolor sit amet..." },
-    { nombre: "Componentes PC", descripcion: "Lorem ipsum dolor sit amet..." },
-    // Se puede agregar más para probar mejor paginación
-  ]);
+    const [categoriasOriginales,setcategoriasOriginales] =useState([]);
+    const handleOnLoad = async () => {
+    try {
+        const rawprod = await categoriasApi.findAll();
+        console.log("Datos recibidos:", rawprod); // Agrega esto para verificar en consola
+        
+        if (rawprod) {
+            setcategoriasOriginales(rawprod);
+            setProductos(rawprod); // <--- AGREGA ESTA LÍNEA
+        }
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
+}
 
-  const [showModal, setShowModal] = useState(false);
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [editIndex, setEditIndex] = useState(null);
+    useEffect(()=>{
+        handleOnLoad()
+    },[])
 
-  // Paginación
-  const [paginaActual, setPaginaActual] = useState(1);
-  const categoriasPorPagina = 3; // Cambia según cuantas se quiera por página
-  const totalPaginas = Math.ceil(categorias.length / categoriasPorPagina);
-  const indiceUltima = paginaActual * categoriasPorPagina;
-  const indicePrimera = indiceUltima - categoriasPorPagina;
-  const categoriasMostradas = categorias.slice(indicePrimera, indiceUltima);
+    const [textoBusqueda,setTextoBusqueda] =useState('')
+    const [productos, setProductos] =useState([])
+    const navigate =useNavigate()
 
-  const handleOpenModal = () => setShowModal(true);
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setEditIndex(null);
-    setNombre("");
-    setDescripcion("");
-  };
 
-  const handleCrearCategoria = (e) => {
-    e.preventDefault();
-    const nuevaCategoria = { nombre, descripcion };
+     //paginacion Productos
+    const totalProductos = productos.length;
+    const [PaginaActualProd, setPaginaActualProd] = useState(1);
+    const Productosxpagina = 6;
+    const totalPaginasUsers = Math.ceil(totalProductos / Productosxpagina);
 
-    if (editIndex !== null) {
-      const nuevas = [...categorias];
-      nuevas[editIndex] = nuevaCategoria;
-      setCategorias(nuevas);
+    const indexUltimoProd = PaginaActualProd * Productosxpagina;
+    const indexPrimerProd = indexUltimoProd - Productosxpagina;
+    const productosActuales = productos.slice(indexPrimerProd, indexUltimoProd);
+ 
+  
+  useEffect(() => {
+    if (textoBusqueda === '') {
+        setProductos(categoriasOriginales);
+    } else if (textoBusqueda.length > 3) { // Ojo: > 3 significa que con 3 letras no busca
+        handleBuscar();
     } else {
-      setCategorias([...categorias, nuevaCategoria]);
+        // Si hay texto pero es corto, tal vez quieras mostrar todo o filtrar igual
+        setProductos(categoriasOriginales); 
     }
+}, [textoBusqueda, categoriasOriginales]);
 
-    handleCloseModal();
+  const handleBuscar  = () => {
+    const filtrados = 
+      categoriasOriginales.filter((item) => item.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()));
+      setProductos(filtrados)
+  }
+
+
+
+  const NavigateAddProduct =()=>{
+        navigate('/admin/categorias/agregar',{state:{}})
+  }
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  // Abrir modal
+  const handleDeleteClick = (product) => {
+        setSelectedProduct(product);
+        setShowModal(true);
   };
 
-  const handleEliminar = (index) => {
-    const confirmacion = window.confirm("¿Seguro que deseas eliminar esta categoría?");
-    if (confirmacion) {
-      const nuevas = categorias.filter((_, i) => i !== index);
-      setCategorias(nuevas);
-
-      // Ajustar página si eliminamos el último elemento de la última página
-      if (categorasMostradas.length === 1 && paginaActual > 1) {
-        setPaginaActual(paginaActual - 1);
-      }
-    }
+  // Confirmar eliminación
+  const confirmDelete = async (id) => {
+        await categoriasApi.remove(id);
+        const prod = await categoriasApi.findAll();
+        setProductos(prod);
+        setShowModal(false);
+        setSelectedProduct(null);
   };
 
-  const handleEditar = (index) => {
-    const cat = categorias[index];
-    setNombre(cat.nombre);
-    setDescripcion(cat.descripcion);
-    setEditIndex(index);
-    setShowModal(true);
+  // Cancelar eliminación
+  const cancelDelete = () => {
+        setShowModal(false);
+        setSelectedProduct(null);
   };
 
-  return (
-    <div className="categorias-container">
-      <h1 className="categorias-titulo">Listado de categorías</h1>
+  const handleEditclick = (categoria) => {
+        navigate('/admin/categorias/agregar',{state:{categoria}});
+  }
 
-      <div className="categorias-header">
-        <div className="buscador">
-          <span className="icono-buscar">🔍</span>
-          <input type="text" placeholder="Buscar una categoría..." />
-        </div>
-        <button className="btn-agregar" onClick={handleOpenModal}>
-          ➕ Agregar categoría
-        </button>
-      </div>
 
-      <div className="tabla-container">
-        <table className="tableCategoriesAdmin"> 
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th className="acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categoriasMostradas.map((cat, i) => (
-              <tr key={i}>
-                <td className="nombre">{cat.nombre}</td>
-                <td>{cat.descripcion}</td>
-                <td className="acciones">
-                  <button className="btn-icono" onClick={() => handleEditar(i + indicePrimera)}>✏️</button>
-                  <button className="btn-icono" onClick={() => handleEliminar(i + indicePrimera)}>🗑️</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    return(
+        <>
+        <section className="sectionProductosAdmin" >
+            <h2>Listado de Categorías</h2>
+            <section className="busquedaProductosAdmin" >
+                <Searcher valor={textoBusqueda} onChange={setTextoBusqueda} placeh="Buscar una categoría"/>
+                <button 
+                className='botonListadoProductosAdmin'
+                onClick={()=>handleBuscar()}
+                >Buscar</button>
+                <button 
+                className='botonListadoProductosAdmin'
+                onClick={()=>NavigateAddProduct()}>Agregar categoria</button>
+                
+            </section>
+            <table className="generalTable" >
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Label</th>
+                        <th>Ruta</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                       
+                        //productosActuales.length > 0 ? 
+                        productosActuales.map((item)=>{
+                            return (
+                                <tr>
+                                    <td><img className="imgRowProdAdmin"
+                                    src={item.img} alt="img"/></td>
+                                    <td>#{item.id}</td>
+                                    <td>{item.nombre}</td>
+                                    <td>{item.label}</td>
+                                    <td>{item.ruta}</td>
+                                    <td className="descripcionProd" title={item.descripcion}>{item.descripcion}</td>
+                                    <td >
+                                        <div className='sectionBotonRowProdAdmin'>
+                                        <button 
+                                        className='BotonRowProdAdmin'
+                                        onClick={()=>handleEditclick(item)}><img src="/itemsAssets/edit_green.png" alt="img"/></button>
+                                        <button 
+                                        className='BotonRowProdAdmin'
+                                        onClick={()=>handleDeleteClick(item)}><img src="/itemsAssets/delete.png" alt="img"/></button>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            
+                            )
+                        } )//: <h2>No hay productos.</h2>
+                    }
+                </tbody>
 
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>{editIndex !== null ? "Editar categoría" : "Nueva categoría"}</h3>
-            <form onSubmit={handleCrearCategoria}>
-              <label>Nombre</label>
-              <input
-                type="text"
-                placeholder="Nombre de la categoría"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                required
-              />
+            </table>
+            <Paginacion totalPaginas={totalPaginasUsers} paginaActual={PaginaActualProd} setPaginaActual={setPaginaActualProd}/>
 
-              <label>Descripción</label>
-              <textarea
-                placeholder="Descripción de la categoría..."
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
-                required
-              ></textarea>
+            {/* Modal de confirmación */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Eliminar producto</h2>
+                        <p>
+                        ¿Estás seguro que deseas eliminar el producto{" "}
+                        <strong>{selectedProduct?.nombre}</strong>?
+                        </p>
+                        <div className="modal-buttons">
+                            <button className="confirm-btn" onClick={()=>confirmDelete(selectedProduct?.id)}>
+                                Sí, eliminar
+                            </button>
+                            <button className="cancel-btn" onClick={cancelDelete}>
+                                No, cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </section>
 
-              <div className="modal-actions">
-                <button type="button" className="btn-cancelar" onClick={handleCloseModal}>
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-crear">
-                  {editIndex !== null ? "💾 Guardar cambios" : "➕ Crear categoría"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+        </>
 
-      {/* Paginación funcional */}
-      <Paginacion
-        totalPaginas={totalPaginas}
-        paginaActual={paginaActual}
-        setPaginaActual={setPaginaActual}
-      />
-    </div>
-  );
-};
+    )
+}
 
-export default ListadoCategoriasAdmin;
+export default ListadoCategoriasAdmin
