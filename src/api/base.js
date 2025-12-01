@@ -1,4 +1,4 @@
-const URI = 'http://localhost:3005/'
+const URI = 'https://app-progra-web-backend.vercel.app/'
 
 const getHeaders = () => {
     const headers = {
