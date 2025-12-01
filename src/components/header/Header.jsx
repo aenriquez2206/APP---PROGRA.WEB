@@ -71,10 +71,10 @@ const Header = () => {
 
     return (
         <>
-            <header id="headerSection">
-                <div id="LogoGamePlay">
-                    <span><button id="botonInicio" onClick={() => navigate('/')}>GamePlay</button></span>
-                    <span id="dotLogo">
+            <header className="headerSection">
+                <div className="LogoGamePlay">
+                    <span><button className="botonInicio" onClick={() => navigate('/')}>GamePlay</button></span>
+                    <span className="dotLogo">
                         <h1>.</h1>
                     </span>
                 </div>
@@ -86,18 +86,18 @@ const Header = () => {
                     />
                 </div>
                 <div className='asd'>
-                    <button id="comprasButton" onClick={() => navigate('/carrito')} >
+                    <button className="comprasButton" onClick={() => navigate('/carrito')} >
                     <img className="img_header" src="/productosAssets/carritosinfondo.png" alt="img"/>
                     <div className="boton_text">
                         <p>Carrito</p>
-                        <div id="precio_soles">
+                        <div className="precio_soles">
                             <p>S/.</p>
                             <p>{precioTotal.toFixed(2)}</p>
                         </div>
                     </div>
                 </button>
                 </div>
-                <button id="usuarioButton" onClick={handleUserButtonClick}>
+                <button className="usuarioButton" onClick={handleUserButtonClick}>
                     <img className="img_header" src="/productosAssets/usser2.png" alt="img"/>
                     <div className="boton_text">
                         <p>{userName}</p>
