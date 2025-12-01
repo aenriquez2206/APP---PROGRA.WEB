@@ -80,11 +80,21 @@ const ProductosAdmin =()=>{
 
   // Confirmar eliminación
   const confirmDelete = async (id) => {
-        await productosApi.remove(id);
-        const prod = await productosApi.findAll();
-        setProductos(prod);
-        setShowModal(false);
-        setSelectedProduct(null);
+        try {
+            await productosApi.remove(id);
+
+            const prod = await productosApi.findAll();
+            setProductosOriginales(prod);
+            setProductos(prod);
+
+            setShowModal(false);
+            setSelectedProduct(null);
+
+        } catch (error) {
+            console.error("Error al eliminar el producto:", error);
+            setShowModal(false);
+            setSelectedProduct(null);
+        }
   };
 
   // Cancelar eliminación
