@@ -19,14 +19,19 @@ const Botones = ({ orden }) => {
   );
 };
 
-const ListaO = () => {
+const ListaO = ({userId}) => {
   const [ordenes, setOrdenes] = useState([]);
   const [ordenesOriginales, setOrdenesOriginales] = useState([]);
   const [textoBusqueda, setTextoBusqueda] = useState('');
   
   useEffect(() => {
-    handleOnLoad();
-  }, []);
+    if (userId) {
+      handleOnLoad();
+    } else {
+      setOrdenes([]);
+      setOrdenesOriginales([]);
+    }
+  }, [userId]);
 
   const handleOnLoad = async () => {
     try {

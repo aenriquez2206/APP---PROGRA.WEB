@@ -8,11 +8,13 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import usuariosApi from '../../api/auth.js'
 import ordenesAPi from '../../api/ordenesApi.js'
+import { useUser } from '../../context/UserContext';
 import { canAccessAdmin, handleAuthError, isAuthenticated, isAdmin } from '../../utils/authUtils.js'
 
 const DashAdmin = () => {
+
     const navigate = useNavigate()
-    
+    const { logout } = useUser();
     const [user1, setUser1] = useState({});
     const [usuarios, setUsuarios] = useState([]);
     const [rawUsers, setRawUsers] = useState([]);
@@ -182,7 +184,10 @@ const DashAdmin = () => {
         setRecargar(prev => !prev); 
     }
  
-    
+    const handleLogout = () => {
+        logout();
+        navigate('/login', { replace: true }); 
+    };
 
 
     return(
@@ -218,7 +223,27 @@ const DashAdmin = () => {
 
             {!isAccessDenied && !loading && (
             <>
-            <div className="dashboardTitle" ><h1>Dashboard</h1></div>
+            <div 
+                className="dashboardTitle" 
+                style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    marginRight: '40px'
+                }}
+            >
+                <h1>Dashboard</h1>
+                <button 
+                    onClick={handleLogout} 
+                    className="buttonVerUsuarios" 
+                    style={{ 
+                        backgroundColor: '#dc3545', 
+                        height: '40px',
+                    }}
+                >
+                    <div><strong>Cerrar sesión</strong></div>
+                </button>
+            </div>
             <section className="buttonDisplaySection" >
                 {
                     objetos.map((objeto) => (

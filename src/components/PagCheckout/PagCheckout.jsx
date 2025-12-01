@@ -1,138 +1,195 @@
-import Header from '../header/Header'
-import NavBar from '../navBar/NavBar'
-import "./PagCheckout.css"
-import PagCarrito from '../PagCarrito/PagCarrito'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useCart } from '../PagCarrito/CartContext';
-import { useState } from 'react';
+import Header from '../header/Header';
+import NavBar from '../navBar/NavBar';
+import Footer from '../footer/Footer';
+import "./PagCheckout.css";
+import { useNavigate } from 'react-router-dom';
+import { useCart } from "../PagCarrito/CartContext.jsx";
+import { useEffect } from 'react';
+import carritoApi from "../../api/carritoApi";
 
+function PagCarrito() {
+  const navigate = useNavigate();
 
-function PagCheckout() {
-    const navigate = useNavigate();
-  
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [ciudad, setCiudad] = useState('');
-    const [departamento, setDepartamento] = useState('');
-    const [direccion, setDireccion] = useState('');
-    const [codigoP, setCodigoP] = useState('');
-    const [telefono, setTelefono] = useState('');
+  const {
+    cartItems,
+    savedItems,
+    addToCart,
+    removeFromCart,
+    removeItemCompletely,
+    clearCart,
+    moveToSaved,
+    moveToCart,
+    getTotalPrice,
+    getTotalQuantity,
+    selectedItems,
+    toggleSelectItem,
+    setCartItems
+  } = useCart();
 
-    const {
-        getTotalPrice,
-        getTotalQuantity,
-    } = useCart();
-    const n_productos = getTotalQuantity();
-    const precio_productos = getTotalPrice();
-    const p_delivery = precio_productos > 100 ? 0 : precio_productos * 0.2;
-    const delivery = precio_productos > 100 ? 'GRATIS' : `S/. ${p_delivery.toFixed(2)}`;
-    const descuentos = 0.1*precio_productos;
-    const total = precio_productos + p_delivery - descuentos;
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    const handleSiguiente = () => {
-      if (
-        !nombre.trim() ||
-        !apellido.trim() ||
-        !ciudad.trim() ||
-        !departamento.trim() ||
-        !direccion.trim() ||
-        !codigoP.trim() ||
-        !telefono.trim()
-      ) {
-        alert('Completa todos los campos antes de continuar.');
-        return;
+  // Cargar carrito al iniciar
+  useEffect(() => {
+    const cargarCarrito = async () => {
+      if (!usuario?.id) return;
+
+      let carrito = await carritoApi.getCarritoByUser(usuario.id);
+
+      if (!carrito || !carrito.id) {
+        carrito = await carritoApi.createCarrito(usuario.id);
       }
+    };
 
-        navigate('/carrito/checkout/pago', {
-        state: {
-          nombre,
-          apellido,
-          ciudad,
-          departamento,
-          direccion,
-          codigoP,
-          telefono
-        }
-      });
-    }
-    
+    cargarCarrito();
+  }, []);
+
+  // -------------------------------
+  // Variables calculadas del carrito
+  // -------------------------------
+  const n_productos = getTotalQuantity();
+  const precio_productos = getTotalPrice();
+  const delivery = n_productos > 0 ? 10 : 0;
+  const descuentos = 0;
+  const total = precio_productos + delivery - descuentos;
+
   return (
     <>
-      <Header/>
-      <NavBar/>
-      <main class='main_carrito'>
-        <h1><u>Checkout</u></h1>
-        <div class='checkout_headers'>
-            <h3>Dirección de envío</h3>
-            <h3 class='resumen'><u>Resumen de la compra</u></h3>
+      <Header />
+      <NavBar />
+
+      <main className='mainCarrito'>
+        <div className='carrito_headers'>
+          <h1>Carro</h1>
+          <p id='cantidad'>({n_productos} productos)</p>
+          <h3 className='resumen'>Resumen de la compra</h3>
         </div>
 
-        <div class='div1'>
-            <div class='div2'>
-                <div class='div3'>
-                    <div>
-                        <h4>Nombre</h4>
-                        <input type="text" class='texto1' id="nombre" placeholder="Nombre del usuario" value={nombre} onChange={(e) => setNombre(e.target.value)}/>
+        <div className='compras'>
+          {/* LISTADO DE PRODUCTOS */}
+          <div className='resumen_compra'>
+            <h3>Productos en el carro de compras</h3>
+
+            {cartItems.length === 0 ? (
+              <p>Tu carrito está vacío</p>
+            ) : (
+              cartItems.map((item) => (
+                <div key={item.id} className="producto_item">
+                  <input
+                    type="checkbox"
+                    className="producto_checkbox"
+                    checked={selectedItems[item.id]}
+                    onChange={() => toggleSelectItem(item.id)}
+                  />
+                  <img src={item.img} alt={item.nombre} className="producto_img" />
+                  <div className="producto_detalles">
+                    <p className="producto_nombre">{item.nombre}</p>
+                    <p className="producto_cat">{item.categoria}</p>
+                  </div>
+                  <div className="producto_precio_cantidad">
+                    <p className="producto_precio">S/. {item.precio.toFixed(2)}</p>
+                    <div className="producto_cantidad_control">
+                      <button className="boton_cantidad_control" onClick={() => removeFromCart(item.id)}>-</button>
+                      <span className="cantidad_control">{item.cantidad}</span>
+                      <button className="boton_cantidad_control" onClick={() => addToCart(item)}>+</button>
                     </div>
-                    <div>
-                        <h4>Apellido</h4>
-                        <input type="text" class='texto1' id="apellido" placeholder="Apellido del usuario" value={apellido} onChange={(e) => setApellido(e.target.value)}/>
-                    </div>
-                </div>     
-                <div class='div3'>   
-                    <div>
-                        <h4>Ciudad</h4>
-                        <input type="text" class='texto1' id="ciudad" placeholder="Nombre de ciudad" value={ciudad} onChange={(e) => setCiudad(e.target.value)}/>
-                    </div>
-                    <div>
-                        <h4>Departamento</h4>
-                        <input type="text" class='texto1' id="departamento" placeholder="Nombre del departamento" value={departamento} onChange={(e) => setDepartamento(e.target.value)}/>
-                    </div>
+                    <button
+                      className="carrito_btn_eliminar"
+                      onClick={() => removeItemCompletely(item.id)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
                 </div>
-                <div class='div3_dir'>
-                        <h4>Dirección</h4>
-                        <input type="text" id="direccion" placeholder="Av. Manuel Olguin 250..." value={direccion} onChange={(e) => setDireccion(e.target.value)}/>
-                </div>
-                <div class='div3'>   
-                    <div>
-                        <h4>Código postal</h4>
-                        <input type="text" class='texto1' id="codigo" placeholder="Código postal" value={codigoP} onChange={(e) => setCodigoP(e.target.value)}/>
+              ))
+            )}
+
+            {/* GUARDADOS PARA DESPUÉS */}
+            <div className="resumen_guardados">
+              <h3>Guardados para después</h3>
+              {savedItems.length === 0 ? (
+                <p className="mensaje_vacio">No hay productos guardados</p>
+              ) : (
+                savedItems.map((item) => (
+                  <div key={item.id} className="producto_item">
+                    <img src={item.img} alt={item.nombre} className="producto_img" />
+                    <div className="producto_detalles">
+                      <p className="producto_nombre">{item.nombre}</p>
+                      <p className="producto_cat">{item.categoria}</p>
                     </div>
-                    <div>
-                        <h4>Teléfono de contacto</h4>
-                        <input type="text" class='texto1' id="telefono" placeholder="+51" value={telefono} onChange={(e) => setTelefono(e.target.value)}/>
+                    <div className="producto_precio_cantidad">
+                      <p className="producto_precio">S/. {item.precio.toFixed(2)}</p>
+                      <button
+                        className="boton_cantidad_control"
+                        onClick={() => moveToCart(item.id)}
+                      >
+                        Volver al carrito
+                      </button>
                     </div>
-                </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* RESUMEN DERECHA */}
+          <div className='resumen_info'>
+            <div className='contenido'>
+              <p>Productos ({n_productos})</p>
+              <p className='precios'>S/. {precio_productos.toFixed(2)}</p>
+            </div>
+            <div className='contenido'>
+              <p>Delivery</p>
+              <p className='precios'>S/. {delivery.toFixed(2)}</p>
+            </div>
+            <div className='contenido'>
+              <p>Descuentos</p>
+              <p className='precios_desc'>-S/. {descuentos.toFixed(2)}</p>
+            </div>
+            <hr />
+            <div className='contenido'>
+              <p><b>Total</b></p>
+              <p className='precios'>S/. {total.toFixed(2)}</p>
             </div>
 
-            <div class='resumen_info2'>
-          <div class='contenido'>
-            <p>Productos ({n_productos})</p>
-            <p class='precios'>S/. {precio_productos.toFixed(2)}</p>
-          </div>
-          <div class='contenido'>
-            <p>Delivery</p>
-            <p class='precios'>{delivery}</p>
-          </div>
-          <div class='contenido'>
-            <p>Descuentos</p>
-            <p class='precios_desc'>-S/. {descuentos.toFixed(2)}</p>
-          </div>
-          <hr/>
-          <div class='contenido'>
-            <p><b>Total</b></p>
-            <p class='precios'>S/. {total.toFixed(2)}</p>
-          </div>
-          <div class='BotonesR'>
-            <button id='boton2' onClick={handleSiguiente}>Seleccionar método de pago</button>
+            <div className="BotonesR">
+              {/* CONTINUAR COMPRA */}
+              <div className='botonesResumen'>
+                <button id='boton1' onClick={() => {
+                  const seleccionados = cartItems.filter(i => selectedItems[i.id]);
+                  if (seleccionados.length === 0) {
+                    alert("Seleccione al menos un producto");
+                    return;
+                  }
+                  // No sobrescribimos cartItems, simplemente continuamos
+                  navigate('/carrito/checkout', { state: { seleccionados } });
+                }}>
+                  Continuar compra
+                </button>
+              </div>
+
+              {/* VACIAR */}
+              <div className='botonesResumen'>
+                <button id="botonBorrar" onClick={clearCart}>Vaciar carrito</button>
+              </div>
+
+              {/* GUARDAR */}
+              <div className='botonesResumen'>
+                <button id="botonGuardar" onClick={() => {
+                  cartItems.forEach(item => {
+                    if (selectedItems[item.id]) moveToSaved(item.id);
+                  });
+                }}>
+                  Guardar seleccionados para después
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-
-        </div>
-
       </main>
+
+      <Footer />
     </>
-  )
+  );
 }
 
-export default PagCheckout
+export default PagCarrito;

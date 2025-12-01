@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 const Card = ({ producto }) => {
 
-    const precioNormal = producto.precio;
-    const precioRebajado = (producto.precio * (1 - producto.descuento / 100)).toFixed(2);
-
+    const precioNormal = Number(producto.precio) || 0;
+    const descuento = Number(producto.descuento) || 0;
+    const precioRebajado = (precioNormal * (1 - descuento / 100)).toFixed(2);
     return (
         <div className="card">
               <div

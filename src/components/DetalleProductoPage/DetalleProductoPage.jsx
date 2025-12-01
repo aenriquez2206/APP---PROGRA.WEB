@@ -88,11 +88,18 @@ const DetalleProductoPage = () => {
                         </p>
                     )}
 
-                    <p className="detalle-precio">S/ {producto.precio.toFixed(2)}</p>
+                    <p className="detalle-precio">S/ {Number(producto.precio || 0).toFixed(2)}</p>
 
                     <button
                         className="detalle-btn-agregar"
-                        onClick={() => (addToCart(producto), alert(`✅ Se agregó "${producto.nombre}" al carrito`))}
+                        onClick={() => {
+    const productoConPrecio = { 
+      ...producto, 
+      precio: Number(producto.precio || 0) 
+    };
+    addToCart(productoConPrecio);
+    alert(`✅ Se agregó "${producto.nombre}" al carrito`);
+  }}
                     >
                         AGREGAR AL CARRITO
                     </button>
