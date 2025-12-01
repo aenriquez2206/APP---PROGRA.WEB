@@ -17,7 +17,12 @@ function CheckoutPago2() {
   const [CVV, setCVV] = useState("");
 
   const n_productos = getTotalQuantity();
-  const precio_productos = getTotalPrice();
+  const incoming = location.state?.seleccionados;
+  const itemsToCheckout = Array.isArray(incoming) && incoming.length > 0
+    ? incoming
+    : cartItems.filter(i => i && i.id).map(i => ({ ...i, cantidad: i.cantidad || 1 }));
+
+  const precio_productos = itemsToCheckout.reduce((acc, it) => acc + ((it.precio || 0) * (it.cantidad || 1)), 0);
   const p_delivery = precio_productos > 100 ? 0 : precio_productos * 0.2;
   const delivery = precio_productos > 100 ? 'GRATIS' : `S/. ${p_delivery.toFixed(2)}`;
   const descuentos = 0.1 * precio_productos;
@@ -36,10 +41,10 @@ function CheckoutPago2() {
     try {
       const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-      // ✅ Enviar todos los datos del carrito
-      const cartItemsPayload = cartItems.map(item => ({
+      // ✅ Enviar solo los items seleccionados (o los del contexto si no hay seleccionados)
+      const cartItemsPayload = itemsToCheckout.map(item => ({
         id: item.id,
-        cantidad: item.cantidad,
+        cantidad: item.cantidad || 1,
         nombre: item.nombre,
         precio: item.precio,
         img: item.img,

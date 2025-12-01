@@ -43,9 +43,7 @@ const put = async(endpoint, payload) => {
 const remove = async(endpoint, payload) => {
     const objPayload = {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers: getHeaders(),
 
     }
 

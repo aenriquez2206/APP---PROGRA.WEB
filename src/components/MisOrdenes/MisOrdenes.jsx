@@ -5,12 +5,15 @@ import Footer from '../footer/Footer';
 import ListaO from '../Listado_Ordenes/ListadoOrdenes';
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ordenesApi from '../../api/ordenesApi';
 
 function MisOrdenes()
 {
 
     const { user, logout } = useUser();
     const navigate = useNavigate();
+    const [ordenCount, setOrdenCount] = useState(0);
 
     const nombreUsuario = user ? user.nombre : "Usuario";
     const correoUsuario = user ? user.correo : "correo@correo.com";
@@ -19,6 +22,24 @@ function MisOrdenes()
         logout();
         navigate('/');
     };
+
+        useEffect(() => {
+            const loadCount = async () => {
+                try {
+                    if (!user || !user.id) {
+                        setOrdenCount(0);
+                        return;
+                    }
+                    const resp = await ordenesApi.findOne(user.id);
+                    const data = Array.isArray(resp) ? resp : (resp?.data ?? resp?.rows ?? resp ?? []);
+                    setOrdenCount(Array.isArray(data) ? data.length : 0);
+                } catch (err) {
+                    console.error('Error cargando contador de órdenes:', err);
+                    setOrdenCount(0);
+                }
+            };
+            loadCount();
+        }, [user]);
     
     return(
     <>
@@ -68,7 +89,7 @@ function MisOrdenes()
                 <div id='ord'>
                     <span>
                     <div>Ordenes</div>
-                    <div>XXX</div>
+                        <div>{ordenCount}</div>
                     </span>
                 </div>
                 <br></br>

@@ -13,8 +13,14 @@ function CheckoutPago1() {
 
   const { nombre, apellido, ciudad, departamento, direccion, codigoP, telefono } = location.state || {};
 
-  const n_productos = getTotalQuantity();
-  const precio_productos = getTotalPrice();
+  // Elegir items para checkout: preferir los seleccionados enviados desde PagCheckout
+  const incoming = location.state?.seleccionados;
+  const itemsToCheckout = Array.isArray(incoming) && incoming.length > 0
+    ? incoming
+    : cartItems.filter(i => i && i.id).map(i => ({ ...i, cantidad: i.cantidad || 1 }));
+
+  const n_productos = itemsToCheckout.reduce((acc, it) => acc + (it.cantidad || 1), 0);
+  const precio_productos = itemsToCheckout.reduce((acc, it) => acc + ((it.precio || 0) * (it.cantidad || 1)), 0);
   const p_delivery = precio_productos > 100 ? 0 : precio_productos * 0.2;
   const delivery = precio_productos > 100 ? 'GRATIS' : `S/. ${p_delivery.toFixed(2)}`;
   const descuentos = 0.1 * precio_productos;
@@ -23,9 +29,9 @@ function CheckoutPago1() {
   const handlePagoQR = async () => {
     try {
       // ✅ Enviar todos los datos de los items
-      const cartItemsPayload = cartItems.map(item => ({
+      const cartItemsPayload = itemsToCheckout.map(item => ({
         id: item.id,
-        cantidad: item.cantidad,
+        cantidad: item.cantidad || 1,
         nombre: item.nombre,
         precio: item.precio,
         img: item.img,

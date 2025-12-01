@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import usuariosApi from '../../api/auth.js'
 import ordenesAPi from '../../api/ordenesApi.js'
 import { useUser } from '../../context/UserContext';
-import { canAccessAdmin, handleAuthError, isAuthenticated, isAdmin } from '../../utils/authUtils.js'
+import { handleAuthError, isAuthenticated, isAdmin } from '../../utils/authUtils.js'
 
 const DashAdmin = () => {
 

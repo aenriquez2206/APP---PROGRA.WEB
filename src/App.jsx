@@ -54,6 +54,7 @@ const router = createBrowserRouter([
       { path: "/carrito/checkout/pago/tarjeta", element: <CheckoutPago2 /> },
       { path: "/carrito/compraexitosa", element: <CheckoutGracias /> },
       { path: "/misordenes", element: <MisOrdenes/> },
+      { path: "/detalle-orden/:id", element: <DetalleOrden/> },
     ]
   },
   

@@ -6,6 +6,10 @@ const endpoint = 'carrito';
 const getCarritoByUser = async (userId) => 
     await base.get(`${endpoint}/${userId}`);
 
+// El backend crea el carrito cuando se pide GET /carrito/:userId si no existe.
+// `createCarrito` es un alias conveniente que hace la misma petición.
+const createCarrito = async (userId) => await getCarritoByUser(userId);
+
 // 🟢 Agregar un producto al carrito
 // payload = { carritoId, productoId, cantidad }
 const addItem = async (payload) => 
@@ -20,6 +24,6 @@ const removeItem = async (payload) =>
 const clearCart = async (userId) => 
     await base.remove(`${endpoint}/${userId}/clear`);
 
-const carritoApi = { getCarritoByUser, addItem, removeItem, clearCart };
+const carritoApi = { getCarritoByUser, createCarrito, addItem, removeItem, clearCart };
 
 export default carritoApi;

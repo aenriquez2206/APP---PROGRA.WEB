@@ -29,9 +29,13 @@ const DetalleOrden = () => {
           console.log('Orden desde state:', ordenData);
         } else {
           // Si no viene en state, cargar desde API
-          const rawordenes = await ordenesApi.findOne(id);
-          console.log('ID buscado:', id);
-          console.log('Respuesta del API:', rawordenes);
+          // El endpoint backend expone GET /orden para todas las órdenes.
+          // Algunos clientes pedían findOne(userId) para órdenes de usuario; aquí
+          // necesitamos buscar una orden por su id (parámetro de ruta), por lo
+          // que cargaremos todas y luego filtramos por id/idp.
+          const rawordenes = await ordenesApi.findAll();
+          console.log('ID buscado (orden):', id);
+          console.log('Respuesta del API (todas las órdenes):', rawordenes);
           
           // Normalizar respuesta
           let ordenesArray = [];

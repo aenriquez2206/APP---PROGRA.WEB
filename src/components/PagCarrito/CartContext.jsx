@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import carritoApi from "../../api/carritoApi";
+import { useUser } from '../../context/UserContext';
 
 const CartContext = createContext();
-const usuario = JSON.parse(localStorage.getItem("usuario"));
 
 export const CartProvider = ({ children }) => {
+  // Consumir el UserContext para reaccionar a login/registro
+  const { user } = useUser();
   const [cartItems, setCartItems] = useState([]);
   const [savedItems, setSavedItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState({});
@@ -15,41 +17,55 @@ export const CartProvider = ({ children }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
 
   useEffect(() => {
+    // Recargar el carrito cuando cambie el usuario (login / logout / registro)
     async function cargarCarrito() {
-      if (!usuario?.id) return;
-
-      // 1. Buscar carrito
-      let carrito = await carritoApi.getCarritoByUser(usuario.id);
-
-      if (!carrito || !carrito.id) {
-        carrito = await carritoApi.createCarrito(usuario.id);
+      if (!user?.id) {
+        // limpiar estado local si no hay usuario
+        setCarritoId(null);
+        setCartItems([]);
+        setSelectedItems({});
+        return;
       }
 
-      setCarritoId(carrito.id);
+      try {
+        // 1. Buscar carrito
+        let carrito = await carritoApi.getCarritoByUser(user.id);
 
-      // 2. Obtener items del carrito
-      const itemsBD = await carritoApi.getItems(carrito.id);
+        if (!carrito || !carrito.id) {
+          carrito = await carritoApi.createCarrito(user.id);
+        }
 
-      const itemsFront = itemsBD.map(item => ({
-        id: item.productoId,
-        nombre: item.nombre,
-        precio: item.precio,
-        img: item.img,
-        categoria: item.categoria,
-        cantidad: item.cantidad,
-        itemIdBD: item.id
-      }));
+        setCarritoId(carrito.id);
 
-      setCartItems(itemsFront);
+        // 2. Obtener items del carrito (la API devuelve el carrito con `items`)
+        const itemsBD = carrito.items || [];
 
-      // Seleccionarlos por defecto
-      const sel = {};
-      itemsFront.forEach(item => sel[item.id] = true);
-      setSelectedItems(sel);
+        const itemsFront = itemsBD.map(item => ({
+          id: item.productoInfo?.id ?? null,
+          nombre: item.productoInfo?.nombre ?? '',
+          precio: item.productoInfo?.precio ?? 0,
+          img: item.productoInfo?.img ?? '',
+          categoria: item.productoInfo?.categoriaDetail?.nombre ?? '',
+          cantidad: 1,
+          itemIdBD: item.id
+        }));
+
+        setCartItems(itemsFront);
+
+        // Seleccionarlos por defecto
+        const sel = {};
+        itemsFront.forEach(item => sel[item.id] = true);
+        setSelectedItems(sel);
+      } catch (err) {
+        console.error('Error cargando carrito para usuario:', err);
+        setCartItems([]);
+        setSelectedItems({});
+        setCarritoId(null);
+      }
     }
 
     cargarCarrito();
-  }, []);
+  }, [user]);
 
   const addToCart = async (producto) => {
   try {
@@ -57,13 +73,13 @@ export const CartProvider = ({ children }) => {
 
     if (existing) {
       // Aumentar cantidad
-      await carritoApi.addItem({ id_user: usuario.id, id_producto: producto.id });
+      await carritoApi.addItem({ id_user: user.id, id_producto: producto.id });
       setCartItems(cartItems.map(i =>
         i.id === producto.id ? { ...i, cantidad: i.cantidad + 1 } : i
       ));
     } else {
       // Nuevo producto
-      const result = await carritoApi.addItem({ id_user: usuario.id, id_producto: producto.id });
+      const result = await carritoApi.addItem({ id_user: user.id, id_producto: producto.id });
       setCartItems([...cartItems, { ...producto, cantidad: 1, itemIdBD: result.item.id }]);
     }
 
@@ -74,36 +90,38 @@ export const CartProvider = ({ children }) => {
 };
 
 
-  const removeFromCart = async (producto) => {
-  try {
-    const existing = cartItems.find(i => i.id === producto.id);
-    if (!existing) return;
+  const removeFromCart = async (productoOrId) => {
+    try {
+      const id = typeof productoOrId === 'object' ? productoOrId.id : productoOrId;
+      const existing = cartItems.find(i => i.id === id);
+      if (!existing) return;
 
-    await carritoApi.removeItem({ id_user: usuario.id, id_producto: producto.id });
+      await carritoApi.removeItem({ id_user: user.id, id_producto: id });
 
-    if (existing.cantidad > 1) {
-      setCartItems(cartItems.map(i =>
-        i.id === producto.id ? { ...i, cantidad: i.cantidad - 1 } : i
-      ));
-    } else {
-      setCartItems(cartItems.filter(i => i.id !== producto.id));
-      setSelectedItems(prev => {
-        const n = { ...prev };
-        delete n[producto.id];
-        return n;
-      });
+      if (existing.cantidad > 1) {
+        setCartItems(cartItems.map(i =>
+          i.id === id ? { ...i, cantidad: i.cantidad - 1 } : i
+        ));
+      } else {
+        setCartItems(cartItems.filter(i => i.id !== id));
+        setSelectedItems(prev => {
+          const n = { ...prev };
+          delete n[id];
+          return n;
+        });
+      }
+    } catch (error) {
+      console.error("Error al eliminar del carrito:", error);
     }
-  } catch (error) {
-    console.error("Error al eliminar del carrito:", error);
-  }
-};
+  };
 
 
   const removeItemCompletely = async (idProducto) => {
     const item = cartItems.find(i => i.id === idProducto);
     if (!item) return;
 
-    await carritoApi.deleteItem(item.itemIdBD);
+    // Usamos el endpoint /carrito/remove enviando user y producto
+    await carritoApi.removeItem({ id_user: user.id, id_producto: idProducto });
     setCartItems(cartItems.filter(i => i.id !== idProducto));
     setSelectedItems(prev => {
       const n = { ...prev };
@@ -113,7 +131,16 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = async () => {
-    if (carritoId) await carritoApi.clearCarrito(carritoId);
+    try {
+      // El endpoint espera el userId en la ruta: DELETE /carrito/:userId/clear
+      if (user && user.id) {
+        await carritoApi.clearCart(user.id);
+      }
+    } catch (err) {
+      console.error('Error al vaciar carrito en backend:', err);
+      // Continuamos limpiando el estado local aunque falle la petición al backend
+    }
+
     setCartItems([]);
     setSelectedItems({});
     setSavedItems([]);

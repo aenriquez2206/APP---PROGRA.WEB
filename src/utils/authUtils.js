@@ -46,12 +46,12 @@ export const isAdmin = () => {
 };
 
 export const canAccessAdmin = () => {
+    // Puramente comprueba si el usuario puede acceder a admin.
+    // No realiza redirecciones aquí — los componentes deben hacerlo.
     if (!isAuthenticated()) {
-        redirectToLogin();
         return false;
     }
     if (!isAdmin()) {
-        window.location.href = '/';
         return false;
     }
     return true;

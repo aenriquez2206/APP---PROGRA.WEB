@@ -3,13 +3,19 @@ import estadoClase from './camcolor'
 import { useState, useEffect } from "react";
 import pedidosApi from '../../api/ordenesApi';
 import Searcher from '../Searcher/Searcher'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const Botones = ({ orden }) => {
   const navigate = useNavigate();
-  
+  const location = useLocation();
+
   const handleVerDetalle = () => {
-    navigate(`/admin/detalle-orden/${orden.id ?? orden.idp}`, { state: { orden } });
+    const id = orden.id ?? orden.idp;
+    // Si estamos dentro de una ruta de admin, navegar a la ruta admin,
+    // de lo contrario usar la ruta pública para detalle de orden.
+    const isAdminPath = location.pathname.includes('/admin');
+    const target = isAdminPath ? `/admin/detalle-orden/${id}` : `/detalle-orden/${id}`;
+    navigate(target, { state: { orden } });
   };
 
   return (
@@ -25,19 +31,22 @@ const ListaO = ({userId}) => {
   const [textoBusqueda, setTextoBusqueda] = useState('');
   
   useEffect(() => {
-    if (userId) {
-      handleOnLoad();
-    } else {
-      setOrdenes([]);
-      setOrdenesOriginales([]);
-    }
+    // Cargar todas las órdenes si no se provee userId (página admin),
+    // o las órdenes del usuario si se proporciona userId.
+    handleOnLoad();
   }, [userId]);
 
   const handleOnLoad = async () => {
     try {
-      const rawordenes = await pedidosApi.findAll();
+      let rawordenes;
+      if (userId) {
+        rawordenes = await pedidosApi.findOne(userId);
+      } else {
+        rawordenes = await pedidosApi.findAll();
+      }
+
       // Normalizar si viene envuelto en { data }
-      const data = Array.isArray(rawordenes) ? rawordenes : (rawordenes?.data ?? []);
+      const data = Array.isArray(rawordenes) ? rawordenes : (rawordenes?.data ?? rawordenes?.rows ?? []);
       setOrdenesOriginales(data);
       setOrdenes(data);
     } catch (error) {
@@ -69,9 +78,9 @@ const ListaO = ({userId}) => {
   return (
     <main className='mainOrdersAdmin' >
         <h2>Tus órdenes</h2>
-        <section className="BuscadorO">
-              <Searcher valor={textoBusqueda} onChange={setTextoBusqueda} placeh="Buscar una  orden"/>
-        </section>
+          <section className="BuscadorO">
+            <Searcher value={textoBusqueda} onChange={setTextoBusqueda} placeh="Buscar una orden"/>
+          </section>
         <br />
 
         <table className="tableOrdersAdmin">
@@ -91,7 +100,7 @@ const ListaO = ({userId}) => {
               <tr key={o.id ?? o.idp ?? Math.random()}>
                 <td className="Id_Orden"><b><u>{o.idp}</u></b></td>
                 <td>{o.usuario?.nombre}</td>
-                <td>{o.fecha.slice(0,10)}</td>
+                <td>{o.fecha ? String(o.fecha).slice(0,10) : ''}</td>
                 <td>{o.total}</td>
                 <td className={estadoClase(o.estado)}><b>{o.estado === true ? 'Activo' : 'Inactivo'}</b></td>
                 <Botones orden={o} />

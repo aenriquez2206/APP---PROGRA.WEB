@@ -2,55 +2,61 @@ import Header from '../header/Header';
 import NavBar from '../navBar/NavBar';
 import Footer from '../footer/Footer';
 import "./PagCheckout.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from "../PagCarrito/CartContext.jsx";
-import { useEffect } from 'react';
-import carritoApi from "../../api/carritoApi";
+import { useState, useEffect } from 'react';
 
-function PagCarrito() {
+function PagCheckout() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     cartItems,
-    savedItems,
-    addToCart,
-    removeFromCart,
-    removeItemCompletely,
-    clearCart,
-    moveToSaved,
-    moveToCart,
     getTotalPrice,
     getTotalQuantity,
-    selectedItems,
-    toggleSelectItem,
-    setCartItems
+    selectedItems
   } = useCart();
 
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  // Preferimos los seleccionados enviados vía navigate; si no, usamos selectedItems del contexto
+  const incoming = location.state?.seleccionados;
+  const itemsToCheckout = Array.isArray(incoming) && incoming.length > 0
+    ? incoming
+    : cartItems.filter(i => selectedItems[i.id]);
 
-  // Cargar carrito al iniciar
-  useEffect(() => {
-    const cargarCarrito = async () => {
-      if (!usuario?.id) return;
+  const [shipping, setShipping] = useState({
+    nombre: '',
+    apellido: '',
+    ciudad: '',
+    departamento: '',
+    direccion: '',
+    codigoP: '',
+    telefono: ''
+  });
 
-      let carrito = await carritoApi.getCarritoByUser(usuario.id);
-
-      if (!carrito || !carrito.id) {
-        carrito = await carritoApi.createCarrito(usuario.id);
-      }
-    };
-
-    cargarCarrito();
-  }, []);
-
-  // -------------------------------
-  // Variables calculadas del carrito
-  // -------------------------------
-  const n_productos = getTotalQuantity();
-  const precio_productos = getTotalPrice();
-  const delivery = n_productos > 0 ? 10 : 0;
+  const n_productos = itemsToCheckout.reduce((acc, it) => acc + (it.cantidad || 1), 0);
+  const precio_productos = itemsToCheckout.reduce((acc, it) => acc + ((it.precio || 0) * (it.cantidad || 1)), 0);
+  const delivery = precio_productos > 100 ? 0 : 10;
   const descuentos = 0;
   const total = precio_productos + delivery - descuentos;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setShipping(prev => ({ ...prev, [name]: value }));
+  }
+
+  const handleContinueToPayment = () => {
+    // Validaciones simples
+    if (itemsToCheckout.length === 0) {
+      alert('No hay productos seleccionados para comprar');
+      return;
+    }
+    if (!shipping.nombre || !shipping.direccion) {
+      alert('Complete nombre y dirección');
+      return;
+    }
+
+    navigate('/carrito/checkout/pago', { state: shipping });
+  }
 
   return (
     <>
@@ -59,79 +65,46 @@ function PagCarrito() {
 
       <main className='mainCarrito'>
         <div className='carrito_headers'>
-          <h1>Carro</h1>
+          <h1>Checkout</h1>
           <p id='cantidad'>({n_productos} productos)</p>
           <h3 className='resumen'>Resumen de la compra</h3>
         </div>
 
         <div className='compras'>
-          {/* LISTADO DE PRODUCTOS */}
           <div className='resumen_compra'>
-            <h3>Productos en el carro de compras</h3>
-
-            {cartItems.length === 0 ? (
-              <p>Tu carrito está vacío</p>
+            <h3>Artículos seleccionados</h3>
+            {itemsToCheckout.length === 0 ? (
+              <p>No hay productos seleccionados</p>
             ) : (
-              cartItems.map((item) => (
+              itemsToCheckout.map(item => (
                 <div key={item.id} className="producto_item">
-                  <input
-                    type="checkbox"
-                    className="producto_checkbox"
-                    checked={selectedItems[item.id]}
-                    onChange={() => toggleSelectItem(item.id)}
-                  />
                   <img src={item.img} alt={item.nombre} className="producto_img" />
                   <div className="producto_detalles">
                     <p className="producto_nombre">{item.nombre}</p>
                     <p className="producto_cat">{item.categoria}</p>
                   </div>
                   <div className="producto_precio_cantidad">
-                    <p className="producto_precio">S/. {item.precio.toFixed(2)}</p>
+                    <p className="producto_precio">S/. {(item.precio || 0).toFixed(2)}</p>
                     <div className="producto_cantidad_control">
-                      <button className="boton_cantidad_control" onClick={() => removeFromCart(item.id)}>-</button>
-                      <span className="cantidad_control">{item.cantidad}</span>
-                      <button className="boton_cantidad_control" onClick={() => addToCart(item)}>+</button>
+                      <span className="cantidad_control">{item.cantidad || 1}</span>
                     </div>
-                    <button
-                      className="carrito_btn_eliminar"
-                      onClick={() => removeItemCompletely(item.id)}
-                    >
-                      🗑️
-                    </button>
                   </div>
                 </div>
               ))
             )}
 
-            {/* GUARDADOS PARA DESPUÉS */}
-            <div className="resumen_guardados">
-              <h3>Guardados para después</h3>
-              {savedItems.length === 0 ? (
-                <p className="mensaje_vacio">No hay productos guardados</p>
-              ) : (
-                savedItems.map((item) => (
-                  <div key={item.id} className="producto_item">
-                    <img src={item.img} alt={item.nombre} className="producto_img" />
-                    <div className="producto_detalles">
-                      <p className="producto_nombre">{item.nombre}</p>
-                      <p className="producto_cat">{item.categoria}</p>
-                    </div>
-                    <div className="producto_precio_cantidad">
-                      <p className="producto_precio">S/. {item.precio.toFixed(2)}</p>
-                      <button
-                        className="boton_cantidad_control"
-                        onClick={() => moveToCart(item.id)}
-                      >
-                        Volver al carrito
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
+            <h3>Dirección de envío</h3>
+            <div className="formCheckout">
+              <input name="nombre" placeholder="Nombre" value={shipping.nombre} onChange={handleChange} />
+              <input name="apellido" placeholder="Apellido" value={shipping.apellido} onChange={handleChange} />
+              <input name="ciudad" placeholder="Ciudad" value={shipping.ciudad} onChange={handleChange} />
+              <input name="departamento" placeholder="Departamento" value={shipping.departamento} onChange={handleChange} />
+              <input name="direccion" placeholder="Dirección" value={shipping.direccion} onChange={handleChange} />
+              <input name="codigoP" placeholder="Código postal" value={shipping.codigoP} onChange={handleChange} />
+              <input name="telefono" placeholder="Teléfono" value={shipping.telefono} onChange={handleChange} />
             </div>
           </div>
 
-          {/* RESUMEN DERECHA */}
           <div className='resumen_info'>
             <div className='contenido'>
               <p>Productos ({n_productos})</p>
@@ -152,35 +125,13 @@ function PagCarrito() {
             </div>
 
             <div className="BotonesR">
-              {/* CONTINUAR COMPRA */}
               <div className='botonesResumen'>
-                <button id='boton1' onClick={() => {
-                  const seleccionados = cartItems.filter(i => selectedItems[i.id]);
-                  if (seleccionados.length === 0) {
-                    alert("Seleccione al menos un producto");
-                    return;
-                  }
-                  // No sobrescribimos cartItems, simplemente continuamos
-                  navigate('/carrito/checkout', { state: { seleccionados } });
-                }}>
-                  Continuar compra
+                <button id='boton1' onClick={handleContinueToPayment}>
+                  Continuar a método de pago
                 </button>
               </div>
-
-              {/* VACIAR */}
               <div className='botonesResumen'>
-                <button id="botonBorrar" onClick={clearCart}>Vaciar carrito</button>
-              </div>
-
-              {/* GUARDAR */}
-              <div className='botonesResumen'>
-                <button id="botonGuardar" onClick={() => {
-                  cartItems.forEach(item => {
-                    if (selectedItems[item.id]) moveToSaved(item.id);
-                  });
-                }}>
-                  Guardar seleccionados para después
-                </button>
+                <button id="botonBorrar" onClick={() => navigate('/carrito')}>Volver al carrito</button>
               </div>
             </div>
           </div>
@@ -192,4 +143,4 @@ function PagCarrito() {
   );
 }
 
-export default PagCarrito;
+export default PagCheckout;
