@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ProductoCard from '../ProductoCard/ProductoCard'
 import productosApi from '../../api/productosApi'
 import {useState, useEffect} from 'react'
-import './MasVendido.css'
+import './Masvendido.css'
 
 const MasVendido = () => {
 
