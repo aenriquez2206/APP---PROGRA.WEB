@@ -13,6 +13,14 @@ const registrar = async (payload) => {
     return await base.post(endpoint + '/registrar', payload); 
 };
 
-const api = {login,registrar,findAll,create,update,remove,findOne}
+const findUserByEmail = async (email) => {
+    return await base.post(endpoint + '/find-by-email', { email });
+};
+
+const resetPassword = async (payload) => {
+    return await base.post(endpoint + '/reset-password', payload);
+};
+
+const api = {login,registrar,findAll,create,update,remove,findOne,findUserByEmail,resetPassword}
 
 export default api;
