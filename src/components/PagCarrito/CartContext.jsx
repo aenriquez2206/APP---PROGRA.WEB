@@ -52,35 +52,52 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const addToCart = async (producto) => {
+  try {
     const existing = cartItems.find(i => i.id === producto.id);
 
     if (existing) {
-      await carritoApi.updateItem(existing.itemIdBD, existing.cantidad + 1);
+      // Aumentar cantidad
+      await carritoApi.addItem({ id_user: usuario.id, id_producto: producto.id });
       setCartItems(cartItems.map(i =>
         i.id === producto.id ? { ...i, cantidad: i.cantidad + 1 } : i
       ));
     } else {
-      const nuevoItem = await carritoApi.addItem(carritoId, producto.id, 1);
-      setCartItems([...cartItems, { ...producto, cantidad: 1, itemIdBD: nuevoItem.id }]);
+      // Nuevo producto
+      const result = await carritoApi.addItem({ id_user: usuario.id, id_producto: producto.id });
+      setCartItems([...cartItems, { ...producto, cantidad: 1, itemIdBD: result.item.id }]);
     }
 
     setSelectedItems(prev => ({ ...prev, [producto.id]: true }));
-  };
+  } catch (error) {
+    console.error("Error al agregar al carrito:", error);
+  }
+};
 
-  const removeFromCart = async (idProducto) => {
-    const item = cartItems.find(i => i.id === idProducto);
-    if (!item) return;
 
-    if (item.cantidad > 1) {
-      await carritoApi.updateItem(item.itemIdBD, item.cantidad - 1);
+  const removeFromCart = async (producto) => {
+  try {
+    const existing = cartItems.find(i => i.id === producto.id);
+    if (!existing) return;
+
+    await carritoApi.removeItem({ id_user: usuario.id, id_producto: producto.id });
+
+    if (existing.cantidad > 1) {
       setCartItems(cartItems.map(i =>
-        i.id === idProducto ? { ...i, cantidad: i.cantidad - 1 } : i
+        i.id === producto.id ? { ...i, cantidad: i.cantidad - 1 } : i
       ));
     } else {
-      await carritoApi.deleteItem(item.itemIdBD);
-      setCartItems(cartItems.filter(i => i.id !== idProducto));
+      setCartItems(cartItems.filter(i => i.id !== producto.id));
+      setSelectedItems(prev => {
+        const n = { ...prev };
+        delete n[producto.id];
+        return n;
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error al eliminar del carrito:", error);
+  }
+};
+
 
   const removeItemCompletely = async (idProducto) => {
     const item = cartItems.find(i => i.id === idProducto);
