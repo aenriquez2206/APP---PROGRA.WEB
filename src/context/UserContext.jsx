@@ -78,6 +78,7 @@ export function UserProvider({ children }) {
         setToken(null)
         localStorage.removeItem('usuario')
         localStorage.removeItem('token')
+        localStorage.clear()
     }
 
     const isAuthenticated = !!token && !!user;
