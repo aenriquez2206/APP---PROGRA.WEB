@@ -29,9 +29,13 @@ const DetalleOrden = () => {
           console.log('Orden desde state:', ordenData);
         } else {
           // Si no viene en state, cargar desde API
-          const rawordenes = await ordenesApi.findOne(id);
-          console.log('ID buscado:', id);
-          console.log('Respuesta del API:', rawordenes);
+          // El endpoint backend expone GET /orden para todas las órdenes.
+          // Algunos clientes pedían findOne(userId) para órdenes de usuario; aquí
+          // necesitamos buscar una orden por su id (parámetro de ruta), por lo
+          // que cargaremos todas y luego filtramos por id/idp.
+          const rawordenes = await ordenesApi.findAll();
+          console.log('ID buscado (orden):', id);
+          console.log('Respuesta del API (todas las órdenes):', rawordenes);
           
           // Normalizar respuesta
           let ordenesArray = [];
@@ -146,37 +150,30 @@ const DetalleOrden = () => {
               <th>Nombre</th>
               <th>Género</th>
               <th>Cantidad</th>
-              <th>Precio Unitario</th>
-              <th>Subtotal</th>
+              <th>Precio</th>
             </tr>
           </thead>
           <tbody>
             {productos.length > 0 ? (
-              productosMostrados.map((p) => {
-                const cantidad = p.cantidad ?? 1;
-                const precio = Number(p.precio) || 0;
-                const subtotal = cantidad * precio;
-                return (
-                  <tr key={p.id ?? p.detalleId ?? Math.random()}>
-                    <td className="producto-id">
-                      {p.img ? (
-                        <img src={p.img} alt={p.nombre} />
-                      ) : (
-                        <div className="img-placeholder">Sin imagen</div>
-                      )}
-                      <span className="id-link">#{p.id}</span>
-                    </td>
-                    <td>{p.nombre}</td>
-                    <td><strong>{p.genero}</strong></td>
-                    <td>{cantidad}</td>
-                    <td>S/{precio.toFixed(2)}</td>
-                    <td><strong>S/{subtotal.toFixed(2)}</strong></td>
-                  </tr>
-                );
-              })
+              productosMostrados.map((p) => (
+                <tr key={p.id ?? p.detalleId ?? Math.random()}>
+                  <td className="producto-id">
+                    {p.img ? (
+                      <img src={p.img} alt={p.nombre} />
+                    ) : (
+                      <div className="img-placeholder">Sin imagen</div>
+                    )}
+                    <span className="id-link">#{p.id}</span>
+                  </td>
+                  <td>{p.nombre}</td>
+                  <td><strong>{p.genero}</strong></td>
+                  <td>{p.cantidad ?? 1}</td>
+                  <td>S/{(Number(p.precio) || 0).toFixed(2)}</td>
+                </tr>
+              ))
             ) : (
               <tr>
-                <td colSpan="6" style={{ textAlign: 'center' }}>No hay productos en esta orden</td>
+                <td colSpan="5" style={{ textAlign: 'center' }}>No hay productos en esta orden</td>
               </tr>
             )}
           </tbody>

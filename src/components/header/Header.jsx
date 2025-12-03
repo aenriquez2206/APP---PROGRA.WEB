@@ -3,12 +3,14 @@ import './header.css'
 import Searcher from '../Searcher/Searcher'
 import { useNavigate, Link } from 'react-router-dom'
 import { useCart } from '../PagCarrito/CartContext'
+import { useUser } from '../../context/UserContext';
 import productosApi from '../../api/productosApi'
 
 const Header = () => {
     const navigate = useNavigate();
     const { getTotalPrice } = useCart();
     const precioTotal = getTotalPrice();
+    const { user, isAuthenticated } = useUser();
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [isSearchActive, setIsSearchActive] = useState(false); 
@@ -18,6 +20,20 @@ const Header = () => {
         const rawproductos = await productosApi.findAll();
         setTodosLosProductos(rawproductos);
     }
+
+    const handleUserButtonClick = () => {
+        if (isAuthenticated) {
+            if (user.rol === 'admin') {
+                navigate('/admin');
+            } else {
+                navigate('/misordenes');
+            }
+        } else {
+            navigate('/login');
+        }
+    };
+
+    const userName = isAuthenticated && user ? user.nombre : 'Usuario';
 
     useEffect(() => {
         handleOnLoad()
@@ -55,10 +71,10 @@ const Header = () => {
 
     return (
         <>
-            <header id="headerSection">
-                <div id="LogoGamePlay">
-                    <span><button id="botonInicio" onClick={() => navigate('/')}>GamePlay</button></span>
-                    <span id="dotLogo">
+            <header className="headerSection">
+                <div className="LogoGamePlay">
+                    <span><button className="botonInicio" onClick={() => navigate('/')}>GamePlay</button></span>
+                    <span className="dotLogo">
                         <h1>.</h1>
                     </span>
                 </div>
@@ -70,21 +86,21 @@ const Header = () => {
                     />
                 </div>
                 <div className='asd'>
-                    <button id="comprasButton" onClick={() => navigate('/carrito')} >
+                    <button className="comprasButton" onClick={() => navigate('/carrito')} >
                     <img className="img_header" src="/productosAssets/carritosinfondo.png" alt="img"/>
                     <div className="boton_text">
                         <p>Carrito</p>
-                        <div id="precio_soles">
+                        <div className="precio_soles">
                             <p>S/.</p>
                             <p>{precioTotal.toFixed(2)}</p>
                         </div>
                     </div>
                 </button>
                 </div>
-                <button id="usuarioButton" onClick={() => navigate('/login')}>
+                <button className="usuarioButton" onClick={handleUserButtonClick}>
                     <img className="img_header" src="/productosAssets/usser2.png" alt="img"/>
                     <div className="boton_text">
-                        <p>Usuario</p>
+                        <p>{userName}</p>
                         <p>Cuenta</p>
                     </div>
                 </button>

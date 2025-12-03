@@ -8,31 +8,83 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import usuariosApi from '../../api/auth.js'
 import ordenesAPi from '../../api/ordenesApi.js'
-const DashAdmin =()=>{
-    
-    
+import { useUser } from '../../context/UserContext';
+import { handleAuthError, isAuthenticated, isAdmin } from '../../utils/authUtils.js'
 
-    const [user1,setUser1] = useState({});
+const DashAdmin = () => {
+
+    const navigate = useNavigate()
+    const { logout } = useUser();
+    const [user1, setUser1] = useState({});
     const [usuarios, setUsuarios] = useState([]);
-    const [rawUsers, setRawUsers] =useState([]);
-    const [orders, setOrders] =useState([]);
+    const [rawUsers, setRawUsers] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isAccessDenied, setIsAccessDenied] = useState(false);
 
-    const handleOnLoad =async()=>{
-        const allUsers = await usuariosApi.findAll();
-        const raworders = await ordenesAPi.findAll()
+    // Validar acceso admin INMEDIATAMENTE al cargar - Simula recarga de página
+    useEffect(() => {
+        console.log('DashAdmin: Verificando acceso admin');
+        console.log('¿Autenticado?', isAuthenticated());
+        console.log('¿Es Admin?', isAdmin());
         
-        // Obtener el primer usuario de la lista
-        const firstUser = Array.isArray(allUsers) ? allUsers[0] : (allUsers?.data?.[0] ?? {});
-        
-        setRawUsers(allUsers)
-        setUsuarios(allUsers)
-        setUser1(firstUser)
-        setUserDetail(firstUser)
-        setOrders(raworders)
+        if (!isAuthenticated()) {
+            console.log('DashAdmin: Usuario no autenticado');
+            setIsAccessDenied(true);
+            setTimeout(() => navigate('/login', { replace: true }), 100);
+            return;
+        }
+
+        if (!isAdmin()) {
+            console.log('DashAdmin: Usuario no es admin');
+            setIsAccessDenied(true);
+            setTimeout(() => navigate('/', { replace: true }), 100);
+            return;
+        }
+
+        console.log('DashAdmin: Acceso permitido');
+        setIsAccessDenied(false);
+    }, [navigate]);
+
+    const handleOnLoad = async () => {
+        // Validar nuevamente antes de cargar datos
+        if (!isAuthenticated() || !isAdmin()) {
+            console.log('DashAdmin: Validación fallida al cargar datos');
+            setIsAccessDenied(true);
+            navigate('/login', { replace: true });
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError(null);
+            
+            const allUsers = await usuariosApi.findAll();
+            const raworders = await ordenesAPi.findAll()
+            
+            // Obtener el primer usuario de la lista
+            const firstUser = Array.isArray(allUsers) ? allUsers[0] : (allUsers?.data?.[0] ?? {});
+            
+            setRawUsers(allUsers)
+            setUsuarios(allUsers)
+            setUser1(firstUser)
+            setUserDetail(firstUser)
+            setOrders(raworders)
+        } catch (err) {
+            console.error('Error al cargar datos:', err);
+            if (!handleAuthError(err)) {
+                return; // Ya fue redirigido a login
+            }
+            setError(err?.message || 'Error al cargar los datos');
+        } finally {
+            setLoading(false);
+        }
     }
-    useEffect(()=>{
+
+    useEffect(() => {
         handleOnLoad()
-    },[])
+    }, [])
     // Calcula ingresos totales (suma de `total` de cada orden). Protege tipos.
     const calculateTotalIncome = (ordersArray) => {
         if (!Array.isArray(ordersArray)) return 0
@@ -67,11 +119,9 @@ const DashAdmin =()=>{
         { titulo: 'Usuarios nuevos', valor: usuariosNuevosUltimoMes },
         { titulo: 'Ingresos totales', valor: ingresosTotales.toFixed(2) }
     ]
-
-    const navigate =useNavigate()
     
     const [userDetail, setUserDetail] = useState(null)
-    const [recargar,SetRecarga] = useState(false);
+    const [recargar, SetRecarga] = useState(false);
 
     //paginacion usuarios
     const totalUsuarios = rawUsers.length;
@@ -81,7 +131,7 @@ const DashAdmin =()=>{
 
     const indexUltimoUser = paginaActualUser * usuariosxPagina;
     const indexPrimerUser = indexUltimoUser - usuariosxPagina;
-    const usuariosActuales = usuarios.slice(indexPrimerUser, indexUltimoUser);
+    const usuariosActuales = Array.isArray(usuarios) ? usuarios.slice(indexPrimerUser, indexUltimoUser) : [];
 
 
     //paginacion listado de ordenes
@@ -112,9 +162,17 @@ const DashAdmin =()=>{
         navigate('/admin/orders')
     }
 
-    const handleUserDetail =async (id)=>{
-        const newUser = await usuariosApi.findOne(id);
-        setUserDetail(newUser);
+    const handleUserDetail = async (id) => {
+        try {
+            const newUser = await usuariosApi.findOne(id);
+            setUserDetail(newUser);
+        } catch (err) {
+            console.error('Error al obtener detalles del usuario:', err);
+            if (!handleAuthError(err)) {
+                return; // Ya fue redirigido
+            }
+            setError('No se pudo cargar los detalles del usuario');
+        }
     }
 
     useEffect(() => {
@@ -126,15 +184,66 @@ const DashAdmin =()=>{
         setRecargar(prev => !prev); 
     }
  
-    
+    const handleLogout = () => {
+        logout();
+        navigate('/login', { replace: true }); 
+    };
 
 
     return(
         <>
         <main className='mainAdmin'>
             
+            {/* Si acceso es denegado, no mostrar nada */}
+            {isAccessDenied && (
+                <div style={{ padding: '40px', textAlign: 'center' }}>
+                    <p style={{ color: '#c00', fontSize: '18px', fontWeight: 'bold' }}>
+                        Acceso denegado. Redirigiendo...
+                    </p>
+                </div>
+            )}
+            
+            {!isAccessDenied && loading && (
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p>Cargando datos del dashboard...</p>
+                </div>
+            )}
 
-            <div className="dashboardTitle" ><h1>Dashboard</h1></div>
+            {!isAccessDenied && error && (
+                <div style={{ 
+                    padding: '20px', 
+                    backgroundColor: '#fee', 
+                    color: '#c00', 
+                    marginBottom: '20px',
+                    borderRadius: '4px'
+                }}>
+                    <strong>Error:</strong> {error}
+                </div>
+            )}
+
+            {!isAccessDenied && !loading && (
+            <>
+            <div 
+                className="dashboardTitle" 
+                style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between', 
+                    marginRight: '40px'
+                }}
+            >
+                <h1>Dashboard</h1>
+                <button 
+                    onClick={handleLogout} 
+                    className="buttonVerUsuarios" 
+                    style={{ 
+                        backgroundColor: '#dc3545', 
+                        height: '40px',
+                    }}
+                >
+                    <div><strong>Cerrar sesión</strong></div>
+                </button>
+            </div>
             <section className="buttonDisplaySection" >
                 {
                     objetos.map((objeto) => (
@@ -228,6 +337,8 @@ const DashAdmin =()=>{
                 </table>
                 <Paginacion totalPaginas={TotalPaginasOrdenes} paginaActual={paginaActualOrden} setPaginaActual={setPaginaActualOrden}/>
             </section>
+            </>
+            )}
 
         </main>
         </> 
