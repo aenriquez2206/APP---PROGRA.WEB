@@ -22,13 +22,18 @@ const ListaU = () => {
 
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
-  const handleBuscar = () => {
-    const usuariosFiltrados = usuarios.filter((item) =>
-      item.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
-    );
-    setUsuarios(usuariosFiltrados);
-  };
-  
+const handleBuscar = () => {
+  if (textoBusqueda.trim() === '') {
+    handleOnLoad(); // vuelve a cargar todos los usuarios
+    return;
+  }
+
+  const usuariosFiltrados = usuarios.filter((item) =>
+    item.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+  );
+  setUsuarios(usuariosFiltrados);
+};
+
 
   const cambiarEstado = async (user) => {
       const newestado = !user.estado
