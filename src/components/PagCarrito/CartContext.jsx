@@ -5,22 +5,22 @@ import { useUser } from '../../context/UserContext';
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // Consumir el UserContext para reaccionar a login/registro
+  
   const { user } = useUser();
   const [cartItems, setCartItems] = useState([]);
   const [savedItems, setSavedItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState({});
   const [carritoId, setCarritoId] = useState(null);
 
-  // NUEVO: Datos de envío y método de pago
+  
   const [shippingData, setShippingData] = useState({});
   const [paymentMethod, setPaymentMethod] = useState("");
 
   useEffect(() => {
-    // Recargar el carrito cuando cambie el usuario (login / logout / registro)
+    
     async function cargarCarrito() {
       if (!user?.id) {
-        // limpiar estado local si no hay usuario
+        
         setCarritoId(null);
         setCartItems([]);
         setSelectedItems({});
@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
       }
 
       try {
-        // 1. Buscar carrito
+        
         let carrito = await carritoApi.getCarritoByUser(user.id);
 
         if (!carrito || !carrito.id) {
@@ -37,7 +37,7 @@ export const CartProvider = ({ children }) => {
 
         setCarritoId(carrito.id);
 
-        // 2. Obtener items del carrito (la API devuelve el carrito con `items`)
+        
         const itemsBD = carrito.items || [];
 
         const itemsFront = itemsBD.map(item => ({
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
 
         setCartItems(itemsFront);
 
-        // Seleccionarlos por defecto
+        
         const sel = {};
         itemsFront.forEach(item => sel[item.id] = true);
         setSelectedItems(sel);
@@ -72,13 +72,13 @@ export const CartProvider = ({ children }) => {
     const existing = cartItems.find(i => i.id === producto.id);
 
     if (existing) {
-      // Aumentar cantidad
+      
       await carritoApi.addItem({ id_user: user.id, id_producto: producto.id });
       setCartItems(cartItems.map(i =>
         i.id === producto.id ? { ...i, cantidad: i.cantidad + 1 } : i
       ));
     } else {
-      // Nuevo producto
+      
       const result = await carritoApi.addItem({ id_user: user.id, id_producto: producto.id });
       setCartItems([...cartItems, { ...producto, cantidad: 1, itemIdBD: result.item.id }]);
     }
@@ -120,7 +120,7 @@ export const CartProvider = ({ children }) => {
     const item = cartItems.find(i => i.id === idProducto);
     if (!item) return;
 
-    // Usamos el endpoint /carrito/remove enviando user y producto
+    
     await carritoApi.removeItem({ id_user: user.id, id_producto: idProducto });
     setCartItems(cartItems.filter(i => i.id !== idProducto));
     setSelectedItems(prev => {
@@ -132,13 +132,13 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = async () => {
     try {
-      // El endpoint espera el userId en la ruta: DELETE /carrito/:userId/clear
+      
       if (user && user.id) {
         await carritoApi.clearCart(user.id);
       }
     } catch (err) {
       console.error('Error al vaciar carrito en backend:', err);
-      // Continuamos limpiando el estado local aunque falle la petición al backend
+      
     }
 
     setCartItems([]);
@@ -149,25 +149,27 @@ export const CartProvider = ({ children }) => {
   };
 
   const moveToSaved = (id) => {
-    setCartItems((prev) => {
-      const itemToSave = prev.find(item => item.id === id);
-      if (!itemToSave) return prev;
+    const itemToSave = cartItems.find(item => item.id === id);
+    if (!itemToSave) return;
 
-      setSavedItems((savedPrev) => {
-        const alreadySaved = savedPrev.find(i => i.id === id);
-        if (alreadySaved) return savedPrev;
-        return [...savedPrev, { ...itemToSave, cantidad: 1 }];
-      });
-
-      return prev.filter(item => item.id !== id);
+    
+    setSavedItems((prev) => {
+      const alreadySaved = prev.find(i => i.id === id);
+      if (alreadySaved) return prev;
+      return [...prev, { ...itemToSave }];
     });
 
+    
+    setCartItems((prev) => prev.filter(item => item.id !== id));
+
+   
     setSelectedItems((prev) => {
       const newSelected = { ...prev };
       delete newSelected[id];
       return newSelected;
     });
-  };
+};
+
 
   const moveToCart = (id) => {
     const itemToMove = savedItems.find(item => item.id === id);
@@ -212,6 +214,7 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         savedItems,
+        setSavedItems,
         addToCart,
         removeFromCart,
         removeItemCompletely,
@@ -221,6 +224,7 @@ export const CartProvider = ({ children }) => {
         getTotalPrice,
         getTotalQuantity,
         selectedItems,
+        setSelectedItems,
         toggleSelectItem,
         carritoId,
         shippingData,

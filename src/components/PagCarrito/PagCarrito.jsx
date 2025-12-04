@@ -22,30 +22,40 @@ function PagCarrito() {
     getTotalPrice,
     getTotalQuantity,
     selectedItems,
+    setSelectedItems,
     toggleSelectItem,
     setCartItems
   } = useCart();
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-  // Cargar carrito al iniciar
   useEffect(() => {
-    const cargarCarrito = async () => {
-      if (!usuario?.id) return;
+  const cargarCarrito = async () => {
+    if (!usuario?.id) return;
 
-      let carrito = await carritoApi.getCarritoByUser(usuario.id);
+    let carrito = await carritoApi.getCarritoByUser(usuario.id);
+    if (!carrito || !carrito.id) {
+      carrito = await carritoApi.createCarrito(usuario.id);
+    }
 
-      if (!carrito || !carrito.id) {
-        carrito = await carritoApi.createCarrito(usuario.id);
-      }
-    };
+    const items = await carritoApi.getItems(carrito.id);
 
-    cargarCarrito();
-  }, []);
 
-  // -------------------------------
-  // Variables calculadas del carrito
-  // -------------------------------
+    const itemsFiltrados = items.filter(item => 
+      !savedItems.some(saved => saved.id === item.id)
+    );
+
+    setCartItems(itemsFiltrados);
+
+    const seleccionados = {};
+    itemsFiltrados.forEach(item => seleccionados[item.id] = true);
+    setSelectedItems(seleccionados);
+  };
+
+  cargarCarrito();
+}, [usuario, savedItems]);
+
+
   const n_productos = getTotalQuantity();
   const precio_productos = getTotalPrice();
   const delivery = n_productos > 0 ? 10 : 0;
