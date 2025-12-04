@@ -41,7 +41,7 @@ function CheckoutPago2() {
     try {
       const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-      // ✅ Enviar solo los items seleccionados (o los del contexto si no hay seleccionados)
+ 
       const cartItemsPayload = itemsToCheckout.map(item => ({
         id: item.id,
         cantidad: item.cantidad || 1,
@@ -62,10 +62,10 @@ function CheckoutPago2() {
 
       const nuevaOrden = await ordenesApi.createWithItems(payloadOrden, cartItemsPayload);
 
-      // Limpiar carrito
+
       clearCart();
 
-      // Redirigir a CheckoutGracias
+
       navigate("/carrito/compraexitosa", {
         state: {
           nombre,

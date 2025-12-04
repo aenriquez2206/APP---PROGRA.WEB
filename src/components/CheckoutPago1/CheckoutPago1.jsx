@@ -13,7 +13,7 @@ function CheckoutPago1() {
 
   const { nombre, apellido, ciudad, departamento, direccion, codigoP, telefono } = location.state || {};
 
-  // Elegir items para checkout: preferir los seleccionados enviados desde PagCheckout
+
   const incoming = location.state?.seleccionados;
   const itemsToCheckout = Array.isArray(incoming) && incoming.length > 0
     ? incoming
@@ -28,7 +28,7 @@ function CheckoutPago1() {
 
   const handlePagoQR = async () => {
     try {
-      // ✅ Enviar todos los datos de los items
+
       const cartItemsPayload = itemsToCheckout.map(item => ({
         id: item.id,
         cantidad: item.cantidad || 1,
@@ -49,10 +49,10 @@ function CheckoutPago1() {
 
       const nuevaOrden = await ordenesApi.createWithItems(payloadOrden, cartItemsPayload);
 
-      // Limpiar carrito
+
       clearCart();
 
-      // Redirigir a CheckoutGracias
+
       navigate('/carrito/compraexitosa', {
         state: {
           nombre,

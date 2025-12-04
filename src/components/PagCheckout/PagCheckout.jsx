@@ -17,7 +17,7 @@ function PagCheckout() {
     selectedItems
   } = useCart();
 
-  // Preferimos los seleccionados enviados vía navigate; si no, usamos selectedItems del contexto
+
   const incoming = location.state?.seleccionados;
   const itemsToCheckout = Array.isArray(incoming) && incoming.length > 0
     ? incoming
@@ -45,7 +45,7 @@ function PagCheckout() {
   }
 
   const handleContinueToPayment = () => {
-    // Validaciones simples
+
     if (itemsToCheckout.length === 0) {
       alert('No hay productos seleccionados para comprar');
       return;
